@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+	<main>
+		<div id="definitions">
+			<h4>Gauss Elimination (row reduction)</h4>
+			<p>
+				<strong>Gauss elimination</strong> is an algorithm for solving systems of linear equations.
+				It uses row operations to convert the associated matrix of coeficients into <strong>non-reduced row echelon form</strong> (upper triangular).
+				<strong>Gauss-Jordan elimination</strong> uses row operations to convert the matrix is converted into <strong>reduced row echelon form</strong>.
+			</p>
+			<p>
+				A matrix is in row echelon form if it satisfies the following conditions:
+				<ul>
+					<li>All nonzero rows (rows with at least one nonzero element) are above any rows of all zeroes (all zero rows, if any, belong at the bottom of the matrix).</li>
+					<li>The leading coefficient (the first nonzero number from the left, also called the pivot) of a nonzero row is always strictly to the right of the leading coefficient of the row above it</li>
+					<li>The leading coefficient must be 1.</li>
+				</ul>
+				<img src="../help/rowEchelonForm.png" />
+			</p>
+			<p>
+				A matrix is in reduced row echelon form (also called row canonical form) if it satisfies the following conditions:
+				<ul>
+					<li>It is in row echelon form.</li>
+					<li>Every leading coefficient is 1 and is the only nonzero entry in its column.</li>
+				</ul>
+				<img src="../help/reducedRowEchelonForm.png" />
+			</p>
+			<p>
+				Solve a system of linear equations A*x=b using elimination method steps:
+				<ol>
+					<li>
+						Create the augmented matrix [A | b]<br />
+						<img src="../help/CreateAugmentedMatrix.png" />
+					</li>
+					<li>
+						Apply elementary row oprations until augmented matrix is in reduce row echelon form:
+						<ul>
+							<li>
+								Switch two rows<br />
+								<img src="../help/SwitchRows.png" />
+							</li>
+							<li>
+								Multiply a srow by a scalar<br />
+								<img src="../help/MultiplyRowByAScalar.png" />
+							</li>
+							<li>
+								Add a multiple of a row to a multiple of another row<br />
+								<img src="../help/AddAMultipleOfARowToAnotherRow.png" />
+							</li>
+						</ul>
+						<em>
+							Row index between 1 and total number of rows.<br />
+							To divide by a scalar n multiply with the scalar's reciprocal (1/n).
+						</em>
+					</li>
+				</ol>
+			</p>
+		</div>
+	</main>
+</body>
+</html>

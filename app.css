@@ -1,0 +1,70 @@
+﻿.mainDiv {
+	max-width: 600px;
+	margin: auto;
+	background-color: #efefef;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.navigationDiv {
+	max-width: 600px;
+	margin: auto;
+	background-color: #efefef;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: right;
+}
+
+.matrix {
+	position: relative;
+}
+
+.matrixElement {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.rowEchelonMatrix {
+	background-color: #f0f0ff;
+}
+
+.reducedRowEchelonMatrix {
+	background-color: #f0f0ff;
+}
+
+.pivotElement {
+	font-weight: bold;
+}
+
+.matrix:before, .matrix:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	border: 1px solid #000;
+	width: 6px;
+	height: 100%;
+}
+
+.matrix:before {
+	left: -6px;
+	border-right: 0px;
+}
+
+.matrix:after {
+	right: -6px;
+	border-left: 0px;
+}
+
+.matrix td {
+	padding: 5px;
+	text-align: right;
+}
+
+.matrixDetails div {
+	font-size: small;
+}
+
+.operationButton {
+	text-align: left;
+	width: 100%;
+}

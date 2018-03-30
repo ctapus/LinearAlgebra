@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Linear Algebra</title>
+	<link rel="stylesheet" href="//code.jquery.com/jquery-ui.min.css" />
+	<link rel="stylesheet" href="../app.css" type="text/css" />
+	<script src="//code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src="../structures/ArithmeticEvaluator.js"></script>
+	<script src="../structures/RationalNumber.js"></script>
+	<script src="../structures/Vector.js"></script>
+	<script src="../structures/Matrix.js"></script>
+	<script src="../structures/MatrixIdentity.js"></script>
+	<script src="../structures/Queue.js"></script>
+	<script src="../structures/Stack.js"></script>
+	<script src="../presenters/MatrixPresenter.js"></script>
+	<script src="inverseMatrix.js"></script>
+</head>
+<body>
+	<br />
+	<div class="navigationDiv ui-widget ui-widget-content ui-corner-all">
+		<a href="../index.html">Home</a>
+	</div>
+	<br />
+	<div class="mainDiv ui-widget ui-widget-content ui-corner-all">
+		<div id="popup" style="display: none; position: center"></div>
+		<div>Use elimination method to find the inverse of the following matrix <strong>A</strong>: (<a href="#" onclick='$("#popup").load("../help/elimination.html").dialog({ modal: true, title: "Help: elimination method", width: 800, height: 800 });'>show me how</a>)</div>
+		<div id="content"></div>
+		<div id="operations">
+			<div id="divAugmentMatrix">
+				<span>Augment matrix </span>
+				<select id="selAugmentOptions1" style="width: 40px">
+					<option value="none" selected="selected"></option>
+					<option value="A">A</option>
+					<option value="I">I</option>
+				</select>
+				<span> with </span>
+				<select id="selAugmentOptions2" style="width: 40px">
+					<option value="none" selected="selected"></option>
+					<option value="A">A</option>
+					<option value="I">I</option>
+				</select>
+				<button id="btnAugmentMatrix" type="button">Augment matrix</button>
+			</div>
+			<div id="divSwitchRows">
+				<span>Switch row </span><input type="text" id="row1" style="width: 20px" />
+				<span>with row </span><input type="text" id="row2" style="width: 20px" />
+				<button id="btnSwitchRows" type="button">Switch rows</button>
+			</div>
+			<div id="divMultiplyRow">
+				<span>Multiply row </span><input type="text" id="rowIdx" style="width: 20px" />
+				<span> by scalar </span><input type="text" id="scalar" style="width: 20px" value="1" />
+				<button id="btnMultiplyRow" type="button">Multiply row</button>
+			</div>
+			<div id="divAddRows">
+				<span>Add </span><input type="text" id="addRow1Mult" style="width: 20px" value="1" />
+				<span> time(s) row </span><input type="text" id="addRow1Idx" style="width: 20px">
+				<span>to </span><input type="text" id="addRow2Mult" style="width: 20px" value="1" />
+				<span> time(s) row </span><input type="text" id="addRow2Idx" style="width: 20px">
+				<button id="btnAddRows" type="button">Add rows</button>
+			</div>
+			<div>
+				<button id="btnUndo" type="button">Undo</button>
+				<button id="btnRedo" type="button">Redo</button>
+				<button id="btnReset" type="button">Reset</button>
+			</div>
+		</div>
+		<div id="error" style="color: red">
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Linear Algebra</title>
+	<link rel="stylesheet" href="//code.jquery.com/jquery-ui.min.css" />
+	<link rel="stylesheet" href="../app.css" type="text/css" />
+	<script src="//code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src="../structures/ArithmeticEvaluator.js"></script>
+	<script src="../structures/RationalNumber.js"></script>
+	<script src="../structures/Vector.js"></script>
+	<script src="../structures/Matrix.js"></script>
+	<script src="../structures/MatrixElimination.js"></script>
+	<script src="../structures/MatrixIdentity.js"></script>
+	<script src="../structures/Queue.js"></script>
+	<script src="../structures/Stack.js"></script>
+	<script src="../generators/ALUGenerator.js"></script>
+	<script src="../presenters/MatrixPresenter.js"></script>
+	<script src="LUFactorization.js"></script>
+</head>
+<body>
+	<br />
+	<div class="navigationDiv ui-widget ui-widget-content ui-corner-all">
+		<a href="../index.html">Home</a>
+	</div>
+	<br />
+	<div class="mainDiv ui-widget ui-widget-content ui-corner-all">
+		<h1>Find an LU factorization for matrix A</h1>
+		<p>
+			Find matrices <abbr title="lower triangular matrix">L</abbr> and <abbr title="upper triangular matrix">U</abbr> such as A=LU<br />
+			In case row reordering is necessary, A is factorized as <abbr title="permutation matrix">P</abbr>A=<abbr title="lower triangular matrix">L</abbr><abbr title="upper triangular matrix">U</abbr><br />
+			This is called <strong>LU factorization with Partial Pivoting</strong>.<br />
+			In case both row and column reordering are necessary, A is factorized as <abbr title="permutation matrix">P</abbr>A<abbr title="permutation matrix">Q</abbr>=<abbr title="lower triangular matrix">L</abbr><abbr title="upper triangular matrix">U</abbr><br />
+			This is called <strong>LU factorization with full pivoting </strong>.<br />
+		</p>
+		<div id="content"></div>
+		<div id="operations">
+			<div id="divSwitchRows">
+				<span>Switch row </span><input type="text" id="row1" style="width: 20px" />
+				<span>with row </span><input type="text" id="row2" style="width: 20px" />
+				<button id="btnSwitchRows" type="button">Switch rows</button>
+			</div>
+			<div id="divAddRows">
+				<span>Add </span><input type="text" id="addRow1Mult" style="width: 20px" value="1" />
+				<span> time(s) row </span><input type="text" id="addRow1Idx" style="width: 20px">
+				<span>to row </span><input type="text" id="addRow2Idx" style="width: 20px">
+				<button id="btnAddRows" type="button">Add rows</button>
+			</div>
+			<div>
+				<button id="btnUndo" type="button">Undo</button>
+				<button id="btnRedo" type="button">Redo</button>
+				<button id="btnReset" type="button">Reset</button>
+			</div>
+		</div>
+		<div id="error" style="color: red">
+		</div>
+	</div>
+</body>
+</html>

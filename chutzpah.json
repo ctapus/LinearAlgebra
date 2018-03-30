@@ -1,0 +1,21 @@
+﻿{
+"Framework": "qunit",
+"Compile": {
+"Mode": "External",
+"Extensions": [ ".ts" ],
+"ExtensionsWithNoOutput": [ ".d.ts" ],
+"UseSourceMaps": true
+},
+"References": [
+{
+"Includes": [ "*/structures/*.ts" ],
+"Excludes": [ "*/node_modules/*.d.ts" ]
+}
+],
+"Tests": [
+{
+"Includes": [ "*/tests/*.ts" ],
+"Excludes": [ "*/tests/*.d.ts" ]
+}
+]
+}

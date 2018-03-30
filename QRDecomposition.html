@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>A=QR decomposition</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="app.css" type="text/css" />
+</head>
+<body>
+	<div id="definitions">
+		<h4>Orthogonal vectors</h4>
+		<div>
+			Two vectors are orthogonal if the angle between them is 90 degrees. If two vectors are orthogonal, they form a right triangle
+			whose hypotenuse is the sum of the vectors. The dot product x<sup>T</sup>y=y<sup>T</sup>x is zero exactly when x and y are orthogonal.
+			(The length squared ||x||<sup>2</sup> equals x<sup>T</sup>x.)
+			<em>Note: all vectors are orthogonal to the zero vector.</em>
+		</div>
+		<h4>Orthonormal vectors</h4>
+		<div>
+			The vectors <strong>q<sub>1</sub></strong>, <strong>q<sub>2</sub></strong>, ...<strong>q<sub>n</sub></strong> are orthonormal if:<br />
+			<strong>q<sub>i</sub><sup>T</sup>q<sub>j</sub></strong>=0 if i&ne;j
+			or <strong>q<sub>i</sub><sup>T</sup>q<sub>j</sub></strong>=1 if i=j.<br />
+			<em>Note: they have (normal) length 1 and are perpendicular (ortho) to each other. Orthonormal vectors are always independent.</em>
+		</div>
+		<h4>A=QR decomposition</h4>
+		<div>
+			If the columns of Q=[<strong>q<sub>1</sub></strong>...<strong>q<sub>n</sub></strong>] are orthonormal, then Q<sup>T</sup>Q=I is the identity.
+			A square orthonormal matrix Q is called an orthogonal matrix. If Q is square, then Q<sup>T</sup>Q=I tells us that Q<sup>T</sup>=Q<sup>−1</sup>.
+		</div>
+		<h4>Gram-Schmidt</h4>
+		<div>
+		</div>
+	</div>
+</body>
+</html>

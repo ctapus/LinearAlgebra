@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>A=LU decomposition</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="app.css" type="text/css" />
+</head>
+<body>
+	<div id="definitions">
+		<h4>Inverse of a product</h4>
+		<div>
+			The inverse of a matrix product AB is B<sup>-1</sup>A<sup>-1</sup>
+		</div>
+		<h4>Transpose of a product</h4>
+		<div>
+			The transpose of a matrix product AB is B<sup>T</sup>A<sup>T</sup>.<br />
+			For any invertible matrix A, the inverse of A<sup>T</sup> is (A<sup>-1</sup>)<sup>T</sup>.
+		</div>
+		<h4>A=LU decomposition</h4>
+		<div>
+			When there are no row exchanges, the elimination of the entries of matrix A can be described in terms of multiplication
+			by a succession of elimination matrices E<sub>ij</sub>, so that A&rarr;E<sub>ij</sub>A&rarr;...&rarr;U<br />
+			This can be converted to a factorization A=LU by “canceling” the matrix E<sub>ij</sub>; multiply by its inverse to get
+			E<sub>ij</sub><sup>-1</sup>E<sub>ij</sub>A=E<sub>ij</sub><sup>-1</sup>U.<br />
+			The matrix U is <em>upper triangular</em> with pivots on the diagonal.<br />
+			The matrix L is <em>lower triangular</em> and has ones on the diagonal.<br />
+			The factorization A=LU is preferable to EA=U because the combination of row subtractions does not have the effect on L
+			that it did on E.
+		</div>
+		<h4>Row exchanges</h4>
+		<div>
+			To swap two rows, multiply on the left by a permutation matrix.<br />
+			There are n! different ways to permute the rows of an n × n matrix (including the permutation that leaves all rows fixed) so
+			there are n! permutation matrices. These matrices form a <em>multiplicative group</em>.
+		</div>
+	</div>
+</body>
+</html>
