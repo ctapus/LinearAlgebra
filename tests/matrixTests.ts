@@ -1,7 +1,6 @@
-﻿/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/Matrix.ts" />
-/// <chutzpah_reference path="../structures/Matrix.js" />
-/// <chutzpah_reference path="../structures/MatrixIdentity.js" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Matrix, MatrixIdentity, MatrixPermutation } from "../structures/Matrix";
+import { Vector, RowVector, ColumnVector } from "../structures/Vector";
 
 QUnit.module("Matrix");
 QUnit.test("identity", () => {

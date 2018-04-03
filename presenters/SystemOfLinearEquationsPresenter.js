@@ -1,5 +1,5 @@
-/// <reference path="../structures/Vector.ts" />
-/// <reference path="../structures/Matrix.ts" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var SystemOfLinearEquationsPresenter = /** @class */ (function () {
     function SystemOfLinearEquationsPresenter() {
     }
@@ -51,4 +51,5 @@ var SystemOfLinearEquationsPresenter = /** @class */ (function () {
     };
     return SystemOfLinearEquationsPresenter;
 }());
+exports.SystemOfLinearEquationsPresenter = SystemOfLinearEquationsPresenter;
 //# sourceMappingURL=SystemOfLinearEquationsPresenter.js.map

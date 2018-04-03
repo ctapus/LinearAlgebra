@@ -1,5 +1,17 @@
-/// <reference path="MatrixIdentity.ts" />
-/// <reference path="Vector.ts" />
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Vector_1 = require("../structures/Vector");
 var Matrix = /** @class */ (function () {
     function Matrix(m, n) {
         this.m = m;
@@ -56,7 +68,7 @@ var Matrix = /** @class */ (function () {
                 }
             }
         }
-        else if (x instanceof RationalNumber) {
+        else if (x instanceof RationalNumber_1.RationalNumber) {
             res = new Matrix(this.m, this.n);
             for (var i = 0; i < res.m; i++) {
                 for (var j = 0; j < res.n; j++) {
@@ -72,7 +84,7 @@ var Matrix = /** @class */ (function () {
                 res = new Matrix(this.m, x.n);
                 for (var i = 0; i < res.m; i++) {
                     for (var j = 0; j < res.n; j++) {
-                        var sum = new RationalNumber(0);
+                        var sum = new RationalNumber_1.RationalNumber(0);
                         for (var k = 0; k < this.n; k++) {
                             sum = sum.add(this.elements[i][k].mult(x.elements[k][j]));
                         }
@@ -87,9 +99,9 @@ var Matrix = /** @class */ (function () {
         if (this.n !== v.m) {
             throw "Mismatched dimensions.";
         }
-        var res = new ColumnVector(v.m);
+        var res = new Vector_1.ColumnVector(v.m);
         for (var i = 0; i < this.m; i++) {
-            var sum = new RationalNumber(0);
+            var sum = new RationalNumber_1.RationalNumber(0);
             for (var j = 0; j < this.n; j++) {
                 sum = sum.add(this.elements[i][j].mult(v.elements[j]));
             }
@@ -160,7 +172,7 @@ var Matrix = /** @class */ (function () {
                 if (i === j) {
                     continue;
                 }
-                if (!this.elements[i][j].equals(new RationalNumber(0))) {
+                if (!this.elements[i][j].equals(new RationalNumber_1.RationalNumber(0))) {
                     return false;
                 }
             }
@@ -176,12 +188,12 @@ var Matrix = /** @class */ (function () {
         for (var i = 0; i < this.m; i++) {
             for (var j = 0; j < this.n; j++) {
                 if (i === j) {
-                    if (!this.elements[i][j].equals(new RationalNumber(1))) {
+                    if (!this.elements[i][j].equals(new RationalNumber_1.RationalNumber(1))) {
                         return false;
                     }
                     continue;
                 }
-                if (!this.elements[i][j].equals(new RationalNumber(0))) {
+                if (!this.elements[i][j].equals(new RationalNumber_1.RationalNumber(0))) {
                     return false;
                 }
             }
@@ -203,7 +215,7 @@ var Matrix = /** @class */ (function () {
         // if (this.m !== this.n) { throw new Error("Not a square matrix."); }
         for (var i = 1; i < this.m; i++) {
             for (var j = 0; j < i; j++) {
-                if (!this.elements[i][j].equals(new RationalNumber(0))) {
+                if (!this.elements[i][j].equals(new RationalNumber_1.RationalNumber(0))) {
                     return false;
                 }
             }
@@ -215,7 +227,7 @@ var Matrix = /** @class */ (function () {
         // if (this.m !== this.n) { throw new Error("Not a square matrix."); }
         for (var i = 0; i < this.m; i++) {
             for (var j = i + 1; j < this.n; j++) {
-                if (!this.elements[i][j].equals(new RationalNumber(0))) {
+                if (!this.elements[i][j].equals(new RationalNumber_1.RationalNumber(0))) {
                     return false;
                 }
             }
@@ -265,7 +277,7 @@ var Matrix = /** @class */ (function () {
                 continue;
             } // this is a zero row, no pivot
             // leading coefficient must be 1
-            if (!this.elements[i][currentPivotIdx].equals(new RationalNumber(1))) {
+            if (!this.elements[i][currentPivotIdx].equals(new RationalNumber_1.RationalNumber(1))) {
                 return false;
             }
             if (previousIdx < currentPivotIdx) {
@@ -330,7 +342,7 @@ var Matrix = /** @class */ (function () {
         if (this.m === 1) {
             return this.elements[0][0];
         }
-        var ret = new RationalNumber(0);
+        var ret = new RationalNumber_1.RationalNumber(0);
         for (var i = 0; i < this.n; i++) {
             var minor = this.elements[0][i].mult(this.cofactor(0, i).determinant());
             ret = ret.add(minor.mult(Math.pow((-1), i)));
@@ -339,7 +351,7 @@ var Matrix = /** @class */ (function () {
     };
     Matrix.prototype.isZeroRow = function (rowId) {
         for (var j = 0; j < this.n; j++) {
-            if (!this.elements[rowId][j].equals(new RationalNumber(0))) {
+            if (!this.elements[rowId][j].equals(new RationalNumber_1.RationalNumber(0))) {
                 return false;
             }
         }
@@ -347,7 +359,7 @@ var Matrix = /** @class */ (function () {
     };
     Matrix.prototype.rowPivotPosition = function (rowId) {
         for (var j = 0; j < this.n; j++) {
-            if (!this.elements[rowId][j].equals(new RationalNumber(0))) {
+            if (!this.elements[rowId][j].equals(new RationalNumber_1.RationalNumber(0))) {
                 return j;
             }
         }
@@ -356,7 +368,7 @@ var Matrix = /** @class */ (function () {
     Matrix.prototype.numberOfNonZeroElementForColumn = function (columnId) {
         var acc = 0;
         for (var j = 0; j < this.m; j++) {
-            if (!this.elements[j][columnId].equals(new RationalNumber(0))) {
+            if (!this.elements[j][columnId].equals(new RationalNumber_1.RationalNumber(0))) {
                 acc++;
             }
         }
@@ -398,7 +410,7 @@ var Matrix = /** @class */ (function () {
             }
         }
         else {
-            if (B instanceof Vector) {
+            if (B instanceof Vector_1.Vector) {
                 ret = new Matrix(A.m, A.n + 1);
                 for (var i = 0; i < A.m; i++) {
                     for (var j = 0; j < A.n; j++) {
@@ -418,14 +430,14 @@ var Matrix = /** @class */ (function () {
             throw new Error("Column index must be less or equalt than matrix size.");
         }
         var matrix = new MatrixIdentity(n);
-        matrix.elements[row1][row2] = new RationalNumber(mult);
+        matrix.elements[row1][row2] = new RationalNumber_1.RationalNumber(mult);
         return matrix;
     };
     Matrix.randomSquare = function () {
         var matrix = new Matrix(Math.floor(Math.random() * 4) + 3, Math.floor(Math.random() * 4) + 3); // minimum size 3x3 matrix
         for (var i = 0; i < matrix.m; i++) {
             for (var j = 0; j < matrix.n; j++) {
-                matrix.elements[i][j] = new RationalNumber(Math.floor(Math.random() * 100 - 50));
+                matrix.elements[i][j] = new RationalNumber_1.RationalNumber(Math.floor(Math.random() * 100 - 50));
             }
         }
         return matrix;
@@ -442,4 +454,93 @@ var Matrix = /** @class */ (function () {
     };
     return Matrix;
 }());
+exports.Matrix = Matrix;
+var MatrixIdentity = /** @class */ (function (_super) {
+    __extends(MatrixIdentity, _super);
+    function MatrixIdentity(m) {
+        var _this = _super.call(this, m, m) || this;
+        _this.elements = [];
+        for (var i = 0; i < _this.m; i++) {
+            _this.elements[i] = [];
+            for (var j = 0; j < _this.m; j++) {
+                if (i === j) {
+                    _this.elements[i][j] = new RationalNumber_1.RationalNumber(1);
+                }
+                else {
+                    _this.elements[i][j] = new RationalNumber_1.RationalNumber(0);
+                }
+            }
+        }
+        return _this;
+    }
+    return MatrixIdentity;
+}(Matrix));
+exports.MatrixIdentity = MatrixIdentity;
+// elimination - multiply on the left (E*A); Row-addition transformations
+// to mult*(row2 of Matrix A) add (row1 of Matrix A)
+var MatrixElimination = /** @class */ (function (_super) {
+    __extends(MatrixElimination, _super);
+    function MatrixElimination(m, r1, r2, mult) {
+        var _this = this;
+        if (m < r1 || m < r2) {
+            throw new Error("Column index must be less than or equal to the matrix size.");
+        }
+        _this = _super.call(this, m, m) || this;
+        _this.row1 = r1;
+        _this.row2 = r2;
+        _this.elements = [];
+        for (var i = 0; i < _this.m; i++) {
+            _this.elements[i] = [];
+            for (var j = 0; j < _this.m; j++) {
+                if (i === j) {
+                    _this.elements[i][j] = new RationalNumber_1.RationalNumber(1);
+                }
+                else {
+                    _this.elements[i][j] = new RationalNumber_1.RationalNumber(0);
+                }
+            }
+        }
+        if (typeof mult === "number") {
+            _this.elements[r1][r2] = new RationalNumber_1.RationalNumber(mult);
+        }
+        else {
+            if (mult instanceof RationalNumber_1.RationalNumber) {
+                _this.elements[r1][r2] = mult;
+            }
+        }
+        return _this;
+    }
+    return MatrixElimination;
+}(Matrix));
+exports.MatrixElimination = MatrixElimination;
+// permutation - multiply on the right (A*P); Row-switching transformations
+var MatrixPermutation = /** @class */ (function (_super) {
+    __extends(MatrixPermutation, _super);
+    function MatrixPermutation(m, row1, row2) {
+        var _this = this;
+        if (m < row1 || m < row2) {
+            throw new Error("Column index must be less than or equal to the matrix size.");
+        }
+        _this = _super.call(this, m, m) || this;
+        _this.elements = [];
+        for (var i = 0; i < _this.m; i++) {
+            _this.elements[i] = [];
+            for (var j = 0; j < _this.m; j++) {
+                if (i === j) {
+                    _this.elements[i][j] = new RationalNumber_1.RationalNumber(1);
+                }
+                else {
+                    _this.elements[i][j] = new RationalNumber_1.RationalNumber(0);
+                }
+            }
+        }
+        _this.elements[row1][row1] = new RationalNumber_1.RationalNumber(0);
+        _this.elements[row1][row2] = new RationalNumber_1.RationalNumber(1);
+        _this.elements[row2][row2] = new RationalNumber_1.RationalNumber(0);
+        _this.elements[row2][row1] = new RationalNumber_1.RationalNumber(1);
+        return _this;
+    }
+    return MatrixPermutation;
+}(Matrix));
+exports.MatrixPermutation = MatrixPermutation;
 //# sourceMappingURL=Matrix.js.map

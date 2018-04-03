@@ -3,9 +3,19 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
+   "typescript": "^2.6.1"
+  },
+  "devDependencies": {
     "@types/bootstrap": "^4.0.0",
     "@types/jquery": "^3.3.1",
     "@types/jqueryui": "^1.12.2",
-    "@types/qunit": "^2.5.0"
+    "@types/chai": "^4.0.5",
+    "@types/mocha": "^2.2.44",
+    "chai": "^4.1.2",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.2.3",
+    "mocha": "^4.0.1",
+    "mochawesome": "^2.3.1"
   }
 }

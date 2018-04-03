@@ -1,10 +1,10 @@
-/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/arithmeticEvaluator.ts" />
-/// <chutzpah_reference path="../structures/arithmeticEvaluator.js" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var ArithmeticEvaluator_1 = require("../structures/ArithmeticEvaluator");
 QUnit.module("ArithmeticEvaluator");
 QUnit.test("lex", function () {
     // arange
-    var tokens = ArithmeticEvaluator.toReversePolishNotation("3.5 + 4/(2 + 2)");
+    var tokens = ArithmeticEvaluator_1.ArithmeticEvaluator.toReversePolishNotation("3.5 + 4/(2 + 2)");
     // act
     // assert
     QUnit.assert.ok(tokens, "toReversePolishNotation returned null");
@@ -19,7 +19,7 @@ QUnit.test("lex", function () {
 });
 QUnit.test("lex negative", function () {
     // arange
-    var tokens = ArithmeticEvaluator.toReversePolishNotation("-3/2");
+    var tokens = ArithmeticEvaluator_1.ArithmeticEvaluator.toReversePolishNotation("-3/2");
     // act
     // assert
     QUnit.assert.ok(tokens, "toReversePolishNotation returned null");
@@ -31,35 +31,35 @@ QUnit.test("lex negative", function () {
 });
 QUnit.test("evaluator negative", function () {
     // arange
-    var res = ArithmeticEvaluator.evaluateFromRPN(ArithmeticEvaluator.toReversePolishNotation("-3/2"));
+    var res = ArithmeticEvaluator_1.ArithmeticEvaluator.evaluateFromRPN(ArithmeticEvaluator_1.ArithmeticEvaluator.toReversePolishNotation("-3/2"));
     // act
     // assert
     QUnit.assert.equal(res, -1.5, "incorrect number of tokens");
 });
 QUnit.test("lexer", function () {
     // arange
-    var lexer = new Lexer("3+3/3");
+    var lexer = new ArithmeticEvaluator_1.Lexer("3+3/3");
     var token = lexer.getNextToken();
-    QUnit.assert.equal(token.type, TokenType.Number);
+    QUnit.assert.equal(token.type, ArithmeticEvaluator_1.TokenType.Number);
     QUnit.assert.equal(token.value, 3);
     token = lexer.getNextToken();
-    QUnit.assert.equal(token.type, TokenType.Plus);
+    QUnit.assert.equal(token.type, ArithmeticEvaluator_1.TokenType.Plus);
     token = lexer.getNextToken();
-    QUnit.assert.equal(token.type, TokenType.Number);
+    QUnit.assert.equal(token.type, ArithmeticEvaluator_1.TokenType.Number);
     QUnit.assert.equal(token.value, 3);
     token = lexer.getNextToken();
-    QUnit.assert.equal(token.type, TokenType.Divide);
+    QUnit.assert.equal(token.type, ArithmeticEvaluator_1.TokenType.Divide);
     token = lexer.getNextToken();
-    QUnit.assert.equal(token.type, TokenType.Number);
+    QUnit.assert.equal(token.type, ArithmeticEvaluator_1.TokenType.Number);
     QUnit.assert.equal(token.value, 3);
     token = lexer.getNextToken();
-    QUnit.assert.equal(token.type, TokenType.End);
+    QUnit.assert.equal(token.type, ArithmeticEvaluator_1.TokenType.End);
     // act
     // assert
 });
 QUnit.test("parser", function () {
     // arange
-    var parser = new Parser();
+    var parser = new ArithmeticEvaluator_1.Parser();
     var res = parser.parse("3+3/1");
     // act
     // assert
@@ -67,7 +67,7 @@ QUnit.test("parser", function () {
 });
 QUnit.test("parser paranthesis", function () {
     // arange
-    var parser = new Parser();
+    var parser = new ArithmeticEvaluator_1.Parser();
     var res = parser.parse("3+3/(1+2)");
     // act
     // assert
@@ -75,7 +75,7 @@ QUnit.test("parser paranthesis", function () {
 });
 QUnit.test("parser unary operator", function () {
     // arrange
-    var parser = new Parser();
+    var parser = new ArithmeticEvaluator_1.Parser();
     var res = parser.parse("-3/+(1+2)");
     // act
     // assert
@@ -83,7 +83,7 @@ QUnit.test("parser unary operator", function () {
 });
 QUnit.test("parser power", function () {
     // arange
-    var parser = new Parser();
+    var parser = new ArithmeticEvaluator_1.Parser();
     var res = parser.parse("+3^2+2");
     // act
     // assert

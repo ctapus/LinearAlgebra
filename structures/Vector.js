@@ -1,5 +1,4 @@
-/// <reference path="RationalNumber.ts" />
-/// <reference path="Matrix.ts" />
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -10,6 +9,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Matrix_1 = require("../structures/Matrix");
 var Vector = /** @class */ (function () {
     function Vector(n) {
         if (typeof n === "number") {
@@ -20,7 +22,7 @@ var Vector = /** @class */ (function () {
             this.m = n.length;
             this.elements = [];
             for (var i = 0; i < this.m; i++) {
-                this.elements[i] = new RationalNumber(n[i]);
+                this.elements[i] = new RationalNumber_1.RationalNumber(n[i]);
             }
         }
     }
@@ -56,7 +58,7 @@ var Vector = /** @class */ (function () {
         if (this.m !== x.m) {
             throw "Mismatched dimensions.";
         }
-        var res = new RationalNumber(0);
+        var res = new RationalNumber_1.RationalNumber(0);
         for (var i = 0; i < x.m; i++) {
             res = res.add(this.elements[i].mult(x.elements[i]));
         }
@@ -74,7 +76,7 @@ var Vector = /** @class */ (function () {
         return ret;
     };
     Vector.prototype.toMatrix = function () {
-        var ret = new Matrix(this.m, 1);
+        var ret = new Matrix_1.Matrix(this.m, 1);
         for (var i = 0; i < this.m; i++) {
             ret.elements[i][0] = this.elements[i];
         }
@@ -97,6 +99,7 @@ var Vector = /** @class */ (function () {
     };
     return Vector;
 }());
+exports.Vector = Vector;
 var ColumnVector = /** @class */ (function (_super) {
     __extends(ColumnVector, _super);
     function ColumnVector() {
@@ -104,6 +107,7 @@ var ColumnVector = /** @class */ (function (_super) {
     }
     return ColumnVector;
 }(Vector));
+exports.ColumnVector = ColumnVector;
 var RowVector = /** @class */ (function (_super) {
     __extends(RowVector, _super);
     function RowVector() {
@@ -115,7 +119,7 @@ var RowVector = /** @class */ (function (_super) {
         }
         var res = new RowVector(this.m);
         for (var i = 0; i < this.m; i++) {
-            var sum = new RationalNumber(0);
+            var sum = new RationalNumber_1.RationalNumber(0);
             for (var j = 0; j < m.n; j++) {
                 sum = sum.add(m.elements[i][j].mult(this.elements[i]));
             }
@@ -125,4 +129,5 @@ var RowVector = /** @class */ (function (_super) {
     };
     return RowVector;
 }(Vector));
+exports.RowVector = RowVector;
 //# sourceMappingURL=Vector.js.map

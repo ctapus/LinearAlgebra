@@ -1,13 +1,13 @@
-/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/VectorSpace.ts" />
-/// <chutzpah_reference path="../structures/Vector.js" />
-/// <chutzpah_reference path="../structures/VectorSpace.js" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Vector_1 = require("../structures/Vector");
+var VectorSpace_1 = require("../structures/VectorSpace");
 QUnit.module("VectorSpace");
 QUnit.test("number constructor", function () {
     // arange
-    var vectorSpace = new VectorSpace(3);
-    vectorSpace.elements[0] = new Vector([1, 2, 3]);
-    vectorSpace.elements[1] = new Vector([4, 5, 6]);
+    var vectorSpace = new VectorSpace_1.VectorSpace(3);
+    vectorSpace.elements[0] = new Vector_1.Vector([1, 2, 3]);
+    vectorSpace.elements[1] = new Vector_1.Vector([4, 5, 6]);
     // act
     // assert
     QUnit.assert.ok(vectorSpace, "Vector space is null");
@@ -21,7 +21,7 @@ QUnit.test("number constructor", function () {
 });
 QUnit.test("array constructor", function () {
     // arange
-    var vectorSpace = new VectorSpace([new Vector([1, 2, 3]), new Vector([4, 5, 6])]);
+    var vectorSpace = new VectorSpace_1.VectorSpace([new Vector_1.Vector([1, 2, 3]), new Vector_1.Vector([4, 5, 6])]);
     // act
     // assert
     QUnit.assert.ok(vectorSpace, "Vector space is null");
@@ -35,7 +35,7 @@ QUnit.test("array constructor", function () {
 });
 QUnit.test("toColumnsMatrix positive", function () {
     // arange
-    var vectorSpace = new VectorSpace([new Vector([1, 2, 3]), new Vector([4, 5, 6])]);
+    var vectorSpace = new VectorSpace_1.VectorSpace([new Vector_1.Vector([1, 2, 3]), new Vector_1.Vector([4, 5, 6])]);
     var M = vectorSpace.toColumnsMatrix();
     // act
     // assert
@@ -51,7 +51,7 @@ QUnit.test("toColumnsMatrix positive", function () {
 });
 QUnit.test("toRowsMatrix positive", function () {
     // arange
-    var vectorSpace = new VectorSpace([new Vector([1, 2, 3]), new Vector([4, 5, 6])]);
+    var vectorSpace = new VectorSpace_1.VectorSpace([new Vector_1.Vector([1, 2, 3]), new Vector_1.Vector([4, 5, 6])]);
     var M = vectorSpace.toRowsMatrix();
     // act
     // assert
@@ -67,8 +67,8 @@ QUnit.test("toRowsMatrix positive", function () {
 });
 QUnit.test("findBasis positive", function () {
     // arange
-    var vectorSpace = new VectorSpace([new Vector([1, 1, -2, 0, -1]),
-        new Vector([1, 2, 0, -4, 1]), new Vector([0, 1, 3, -3, 2]), new Vector([2, 3, 0, -2, 0])]);
+    var vectorSpace = new VectorSpace_1.VectorSpace([new Vector_1.Vector([1, 1, -2, 0, -1]),
+        new Vector_1.Vector([1, 2, 0, -4, 1]), new Vector_1.Vector([0, 1, 3, -3, 2]), new Vector_1.Vector([2, 3, 0, -2, 0])]);
     var basis = vectorSpace.findBasis();
     // act
     // assert

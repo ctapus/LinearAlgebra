@@ -1,6 +1,6 @@
-﻿/// <reference path="RationalNumber.ts" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
 
-class PolynomialExpression {
+export class PolynomialExpression {
 	public terms: PolynomialExpressionTerm[];
 	constructor(terms: PolynomialExpressionTerm[] = null) {
 		if (null === terms) {
@@ -22,7 +22,7 @@ class PolynomialExpression {
 		return ret;
 	}
 }
-class PolynomialExpressionTerm {
+export class PolynomialExpressionTerm {
 	public polynomial: Polynomial;
 	public exponent: number;
 	constructor(polynomial: Polynomial, exponent: number = 1) {
@@ -39,7 +39,7 @@ class PolynomialExpressionTerm {
 		return this.polynomial.deepCopy().exp(this.exponent);
 	}
 }
-class Polynomial {
+export class Polynomial {
 	public terms: PolynomialTerm[];
 	constructor(terms: PolynomialTerm[] = null) {
 		if (null === terms) {
@@ -128,7 +128,7 @@ class Polynomial {
 		return ret;
 	}
 }
-class PolynomialTerm {
+export class PolynomialTerm {
 	public coefficient: RationalNumber;
 	public variables: VariableTerm[];
 	constructor(termCoefficient: RationalNumber, variables: VariableTerm[] = null) {
@@ -222,7 +222,7 @@ class PolynomialTerm {
 		return ret;
 	}
 }
-class VariableTerm {
+export class VariableTerm {
 	public variable: string;
 	public exponent: number;
 	constructor(variable: string, exponent: number) {

@@ -1,6 +1,6 @@
-﻿/// <reference path="ArithmeticEvaluator.ts" />
+﻿import { Parser } from "../structures/ArithmeticEvaluator";
 
-class RationalNumber {
+export class RationalNumber {
 	public numerator: number;
 	public denominator: number;
 	constructor(n: number, d: number = 1) {

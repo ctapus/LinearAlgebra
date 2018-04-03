@@ -1,4 +1,6 @@
-/// <reference path="RationalNumber.ts" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Matrix_1 = require("../structures/Matrix");
 var VectorSpace = /** @class */ (function () {
     function VectorSpace(n) {
         if (typeof n === "number") {
@@ -34,7 +36,7 @@ var VectorSpace = /** @class */ (function () {
         return res;
     };
     VectorSpace.prototype.toColumnsMatrix = function () {
-        var res = new Matrix(this.elements[0].m, this.m);
+        var res = new Matrix_1.Matrix(this.elements[0].m, this.m);
         for (var i = 0; i < res.n; i++) {
             for (var j = 0; j < res.m; j++) {
                 res.elements[j][i] = this.elements[i].elements[j];
@@ -43,7 +45,7 @@ var VectorSpace = /** @class */ (function () {
         return res;
     };
     VectorSpace.prototype.toRowsMatrix = function () {
-        var res = new Matrix(this.m, this.elements[0].m);
+        var res = new Matrix_1.Matrix(this.m, this.elements[0].m);
         for (var i = 0; i < res.m; i++) {
             for (var j = 0; j < res.n; j++) {
                 res.elements[i][j] = this.elements[i].elements[j];
@@ -53,4 +55,5 @@ var VectorSpace = /** @class */ (function () {
     };
     return VectorSpace;
 }());
+exports.VectorSpace = VectorSpace;
 //# sourceMappingURL=VectorSpace.js.map

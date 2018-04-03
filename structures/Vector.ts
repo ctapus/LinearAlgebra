@@ -1,7 +1,7 @@
-﻿/// <reference path="RationalNumber.ts" />
-/// <reference path="Matrix.ts" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Matrix } from "../structures/Matrix";
 
-class Vector {
+export class Vector {
 	public m: number;
 	public elements: RationalNumber[];
 	constructor(n: number);
@@ -79,9 +79,9 @@ class Vector {
 
 	}
 }
-class ColumnVector extends Vector {
+export class ColumnVector extends Vector {
 }
-class RowVector extends Vector {
+export class RowVector extends Vector {
 	public matrixProduct(m: Matrix): RowVector {
 		if (this.m !== m.n) { throw "Mismatched dimensions."; }
 		const res: RowVector = new RowVector(this.m);

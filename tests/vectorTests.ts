@@ -1,6 +1,6 @@
-﻿/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/Vector.ts" />
-/// <chutzpah_reference path="../structures/Vector.js" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Vector, RowVector, ColumnVector } from "../structures/Vector";
+import { Matrix } from "../structures/Matrix";
 
 QUnit.module("Vector");
 QUnit.test("constructor array", () => {

@@ -1,6 +1,8 @@
 ﻿/// <reference path="../node_modules/@types/jquery/index.d.ts" />
-/// <reference path="../structures/Vector.ts" />
-/// <reference path="../presenters/MatrixPresenter.ts" />
+import { RationalNumber } from "../structures/RationalNumber";
+import { Vector, RowVector, ColumnVector } from "../structures/Vector";
+import { Matrix } from "../structures/Matrix";
+import { MatrixPresenter } from "../presenters/MatrixPresenter";
 
 class Vector2D extends Vector {
 	constructor(x: number | RationalNumber, y: number | RationalNumber) {

@@ -1,8 +1,12 @@
-/// <reference path="../generators/SystemOfLinearEquationsGenerator.ts" />
-/// <reference path="../presenters/SystemOfLinearEquationsPresenter.ts" />
-/// <reference path="../presenters/MatrixPresenter.ts" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Matrix_1 = require("../structures/Matrix");
+var SystemOfLinearEquationsGenerator_1 = require("../generators/SystemOfLinearEquationsGenerator");
+var SystemOfLinearEquationsPresenter_1 = require("../presenters/SystemOfLinearEquationsPresenter");
+var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
 $(document).ready(function () {
-    var generator = new SystemOfLinearEquationsGenerator();
+    var generator = new SystemOfLinearEquationsGenerator_1.SystemOfLinearEquationsGenerator();
     var systemOfEquations = generator.random();
     var undoStack;
     var redoStack;
@@ -18,7 +22,7 @@ $(document).ready(function () {
     $("#details").append("<div>Number of equations: " + generator.numberOfEquations + "</div>");
     $("#details").append("<div>Number of independent equations: " + generator.numberOfIndependentEquations + "</div>");
     $("#details").append("<div>Number of dependent equations: " + generator.numberOfDependentEquations + "</div>");
-    SystemOfLinearEquationsPresenter.printTableSystem(systemOfEquations, $("#content"));
+    SystemOfLinearEquationsPresenter_1.SystemOfLinearEquationsPresenter.printTableSystem(systemOfEquations, $("#content"));
     $("#toggleDetails").click(function () {
         $("#details").slideToggle();
     });
@@ -29,19 +33,19 @@ $(document).ready(function () {
             workingMatrix = systemOfEquations.A.deepCopy();
         }
         if ("I" === $("#selAugmentOptions1").val()) {
-            workingMatrix = new MatrixIdentity(systemOfEquations.noEquations);
+            workingMatrix = new Matrix_1.MatrixIdentity(systemOfEquations.noEquations);
         }
         else if ("b" === $("#selAugmentOptions1").val()) {
             workingMatrix = systemOfEquations.b.toMatrix();
         }
         if ("A" === $("#selAugmentOptions2").val()) {
-            workingMatrix = Matrix.augment(workingMatrix, systemOfEquations.A);
+            workingMatrix = Matrix_1.Matrix.augment(workingMatrix, systemOfEquations.A);
         }
         if ("I" === $("#selAugmentOptions2").val()) {
-            workingMatrix = Matrix.augment(workingMatrix, new MatrixIdentity(systemOfEquations.noEquations));
+            workingMatrix = Matrix_1.Matrix.augment(workingMatrix, new Matrix_1.MatrixIdentity(systemOfEquations.noEquations));
         }
         else if ("b" === $("#selAugmentOptions2").val()) {
-            workingMatrix = Matrix.augment(workingMatrix, systemOfEquations.b);
+            workingMatrix = Matrix_1.Matrix.augment(workingMatrix, systemOfEquations.b);
         }
         postProcessOperation("Augmented " + $("#selAugmentOptions1").val() + " with " + $("#selAugmentOptions2").val() + ".");
     });
@@ -60,7 +64,7 @@ $(document).ready(function () {
     $("#btnMultiplyRow").click(function () {
         $("#error").text("");
         var idxRow = Number($("#rowIdx").val()) - 1;
-        var scalar = RationalNumber.fromString($("#scalar").val().toString());
+        var scalar = RationalNumber_1.RationalNumber.fromString($("#scalar").val().toString());
         if (0 > idxRow || workingMatrix.m < idxRow) {
             $("#error").text("Row index must be greater than 0 and smaller than " + workingMatrix.m);
             return;
@@ -73,8 +77,8 @@ $(document).ready(function () {
         $("#error").text("");
         var idxRow1 = Number($("#addRow1Idx").val()) - 1;
         var idxRow2 = Number($("#addRow2Idx").val()) - 1;
-        var scalar1 = RationalNumber.fromString($("#addRow1Mult").val().toString());
-        var scalar2 = RationalNumber.fromString($("#addRow2Mult").val().toString());
+        var scalar1 = RationalNumber_1.RationalNumber.fromString($("#addRow1Mult").val().toString());
+        var scalar2 = RationalNumber_1.RationalNumber.fromString($("#addRow2Mult").val().toString());
         if (0 > idxRow1 || workingMatrix.m < idxRow1 || 0 > idxRow2 || workingMatrix.m < idxRow2) {
             $("#error").text("Row index must be greater than 0 and smaller than " + workingMatrix.m);
             return;
@@ -152,7 +156,7 @@ $(document).ready(function () {
         });
         $("#content").append(toggleButton);
         $("#content").append(div);
-        MatrixPresenter.printTableMatrix(workingMatrix, div);
+        MatrixPresenter_1.MatrixPresenter.printTableMatrix(workingMatrix, div);
         if (workingMatrix.isReducedRowEchelonForm()) {
             toggleButton.append(" Matrix is in reduced row eschelon form.");
         }

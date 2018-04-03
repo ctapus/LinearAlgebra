@@ -1,5 +1,7 @@
-﻿/// <reference path="../generators/ALUGenerator.ts" />
-/// <reference path="../presenters/MatrixPresenter.ts" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Matrix, MatrixIdentity } from "../structures/Matrix";
+import { ALUGenerator } from "../generators/ALUGenerator";
+import { MatrixPresenter } from "../presenters/MatrixPresenter";
 
 $(document).ready(() => {
 	var generator: ALUGenerator = new ALUGenerator();

@@ -1,6 +1,5 @@
-﻿/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/arithmeticEvaluator.ts" />
-/// <chutzpah_reference path="../structures/arithmeticEvaluator.js" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { ArithmeticEvaluator, Lexer, Token, Parser, TokenType } from "../structures/ArithmeticEvaluator";
 
 QUnit.module("ArithmeticEvaluator");
 QUnit.test("lex", () => {

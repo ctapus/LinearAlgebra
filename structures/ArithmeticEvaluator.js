@@ -1,5 +1,6 @@
-/// <reference path="Queue.ts"/>
-/// <reference path="Stack.ts"/>
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
 var ArithmeticEvaluator = /** @class */ (function () {
     function ArithmeticEvaluator() {
     }
@@ -107,6 +108,7 @@ var ArithmeticEvaluator = /** @class */ (function () {
     };
     return ArithmeticEvaluator;
 }());
+exports.ArithmeticEvaluator = ArithmeticEvaluator;
 var TokenType;
 (function (TokenType) {
     TokenType[TokenType["Plus"] = 0] = "Plus";
@@ -119,7 +121,7 @@ var TokenType;
     TokenType[TokenType["RParen"] = 7] = "RParen";
     TokenType[TokenType["End"] = 8] = "End";
     TokenType[TokenType["Unknown"] = 9] = "Unknown";
-})(TokenType || (TokenType = {}));
+})(TokenType = exports.TokenType || (exports.TokenType = {}));
 var Token = /** @class */ (function () {
     function Token(type, value) {
         this.type = type;
@@ -127,6 +129,7 @@ var Token = /** @class */ (function () {
     }
     return Token;
 }());
+exports.Token = Token;
 var Lexer = /** @class */ (function () {
     function Lexer(input) {
         this.tokens = input.replace(" ", "").match(/\(|\)|\d+(\.\d+)?|[\+\-\*\/\^]/g);
@@ -147,8 +150,9 @@ var Lexer = /** @class */ (function () {
         return this.getToken(input);
     };
     Lexer.prototype.revert = function () {
-        if (this.tokenIndex <= 0)
+        if (this.tokenIndex <= 0) {
             throw Error("Index out of range");
+        }
         this.tokenIndex--;
     };
     Lexer.prototype.getToken = function (input) {
@@ -180,19 +184,20 @@ var Lexer = /** @class */ (function () {
     };
     return Lexer;
 }());
+exports.Lexer = Lexer;
 var Parser = /** @class */ (function () {
     function Parser() {
     }
     Parser.prototype.parse = function (code) {
         this.lex = new Lexer(code);
         var expression = this.fourthOrderOperators();
-        var token = this.lex.getCurrentToken(); //is already advanced because of number()
+        var token = this.lex.getCurrentToken(); // is already advanced because of number()
         if (token.type === TokenType.End) {
             return expression;
         }
         throw Error("End expected");
     };
-    //addition and substraction
+    // addition and substraction
     Parser.prototype.fourthOrderOperators = function () {
         var component1 = this.thirdOrderOperators();
         var token = this.lex.getNextToken();
@@ -209,7 +214,7 @@ var Parser = /** @class */ (function () {
         this.lex.revert();
         return component1;
     };
-    //multiplication and division
+    // multiplication and division
     Parser.prototype.thirdOrderOperators = function () {
         var factor1 = this.secondOrderOperators();
         var token = this.lex.getNextToken();
@@ -226,7 +231,7 @@ var Parser = /** @class */ (function () {
         this.lex.revert();
         return factor1;
     };
-    //exponents and roots
+    // exponents and roots
     Parser.prototype.secondOrderOperators = function () {
         var factor1 = this.firstOrderOperators();
         var token = this.lex.getNextToken();
@@ -238,9 +243,9 @@ var Parser = /** @class */ (function () {
         this.lex.revert();
         return factor1;
     };
-    //numbers and parantheses
+    // numbers and parantheses
     Parser.prototype.firstOrderOperators = function () {
-        var value = new RationalNumber(1);
+        var value = new RationalNumber_1.RationalNumber(1);
         var token = this.lex.getNextToken();
         if (token.type === TokenType.Plus || token.type === TokenType.Minus) {
             if (token.type === TokenType.Minus) {
@@ -258,12 +263,14 @@ var Parser = /** @class */ (function () {
         else if (token.type === TokenType.Number) {
             value = value.mult(token.value);
         }
-        else
+        else {
             throw Error("Not a number");
+        }
         return value;
     };
     return Parser;
 }());
+exports.Parser = Parser;
 /*
     public static evaluate(expresion: string): RationalNumber {
     var digitPattern = new RegExp('0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9');

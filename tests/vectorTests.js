@@ -1,10 +1,12 @@
-/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/Vector.ts" />
-/// <chutzpah_reference path="../structures/Vector.js" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Vector_1 = require("../structures/Vector");
+var Matrix_1 = require("../structures/Matrix");
 QUnit.module("Vector");
 QUnit.test("constructor array", function () {
     // arange
-    var vector = new Vector([1, 2, 3]);
+    var vector = new Vector_1.Vector([1, 2, 3]);
     // act
     // assert
     QUnit.assert.ok(vector, "vector is null");
@@ -15,15 +17,15 @@ QUnit.test("constructor array", function () {
 });
 QUnit.test("constructor number", function () {
     // arange
-    var vector = new Vector(3);
+    var vector = new Vector_1.Vector(3);
     // act
     // assert
     QUnit.assert.ok(vector, "vector is null");
 });
 QUnit.test("add", function () {
     // arange
-    var v1 = new Vector([1, 2, 3]);
-    var v2 = new Vector([1, 2, 3]);
+    var v1 = new Vector_1.Vector([1, 2, 3]);
+    var v2 = new Vector_1.Vector([1, 2, 3]);
     // act
     var res = v1.add(v2);
     // asert
@@ -35,16 +37,16 @@ QUnit.test("add", function () {
 });
 QUnit.test("add negative", function () {
     // arange
-    var v1 = new Vector([1, 2, 3]);
-    var v2 = new Vector([1, 2]);
+    var v1 = new Vector_1.Vector([1, 2, 3]);
+    var v2 = new Vector_1.Vector([1, 2]);
     // act
     QUnit.assert.throws(function () { return v1.add(v2); }, "function didn't report mismatched dimensions.");
     // assert
 });
 QUnit.test("sub", function () {
     // arange
-    var v1 = new Vector([1, 2, 3]);
-    var v2 = new Vector([1, 2, 3]);
+    var v1 = new Vector_1.Vector([1, 2, 3]);
+    var v2 = new Vector_1.Vector([1, 2, 3]);
     // act
     var res = v1.sub(v2);
     // assert
@@ -56,16 +58,16 @@ QUnit.test("sub", function () {
 });
 QUnit.test("sub negative", function () {
     // arange
-    var v1 = new Vector([1, 2, 3]);
-    var v2 = new Vector([1, 2]);
+    var v1 = new Vector_1.Vector([1, 2, 3]);
+    var v2 = new Vector_1.Vector([1, 2]);
     // act
     QUnit.assert.throws(function () { return v1.sub(v2); }, "function didn't report mismatched dimensions.");
     // assert
 });
 QUnit.test("mult", function () {
     // arange
-    var v = new Vector([2, 4, 6]);
-    var rn = new RationalNumber(1, 2);
+    var v = new Vector_1.Vector([2, 4, 6]);
+    var rn = new RationalNumber_1.RationalNumber(1, 2);
     // act
     var res = v.mult(rn);
     // assert
@@ -77,8 +79,8 @@ QUnit.test("mult", function () {
 });
 QUnit.test("dotProduct", function () {
     // arange
-    var v1 = new Vector([1, 2, 3]);
-    var v2 = new Vector([1, 2, 3]);
+    var v1 = new Vector_1.Vector([1, 2, 3]);
+    var v2 = new Vector_1.Vector([1, 2, 3]);
     // act
     var res = v1.dotProduct(v2);
     // assert
@@ -87,18 +89,18 @@ QUnit.test("dotProduct", function () {
 });
 QUnit.test("dotProduct negative", function () {
     // arange
-    var v1 = new Vector([1, 2, 3]);
-    var v2 = new Vector([1, 2]);
+    var v1 = new Vector_1.Vector([1, 2, 3]);
+    var v2 = new Vector_1.Vector([1, 2]);
     // act
     QUnit.assert.throws(function () { return v1.dotProduct(v2); }, "function didn't report mismatched dimensions.");
     // assert
 });
 QUnit.test("RowVector matrixProduct", function () {
     // arange
-    var T = new Matrix(2, 2);
-    T.elements = [[new RationalNumber(-2), new RationalNumber(0)], [new RationalNumber(0), new RationalNumber(-1)]];
-    var vector = new RowVector(2);
-    vector.elements = [new RationalNumber(1), new RationalNumber(1)];
+    var T = new Matrix_1.Matrix(2, 2);
+    T.elements = [[new RationalNumber_1.RationalNumber(-2), new RationalNumber_1.RationalNumber(0)], [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(-1)]];
+    var vector = new Vector_1.RowVector(2);
+    vector.elements = [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)];
     // act
     var transformedVector = vector.matrixProduct(T);
     // assert

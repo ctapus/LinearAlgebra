@@ -1,7 +1,11 @@
-/// <reference path="../generators/ALUGenerator.ts" />
-/// <reference path="../presenters/MatrixPresenter.ts" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Matrix_1 = require("../structures/Matrix");
+var ALUGenerator_1 = require("../generators/ALUGenerator");
+var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
 $(document).ready(function () {
-    var generator = new ALUGenerator();
+    var generator = new ALUGenerator_1.ALUGenerator();
     var undoStack;
     var redoStack;
     var undoLStack;
@@ -13,7 +17,7 @@ $(document).ready(function () {
     var L = null;
     var operationDivIdx = 0;
     init();
-    MatrixPresenter.printTableMatrix(initialMatrix, $("#content"));
+    MatrixPresenter_1.MatrixPresenter.printTableMatrix(initialMatrix, $("#content"));
     $("#btnSwitchRows").click(function () {
         $("#error").text("");
         var idxRow1 = Number($("#row1").val()) - 1;
@@ -32,7 +36,7 @@ $(document).ready(function () {
         $("#error").text("");
         var idxRow1 = Number($("#addRow1Idx").val()) - 1;
         var idxRow2 = Number($("#addRow2Idx").val()) - 1;
-        var scalar = RationalNumber.fromString($("#addRow1Mult").val().toString());
+        var scalar = RationalNumber_1.RationalNumber.fromString($("#addRow1Mult").val().toString());
         if (0 > idxRow1 || U.m < idxRow1 || 0 > idxRow2 || U.m < idxRow2) {
             $("#error").text("Row index must be greater than 0 and smaller than " + U.m);
             return;
@@ -96,8 +100,8 @@ $(document).ready(function () {
         redoLStack = new Stack();
         A = initialMatrix.deepCopy();
         U = initialMatrix.deepCopy();
-        L = new MatrixIdentity(U.m);
-        P = new MatrixIdentity(U.m);
+        L = new Matrix_1.MatrixIdentity(U.m);
+        P = new Matrix_1.MatrixIdentity(U.m);
         setEditOperations();
         setAvailableOperations();
     }
@@ -122,7 +126,7 @@ $(document).ready(function () {
         $("#content").append(div);
         var previousMatrix = undoStack.isEmpty() ? initialMatrix : undoStack.peek();
         var description = $("<div></div>").append("L*U=P*A");
-        MatrixPresenter.printMatrixEquality2(L, "*", U, P, "*", A, description);
+        MatrixPresenter_1.MatrixPresenter.printMatrixEquality2(L, "*", U, P, "*", A, description);
         div.append(description);
         if (U.isUpperTriangular()) {
             toggleButton.append(" U matrix found!");

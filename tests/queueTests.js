@@ -1,6 +1,5 @@
-/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/Queue.ts" />
-/// <chutzpah_reference path="../structures/Queue.js" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 QUnit.module("Queue");
 QUnit.test("isEmptyPositive", function () {
     // arange

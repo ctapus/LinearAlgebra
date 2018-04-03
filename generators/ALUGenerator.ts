@@ -1,6 +1,7 @@
-﻿/// <reference path="../structures/SystemOfLinearEquations.ts" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Matrix } from "../structures/Matrix";
 
-class ALUGenerator {
+export class ALUGenerator {
 	public probabilityToBeSquare: number = 0.8;// 80% to generate a square matrix
 	public isSquare: boolean = Math.random() <= this.probabilityToBeSquare;
 	public numberOfRowsMin: number = 3;
@@ -13,7 +14,7 @@ class ALUGenerator {
 	public valueOfElementsMin: number = -10;
 	public valueOfElementsMax: number = 10;
 	public random(): Matrix {
-		// A=LU for A mxn => L is mxm and U is mxn OR L is mxn and U is nxn
+		// if A=LU for A mxn => L is mxm and U is mxn OR L is mxn and U is nxn
 		let L: Matrix = new Matrix(this.numberOfRows, this.numberOfRows);
 		for (let i: number = 0; i < L.m; i++) {
 			for (let j: number = 0; j < L.n; j++) {

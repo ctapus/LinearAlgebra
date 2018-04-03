@@ -1,6 +1,10 @@
-﻿/// <reference path="../generators/SystemOfLinearEquationsGenerator.ts" />
-/// <reference path="../presenters/SystemOfLinearEquationsPresenter.ts" />
-/// <reference path="../presenters/MatrixPresenter.ts" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Vector } from "../structures/Vector";
+import { Matrix, MatrixIdentity } from "../structures/Matrix";
+import { SystemOfLinearEquations } from "../structures/SystemOfLinearEquations";
+import { SystemOfLinearEquationsGenerator } from "../generators/SystemOfLinearEquationsGenerator";
+import { SystemOfLinearEquationsPresenter } from "../presenters/SystemOfLinearEquationsPresenter";
+import { MatrixPresenter } from "../presenters/MatrixPresenter";
 
 $(document).ready(() => {
 	let generator: SystemOfLinearEquationsGenerator = new SystemOfLinearEquationsGenerator();

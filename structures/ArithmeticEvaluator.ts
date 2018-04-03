@@ -1,7 +1,6 @@
-﻿/// <reference path="Queue.ts"/>
-/// <reference path="Stack.ts"/>
+﻿import { RationalNumber } from "../structures/RationalNumber";
 
-class ArithmeticEvaluator {
+export class ArithmeticEvaluator {
 	private static isNumber(code: string): boolean {
 		return /^\d/.test(code);
 	}
@@ -34,31 +33,26 @@ class ArithmeticEvaluator {
 		while (i < tokens.length) {
 			if (this.isNumber(tokens[i])) {
 				outputQueue.enqueue(tokens[i]);
-			}
-			else if (this.isOperator(tokens[i])) {
+			} else if (this.isOperator(tokens[i])) {
 				let op1: string = tokens[i];
 				while (!operatorStack.isEmpty() && this.isOperator(operatorStack.peek())) {
 					if ((this.isLeftAssociativeOperator(op1) && (this.precedence(op1) <= this.precedence(operatorStack.peek()))) ||
 						(this.isRightAssociativeOperator(op1) && (this.precedence(op1) < this.precedence(operatorStack.peek())))) {
 						outputQueue.enqueue(operatorStack.pop());
-					}
-					else {
+					} else {
 						break;
 					}
 				}
 				operatorStack.push(op1);
-			}
-			else if (tokens[i] === "(") {
+			} else if (tokens[i] === "(") {
 				operatorStack.push(tokens[i]);
-			}
-			else if (tokens[i] === ")") {
+			} else if (tokens[i] === ")") {
 				while (!operatorStack.isEmpty() && operatorStack.peek() !== "(") {
 					outputQueue.enqueue(operatorStack.pop());
 				}
 				if (!operatorStack.isEmpty() && operatorStack.peek() === "(") {
 					operatorStack.pop();
-				}
-				else {
+				} else {
 					throw "Mismatched parentheses.";
 				}
 			}
@@ -67,8 +61,7 @@ class ArithmeticEvaluator {
 		while (!operatorStack.isEmpty()) {
 			if (operatorStack.peek() === "(") {
 				throw "Mismatched parentheses.";
-			}
-			else {
+			} else {
 				outputQueue.enqueue(operatorStack.pop());
 			}
 		}
@@ -76,11 +69,10 @@ class ArithmeticEvaluator {
 	}
 	public static evaluateFromRPN(tokens: string[]): number {
 		let stack: Stack<number> = new Stack<number>();
-		for (let i = 0; i < tokens.length; i++) {
+		for (let i: number = 0; i < tokens.length; i++) {
 			if (!this.isOperator(tokens[i])) {
 				stack.push(parseFloat(tokens[i]));
-			}
-			else {
+			} else {
 				let op1: number = stack.pop();
 				let op2: number = stack.pop();
 				switch (tokens[i]) {
@@ -101,8 +93,8 @@ class ArithmeticEvaluator {
 	}
 }
 
-enum TokenType { Plus, Minus, Multiply, Divide, Exponent, Number, LParen, RParen, End, Unknown }
-class Token {
+export enum TokenType { Plus, Minus, Multiply, Divide, Exponent, Number, LParen, RParen, End, Unknown }
+export class Token {
 	public type: TokenType;
 	public value: number;
 	constructor(type: TokenType, value?: number) {
@@ -110,7 +102,7 @@ class Token {
 		this.value = value;
 	}
 }
-class Lexer {
+export class Lexer {
 	private tokens: string[];
 	private tokenIndex: number;
 	constructor(input: string) {
@@ -131,8 +123,8 @@ class Lexer {
 		let input: string = this.tokens[this.tokenIndex];
 		return this.getToken(input);
 	}
-	public revert() {
-		if (this.tokenIndex <= 0) throw Error("Index out of range");
+	public revert(): void {
+		if (this.tokenIndex <= 0) { throw Error("Index out of range"); }
 		this.tokenIndex--;
 	}
 	private getToken(input: string): Token {
@@ -163,18 +155,18 @@ class Lexer {
 		return new Token(TokenType.Unknown);
 	}
 }
-class Parser {
+export class Parser {
 	private lex: Lexer;
 	public parse(code: string): RationalNumber {
 		this.lex = new Lexer(code);
 		let expression: RationalNumber = this.fourthOrderOperators();
-		let token: Token = this.lex.getCurrentToken();//is already advanced because of number()
+		let token: Token = this.lex.getCurrentToken();// is already advanced because of number()
 		if (token.type === TokenType.End) {
 			return expression;
 		}
 		throw Error("End expected");
 	}
-	//addition and substraction
+	// addition and substraction
 	private fourthOrderOperators(): RationalNumber {
 		let component1: RationalNumber = this.thirdOrderOperators();
 		let token: Token = this.lex.getNextToken();
@@ -182,8 +174,7 @@ class Parser {
 			let component2: RationalNumber = this.thirdOrderOperators();
 			if (token.type === TokenType.Plus) {
 				component1 = component1.add(component2);
-			}
-			else if (token.type === TokenType.Minus) {
+			} else if (token.type === TokenType.Minus) {
 				component1 = component1.sub(component2);
 			}
 			token = this.lex.getNextToken();
@@ -191,7 +182,7 @@ class Parser {
 		this.lex.revert();
 		return component1;
 	}
-	//multiplication and division
+	// multiplication and division
 	private thirdOrderOperators(): RationalNumber {
 		let factor1: RationalNumber = this.secondOrderOperators();
 		let token: Token = this.lex.getNextToken();
@@ -199,8 +190,7 @@ class Parser {
 			let factor2: RationalNumber = this.secondOrderOperators();
 			if (token.type === TokenType.Multiply) {
 				factor1 = factor1.mult(factor2);
-			}
-			else if (token.type === TokenType.Divide) {
+			} else if (token.type === TokenType.Divide) {
 				factor1 = factor1.div(factor2);
 			}
 			token = this.lex.getNextToken();
@@ -208,7 +198,7 @@ class Parser {
 		this.lex.revert();
 		return factor1;
 	}
-	//exponents and roots
+	// exponents and roots
 	private secondOrderOperators(): RationalNumber {
 		let factor1: RationalNumber = this.firstOrderOperators();
 		let token: Token = this.lex.getNextToken();
@@ -220,7 +210,7 @@ class Parser {
 		this.lex.revert();
 		return factor1;
 	}
-	//numbers and parantheses
+	// numbers and parantheses
 	private firstOrderOperators(): RationalNumber {
 		let value: RationalNumber = new RationalNumber(1);
 		let token: Token = this.lex.getNextToken();
@@ -236,11 +226,9 @@ class Parser {
 			if (token.type !== TokenType.RParen) {
 				throw Error("Unbalanced parenthesis");
 			}
-		}
-		else if (token.type === TokenType.Number) {
+		} else if (token.type === TokenType.Number) {
 			value = value.mult(token.value);
-		}
-		else throw Error("Not a number");
+		} else { throw Error("Not a number"); }
 		return value;
 	}
 }
