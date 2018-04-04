@@ -1,9 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/// <reference path="Vector.ts" />
-/// <reference path="Matrix.ts" />
-var Vector_1 = require("../structures/Vector");
 var Matrix_1 = require("../structures/Matrix");
+var Vector_1 = require("../structures/Vector");
 var SystemOfLinearEquations = /** @class */ (function () {
     function SystemOfLinearEquations(noEquations, noVariables) {
         this.noEquations = noEquations;

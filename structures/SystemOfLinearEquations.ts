@@ -1,7 +1,5 @@
-﻿/// <reference path="Vector.ts" />
-/// <reference path="Matrix.ts" />
+﻿import { Matrix } from "../structures/Matrix";
 import { Vector } from "../structures/Vector";
-import { Matrix } from "../structures/Matrix";
 
 export class SystemOfLinearEquations {
 	public noEquations: number;

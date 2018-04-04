@@ -10,8 +10,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var RationalNumber_1 = require("../structures/RationalNumber");
 var Matrix_1 = require("../structures/Matrix");
+var RationalNumber_1 = require("../structures/RationalNumber");
 var Vector = /** @class */ (function () {
     function Vector(n) {
         if (typeof n === "number") {
@@ -28,7 +28,7 @@ var Vector = /** @class */ (function () {
     }
     Vector.prototype.add = function (x) {
         if (this.m !== x.m) {
-            throw "Mismatched dimensions.";
+            throw new Error("Mismatched dimensions.");
         }
         var res = new Vector(this.m);
         for (var i = 0; i < res.m; i++) {
@@ -38,7 +38,7 @@ var Vector = /** @class */ (function () {
     };
     Vector.prototype.sub = function (x) {
         if (this.m !== x.m) {
-            throw "Mismatched dimensions.";
+            throw new Error("Mismatched dimensions.");
         }
         var res = new Vector(this.m);
         for (var i = 0; i < res.m; i++) {
@@ -56,7 +56,7 @@ var Vector = /** @class */ (function () {
     // [ALIASES]: innerProduct, projectionProduct, scalarProduct
     Vector.prototype.dotProduct = function (x) {
         if (this.m !== x.m) {
-            throw "Mismatched dimensions.";
+            throw new Error("Mismatched dimensions.");
         }
         var res = new RationalNumber_1.RationalNumber(0);
         for (var i = 0; i < x.m; i++) {
@@ -66,7 +66,7 @@ var Vector = /** @class */ (function () {
     };
     // [ALIASES]: directedAreaProduct, vectorProduct
     Vector.prototype.crossProduct = function (x) {
-        throw "Not implemented.";
+        throw new Error("Not implemented.");
     };
     Vector.prototype.deepCopy = function () {
         var ret = new Vector(this.m);
@@ -90,7 +90,7 @@ var Vector = /** @class */ (function () {
         var n = vectors[0].m;
         for (var i = 1; i < vectors.length; i++) {
             if (n !== vectors[i].m) {
-                throw "All vectors must have the same length.";
+                throw new Error("Mismatched dimensions.");
             }
         }
         if (m > n) {
@@ -115,7 +115,7 @@ var RowVector = /** @class */ (function (_super) {
     }
     RowVector.prototype.matrixProduct = function (m) {
         if (this.m !== m.n) {
-            throw "Mismatched dimensions.";
+            throw new Error("Mismatched dimensions.");
         }
         var res = new RowVector(this.m);
         for (var i = 0; i < this.m; i++) {

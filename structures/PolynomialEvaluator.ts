@@ -1,5 +1,5 @@
-﻿import { RationalNumber } from "../structures/RationalNumber";
-import { Polynomial, PolynomialTerm, VariableTerm } from "../structures/Polynomial";
+﻿import { Polynomial, PolynomialTerm, VariableTerm } from "../structures/Polynomial";
+import { RationalNumber } from "../structures/RationalNumber";
 
 // todo: refactor to generics
 export enum PolynomialTokenType { Plus, Minus, Asterisk, Slash, Caret, Number, Variable, LParen, RParen, End, Unknown }
