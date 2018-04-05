@@ -9,7 +9,7 @@ describe("Vector test suite", () => {
   it("Can be constructed from an array", () => {
     const vector: Vector = new Vector([1, 2, 3]);
     expect(vector).to.not.be.null;
-    expect(vector.m).equal(3, `Should return: 3, but returned: ${vector.m}`);
+    expect(vector.m).equal(3);
     expect(vector.elements[0].equals(1)).to.be.true;
     expect(vector.elements[1].equals(2)).to.be.true;
     expect(vector.elements[2].equals(3)).to.be.true;
@@ -17,14 +17,14 @@ describe("Vector test suite", () => {
   it("Can be constructed from a number", () => {
     const vector: Vector = new Vector(3);
     expect(vector).to.not.be.null;
-    expect(vector.m).to.equals(3, `Should return: 3, but returned: ${vector.m}`);
+    expect(vector.m).to.equals(3);
   });
   it("Can be added to a vector of same dimension", () => {
     const v1: Vector = new Vector([1, 2, 3]);
     const v2: Vector = new Vector([1, 2, 3]);
     const vector: Vector = v1.add(v2);
     expect(vector).to.not.be.null;
-    expect(vector.m).to.equal(3, `Should return: 3, but returned: ${vector.m}`);
+    expect(vector.m).to.equal(3);
     expect(vector.elements[0].equals(2)).to.be.true;
     expect(vector.elements[1].equals(4)).to.be.true;
     expect(vector.elements[2].equals(6)).to.be.true;
@@ -39,7 +39,7 @@ describe("Vector test suite", () => {
     const v2: Vector = new Vector([1, 2, 3]);
     const vector: Vector = v1.sub(v2);
     expect(vector).to.not.be.null;
-    expect(vector.m).to.equal(3, `Should return: 3, but returned: ${vector.m}`);
+    expect(vector.m).to.equal(3);
     expect(vector.elements[0].equals(0)).to.be.true;
     expect(vector.elements[1].equals(0)).to.be.true;
     expect(vector.elements[2].equals(0)).to.be.true;
@@ -54,7 +54,7 @@ describe("Vector test suite", () => {
     const rn: RationalNumber = new RationalNumber(1, 2);
     const vector: Vector = v.mult(rn);
     expect(vector).to.not.be.null;
-    expect(vector.m).to.equal(3, `Should return: 3, but returned: ${vector.m}`);
+    expect(vector.m).to.equal(3);
     expect(vector.elements[0].equals(1)).to.be.true;
     expect(vector.elements[1].equals(2)).to.be.true;
     expect(vector.elements[2].equals(3)).to.be.true;
@@ -78,7 +78,7 @@ describe("Vector test suite", () => {
     v1.elements = [new RationalNumber(1), new RationalNumber(1)];
     const vector: RowVector = v1.matrixProduct(T);
     expect(vector).to.not.be.null;
-    expect(vector.m).to.equal(2, `Should return: 2, but returned: ${vector.m}`);
+    expect(vector.m).to.equal(2);
     expect(vector.elements[0].equals(-2)).to.be.true;
     expect(vector.elements[1].equals(-1)).to.be.true;
   });
