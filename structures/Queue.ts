@@ -1,5 +1,5 @@
-﻿class Queue<T> {
-	private queue: Array<T>;
+﻿export class Queue<T> {
+	private queue: T[];
 	constructor() {
 		this.queue = [];
 	}
@@ -10,14 +10,14 @@
 		this.queue.push(element);
 	}
 	public dequeue(): T {
-		if (this.isEmpty()) { throw "Queue is empty"; }
+		if (this.isEmpty()) { throw new Error("Queue is empty"); }
 		return this.queue.shift();
 	}
 	public peek(): T {
-		if (this.isEmpty()) { throw "Queue is empty"; }
+		if (this.isEmpty()) { throw new Error("Queue is empty"); }
 		return this.queue[0];
 	}
-	public toArray(): Array<T> {
+	public toArray(): T[] {
 		return this.queue;
 	}
 }

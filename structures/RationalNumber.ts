@@ -1,11 +1,13 @@
 ﻿import { Parser } from "../structures/ArithmeticEvaluator";
+import { Queue } from "../structures/Queue";
+import { Stack } from "../structures/Stack";
 
 export class RationalNumber {
 	public numerator: number;
 	public denominator: number;
 	constructor(n: number, d: number = 1) {
 		if (d === 0) {
-			throw "Division by zero!";
+			throw new Error("Division by zero!");
 		}
 		// todo: potential for overflow. When Math.sign becomes available in TypeScript use it instead of the multiplication
 		let sign: number = n * d >= 0 ? 1 : -1;
@@ -71,7 +73,7 @@ export class RationalNumber {
 
 	// multiplicative inverse
 	public reciprocal(): RationalNumber {
-		if (this.denominator === 0) { throw "Division by zero!"; }
+		if (this.denominator === 0) { throw new Error("Division by zero!"); }
 		return new RationalNumber(this.denominator, this.numerator);
 	}
 	// additive inverse
@@ -156,7 +158,7 @@ export class RationalNumber {
 		if (/[\^]/.test(operator)) {
 			return 3;
 		}
-		throw "Unknown operator.";
+		throw new Error("Unknown operator.");
 	}
 	public static toReversePolishNotation(code: string): string[] {
 		let tokens: string[] = code.match(/\(|\)|\d+(\.\d+)?|\w+|[\+\-\*\/\^]/g);
@@ -186,14 +188,14 @@ export class RationalNumber {
 				if (!operatorStack.isEmpty() && operatorStack.peek() === "(") {
 					operatorStack.pop();
 				} else {
-					throw "Mismatched parentheses.";
+					throw new Error("Mismatched parentheses.");
 				}
 			}
 			i++;
 		}
 		while (!operatorStack.isEmpty()) {
 			if (operatorStack.peek() === "(") {
-				throw "Mismatched parentheses.";
+				throw new Error("Mismatched parentheses.");
 			} else {
 				outputQueue.enqueue(operatorStack.pop());
 			}

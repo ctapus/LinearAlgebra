@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ArithmeticEvaluator_1 = require("../structures/ArithmeticEvaluator");
+var Queue_1 = require("../structures/Queue");
+var Stack_1 = require("../structures/Stack");
 var RationalNumber = /** @class */ (function () {
     function RationalNumber(n, d) {
         if (d === void 0) { d = 1; }
         if (d === 0) {
-            throw "Division by zero!";
+            throw new Error("Division by zero!");
         }
         // todo: potential for overflow. When Math.sign becomes available in TypeScript use it instead of the multiplication
         var sign = n * d >= 0 ? 1 : -1;
@@ -75,7 +77,7 @@ var RationalNumber = /** @class */ (function () {
     // multiplicative inverse
     RationalNumber.prototype.reciprocal = function () {
         if (this.denominator === 0) {
-            throw "Division by zero!";
+            throw new Error("Division by zero!");
         }
         return new RationalNumber(this.denominator, this.numerator);
     };
@@ -167,13 +169,13 @@ var RationalNumber = /** @class */ (function () {
         if (/[\^]/.test(operator)) {
             return 3;
         }
-        throw "Unknown operator.";
+        throw new Error("Unknown operator.");
     };
     RationalNumber.toReversePolishNotation = function (code) {
         var tokens = code.match(/\(|\)|\d+(\.\d+)?|\w+|[\+\-\*\/\^]/g);
         var i = 0;
-        var outputQueue = new Queue();
-        var operatorStack = new Stack();
+        var outputQueue = new Queue_1.Queue();
+        var operatorStack = new Stack_1.Stack();
         while (i < tokens.length) {
             if (this.isNumber(tokens[i])) {
                 outputQueue.enqueue(tokens[i]);
@@ -202,14 +204,14 @@ var RationalNumber = /** @class */ (function () {
                     operatorStack.pop();
                 }
                 else {
-                    throw "Mismatched parentheses.";
+                    throw new Error("Mismatched parentheses.");
                 }
             }
             i++;
         }
         while (!operatorStack.isEmpty()) {
             if (operatorStack.peek() === "(") {
-                throw "Mismatched parentheses.";
+                throw new Error("Mismatched parentheses.");
             }
             else {
                 outputQueue.enqueue(operatorStack.pop());
@@ -218,7 +220,7 @@ var RationalNumber = /** @class */ (function () {
         return outputQueue.toArray();
     };
     RationalNumber.evaluateFromRPN = function (tokens) {
-        var stack = new Stack();
+        var stack = new Stack_1.Stack();
         for (var i = 0; i < tokens.length; i++) {
             if (!this.isOperator(tokens[i])) {
                 stack.push(new RationalNumber(parseFloat(tokens[i])));

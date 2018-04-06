@@ -9,12 +9,12 @@ var VectorSpace = /** @class */ (function () {
         }
         else if (n instanceof Array) {
             if (!n || 0 >= n.length) {
-                throw "At least one vector is needed to construct a vector space.";
+                throw new Error("At least one vector is needed to construct a vector space.");
             }
             var x = n[0].m;
             for (var i = 1; i < n.length; i++) {
                 if (x !== n[i].m) {
-                    throw "All vectors must have the same length.";
+                    throw new Error("All vectors must have the same length.");
                 }
             }
             this.m = n.length;

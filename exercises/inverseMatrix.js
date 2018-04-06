@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var RationalNumber_1 = require("../structures/RationalNumber");
-var Matrix_1 = require("../structures/Matrix");
 var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
+var Matrix_1 = require("../structures/Matrix");
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Stack_1 = require("../structures/Stack");
 $(document).ready(function () {
     var undoStack;
     var redoStack;
@@ -111,8 +112,8 @@ $(document).ready(function () {
         setAvailableOperations();
     });
     function init() {
-        undoStack = new Stack();
-        redoStack = new Stack();
+        undoStack = new Stack_1.Stack();
+        redoStack = new Stack_1.Stack();
         workingMatrix = null;
         setEditOperations();
         setAvailableOperations();

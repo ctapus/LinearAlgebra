@@ -1,8 +1,10 @@
 ﻿/// <reference path="../node_modules/@types/jquery/index.d.ts" />
-import { RationalNumber } from "../structures/RationalNumber";
-import { Vector, RowVector, ColumnVector } from "../structures/Vector";
-import { Matrix } from "../structures/Matrix";
 import { MatrixPresenter } from "../presenters/MatrixPresenter";
+import { Matrix } from "../structures/Matrix";
+import { Queue } from "../structures/Queue";
+import { RationalNumber } from "../structures/RationalNumber";
+import { Stack } from "../structures/Stack";
+import { ColumnVector, RowVector, Vector } from "../structures/Vector";
 
 class Vector2D extends Vector {
 	constructor(x: number | RationalNumber, y: number | RationalNumber) {
@@ -35,17 +37,17 @@ class Vector2D extends Vector {
 		return res;
 	}
 	public static fromVector(v: Vector): Vector2D {
-		if (v.m !== 2) { throw "Vector dimension must be 2."; }
+		if (v.m !== 2) { throw new Error("Vector dimension must be 2."); }
 		return new Vector2D(v.elements[0], v.elements[1]);
 	}
 	public static GetScallingMatrix(scale: number): Matrix {
-		let m: Matrix = new Matrix(2, 2);
+		const m: Matrix = new Matrix(2, 2);
 		m.elements = [[new RationalNumber(scale), new RationalNumber(0)], [new RationalNumber(0), new RationalNumber(scale)]];
 		return m;
 	}
 	public static GetRotationMatrix(angle: number): Matrix {
-		let rotationAngle: number = angle * (180 / Math.PI);// converted to radians
-		let m: Matrix = new Matrix(2, 2);
+		const rotationAngle: number = angle * (180 / Math.PI);// converted to radians
+		const m: Matrix = new Matrix(2, 2);
 		m.elements = [[new RationalNumber(Math.cos(rotationAngle)), new RationalNumber(-Math.sin(rotationAngle))],
 		 [new RationalNumber(Math.sin(rotationAngle)), new RationalNumber(Math.cos(rotationAngle))]];
 		return m;
@@ -61,7 +63,7 @@ const transformedVectorColor: string = "#909090";
 const unitSize: number = 20;
 const vector: Vector2D = randomVector2D();
 const secondBasis: Vector2D[] = [new Vector2D(6, 2), new Vector2D(2, 6)];
-let transformations: Queue<Matrix> = new Queue<Matrix>();
+const transformations: Queue<Matrix> = new Queue<Matrix>();
 transformations.enqueue(Vector2D.GetScallingMatrix(0.5));
 transformations.enqueue(Vector2D.GetRotationMatrix(60));
 // const transformedVector: Vector2D = Vector2D.fromVector(vector.toRowVector().matrixProduct(T));
@@ -135,11 +137,11 @@ $(document).ready(() => {
 	function drawTransformedVector(vector: Vector2D, transformations: Queue<Matrix>): void {
 		let transformedVector: Vector2D = vector;
 		while (!transformations.isEmpty()) {
-			let transformation: Matrix = transformations.dequeue();
+			const transformation: Matrix = transformations.dequeue();
 			transformedVector = Vector2D.fromVector(transformation.vectorProduct(transformedVector.toColumnVector()));
 			drawVector(transformedVector, transformedVectorColor, 1);
 			$("#legend").append($("<div></div>").text("Transformation matrix:"));
-			let divMatrix: JQuery = $("<div></div>");
+			const divMatrix: JQuery = $("<div></div>");
 			$("#legend").append(divMatrix);
 			MatrixPresenter.printTableMatrix(transformation, divMatrix);
 			$("#legend").append($("<div></div>").text(`Transformed vector: (${transformedVector.x}, ${transformedVector.y})`)
@@ -153,9 +155,9 @@ $(document).ready(() => {
 		changeOfCoordinatesMatrix.elements[0] = [new RationalNumber(6), new RationalNumber(2)];
 		changeOfCoordinatesMatrix.elements[1] = [new RationalNumber(2), new RationalNumber(6)];
 		const vectorSecondBasis: Vector2D = Vector2D.fromVector(changeOfCoordinatesMatrix
-			.vectorProduct(vector.toColumnVector()));// it's the other way around
+			.vectorProduct(vector.toColumnVector())); // it's the other way around
 		$("#legend").append($("<div></div>").text("Change of basis matrix:"));
-		let divMatrix: JQuery = $("<div></div>");
+		const divMatrix: JQuery = $("<div></div>");
 		$("#legend").append(divMatrix);
 		MatrixPresenter.printTableMatrix(changeOfCoordinatesMatrix, divMatrix);
 		$("#legend").append($("<div></div>").text(`Vector in the new basis: (${vectorSecondBasis.x}, ${vectorSecondBasis.y})`)

@@ -1,6 +1,8 @@
-﻿import { RationalNumber } from "../structures/RationalNumber";
+﻿import { MatrixPresenter } from "../presenters/MatrixPresenter";
 import { Matrix, MatrixIdentity } from "../structures/Matrix";
-import { MatrixPresenter } from "../presenters/MatrixPresenter";
+import { Queue } from "../structures/Queue";
+import { RationalNumber } from "../structures/RationalNumber";
+import { Stack } from "../structures/Stack";
 
 $(document).ready(() => {
 	let undoStack: Stack<Matrix>;
@@ -29,8 +31,8 @@ $(document).ready(() => {
 	});
 	$("#btnSwitchRows").click(() => {
 		$("#error").text("");
-		let idxRow1: number = Number($("#row1").val()) - 1;
-		let idxRow2: number = Number($("#row2").val()) - 1;
+		const idxRow1: number = Number($("#row1").val()) - 1;
+		const idxRow2: number = Number($("#row2").val()) - 1;
 		if (0 > idxRow1 || workingMatrix.m < idxRow1 || 0 > idxRow2 || workingMatrix.m < idxRow2) {
 			$("#error").text("Row index must be greater than 0 and smaller than " + workingMatrix.m);
 			return;
@@ -41,8 +43,8 @@ $(document).ready(() => {
 	});
 	$("#btnMultiplyRow").click(() => {
 		$("#error").text("");
-		let idxRow: number = Number($("#rowIdx").val()) - 1;
-		let scalar: RationalNumber = RationalNumber.fromString($("#scalar").val().toString());
+		const idxRow: number = Number($("#rowIdx").val()) - 1;
+		const scalar: RationalNumber = RationalNumber.fromString($("#scalar").val().toString());
 		if (0 > idxRow || workingMatrix.m < idxRow) {
 			$("#error").text("Row index must be greater than 0 and smaller than " + workingMatrix.m);
 			return;
@@ -53,10 +55,10 @@ $(document).ready(() => {
 	});
 	$("#btnAddRows").click(() => {
 		$("#error").text("");
-		let idxRow1: number = Number($("#addRow1Idx").val()) - 1;
-		let idxRow2: number = Number($("#addRow2Idx").val()) - 1;
-		let scalar1: RationalNumber = RationalNumber.fromString($("#addRow1Mult").val().toString());
-		let scalar2: RationalNumber = RationalNumber.fromString($("#addRow2Mult").val().toString());
+		const idxRow1: number = Number($("#addRow1Idx").val()) - 1;
+		const idxRow2: number = Number($("#addRow2Idx").val()) - 1;
+		const scalar1: RationalNumber = RationalNumber.fromString($("#addRow1Mult").val().toString());
+		const scalar2: RationalNumber = RationalNumber.fromString($("#addRow2Mult").val().toString());
 		if (0 > idxRow1 || workingMatrix.m < idxRow1 || 0 > idxRow2 || workingMatrix.m < idxRow2) {
 			$("#error").text("Row index must be greater than 0 and smaller than " + workingMatrix.m);
 			return;
@@ -71,7 +73,7 @@ $(document).ready(() => {
 		workingMatrix = undoStack.pop();
 		let divId: string = "operationDiv" + operationDivIdx;
 		$("#" + divId).hide();
-		let buttonId: string = "toggleButton" + operationDivIdx;
+		const buttonId: string = "toggleButton" + operationDivIdx;
 		$("#" + buttonId).hide();
 		--operationDivIdx;
 		divId = "operationDiv" + operationDivIdx;
@@ -88,7 +90,7 @@ $(document).ready(() => {
 		++operationDivIdx;
 		divId = "operationDiv" + operationDivIdx;
 		$("#" + divId).show();
-		let buttonId: string = "toggleButton" + operationDivIdx;
+		const buttonId: string = "toggleButton" + operationDivIdx;
 		$("#" + buttonId).show();
 		setEditOperations();
 		setAvailableOperations();
@@ -96,9 +98,9 @@ $(document).ready(() => {
 	$("#btnReset").click(() => {
 		init();
 		while (operationDivIdx > 0) {
-			let divId: string = "operationDiv" + operationDivIdx;
+			const divId: string = "operationDiv" + operationDivIdx;
 			$("#" + divId).remove();
-			let buttonId: string = "toggleButton" + operationDivIdx;
+			const buttonId: string = "toggleButton" + operationDivIdx;
 			$("#" + buttonId).remove();
 			--operationDivIdx;
 		}
@@ -119,10 +121,10 @@ $(document).ready(() => {
 		clearRedo();
 		if (operationDivIdx > 0) { $("#" + "operationDiv" + operationDivIdx).toggle(); }
 		++operationDivIdx;
-		let divId: string = "operationDiv" + operationDivIdx;
-		let div: JQuery = $("<div id='" + divId + "'></div>");
-		let buttonId: string = "toggleButton" + operationDivIdx;
-		let toggleButton: JQuery = $("<button id='" + buttonId + "'></button>").addClass("operationButton").text(title);
+		const divId: string = "operationDiv" + operationDivIdx;
+		const div: JQuery = $("<div id='" + divId + "'></div>");
+		const buttonId: string = "toggleButton" + operationDivIdx;
+		const toggleButton: JQuery = $("<button id='" + buttonId + "'></button>").addClass("operationButton").text(title);
 		$(document).on("click", "#" + buttonId, () => {
 			$("#" + divId).toggle();
 		});
@@ -165,9 +167,9 @@ $(document).ready(() => {
 		let i: number = operationDivIdx;
 		while (!redoStack.isEmpty()) {
 			++i;
-			let divId: string = "operationDiv" + i;
+			const divId: string = "operationDiv" + i;
 			$("#" + divId).remove();
-			let buttonId: string = "toggleButton" + i;
+			const buttonId: string = "toggleButton" + i;
 			$("#" + buttonId).remove();
 			redoStack.pop();
 		}

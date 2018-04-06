@@ -11,10 +11,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference path="../node_modules/@types/jquery/index.d.ts" />
+var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
+var Matrix_1 = require("../structures/Matrix");
+var Queue_1 = require("../structures/Queue");
 var RationalNumber_1 = require("../structures/RationalNumber");
 var Vector_1 = require("../structures/Vector");
-var Matrix_1 = require("../structures/Matrix");
-var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
 var Vector2D = /** @class */ (function (_super) {
     __extends(Vector2D, _super);
     function Vector2D(x, y) {
@@ -59,7 +60,7 @@ var Vector2D = /** @class */ (function (_super) {
     };
     Vector2D.fromVector = function (v) {
         if (v.m !== 2) {
-            throw "Vector dimension must be 2.";
+            throw new Error("Vector dimension must be 2.");
         }
         return new Vector2D(v.elements[0], v.elements[1]);
     };
@@ -87,7 +88,7 @@ var transformedVectorColor = "#909090";
 var unitSize = 20;
 var vector = randomVector2D();
 var secondBasis = [new Vector2D(6, 2), new Vector2D(2, 6)];
-var transformations = new Queue();
+var transformations = new Queue_1.Queue();
 transformations.enqueue(Vector2D.GetScallingMatrix(0.5));
 transformations.enqueue(Vector2D.GetRotationMatrix(60));
 // const transformedVector: Vector2D = Vector2D.fromVector(vector.toRowVector().matrixProduct(T));

@@ -1,15 +1,17 @@
-﻿import { RationalNumber } from "../structures/RationalNumber";
-import { Matrix, MatrixIdentity } from "../structures/Matrix";
-import { ALUGenerator } from "../generators/ALUGenerator";
+﻿import { ALUGenerator } from "../generators/ALUGenerator";
 import { MatrixPresenter } from "../presenters/MatrixPresenter";
+import { Matrix, MatrixIdentity } from "../structures/Matrix";
+import { Queue } from "../structures/Queue";
+import { RationalNumber } from "../structures/RationalNumber";
+import { Stack } from "../structures/Stack";
 
 $(document).ready(() => {
-	let generator: ALUGenerator = new ALUGenerator();
+	const generator: ALUGenerator = new ALUGenerator();
 	let undoStack: Stack<Matrix>;
 	let redoStack: Stack<Matrix>;
 	let undoLStack: Stack<Matrix>;
 	let redoLStack: Stack<Matrix>;
-	let initialMatrix: Matrix = generator.random();
+	const initialMatrix: Matrix = generator.random();
 	let P: Matrix = null;
 	let A: Matrix = null;
 	let U: Matrix = null;
@@ -19,8 +21,8 @@ $(document).ready(() => {
 	MatrixPresenter.printTableMatrix(initialMatrix, $("#content"));
 	$("#btnSwitchRows").click(() => {
 		$("#error").text("");
-		let idxRow1: number = Number($("#row1").val()) - 1;
-		let idxRow2: number = Number($("#row2").val()) - 1;
+		const idxRow1: number = Number($("#row1").val()) - 1;
+		const idxRow2: number = Number($("#row2").val()) - 1;
 		if (0 > idxRow1 || A.m < idxRow1 || 0 > idxRow2 || A.m < idxRow2) {
 			$("#error").text("Row index must be greater than 0 and smaller than " + A.m);
 			return;
@@ -33,9 +35,9 @@ $(document).ready(() => {
 	});
 	$("#btnAddRows").click(() => {
 		$("#error").text("");
-		let idxRow1: number = Number($("#addRow1Idx").val()) - 1;
-		let idxRow2: number = Number($("#addRow2Idx").val()) - 1;
-		let scalar: RationalNumber = RationalNumber.fromString($("#addRow1Mult").val().toString());
+		const idxRow1: number = Number($("#addRow1Idx").val()) - 1;
+		const idxRow2: number = Number($("#addRow2Idx").val()) - 1;
+		const scalar: RationalNumber = RationalNumber.fromString($("#addRow1Mult").val().toString());
 		if (0 > idxRow1 || U.m < idxRow1 || 0 > idxRow2 || U.m < idxRow2) {
 			$("#error").text("Row index must be greater than 0 and smaller than " + U.m);
 			return;
@@ -43,7 +45,7 @@ $(document).ready(() => {
 		preProcessOperation();
 		U.addRows(idxRow2, idxRow1, scalar);
 		L.elements[idxRow2][idxRow1] = scalar.deepCopy().simplifiedForm()
-		.mult(-1);// negative because it represents the inverse of an elimination matrix E
+		.mult(-1); // negative because it represents the inverse of an elimination matrix E
 		postProcessOperation("Added " + scalar + " time(s) row " + $("#addRow1Idx").val() + " to row" + $("#addRow2Idx").val() + ".");
 	});
 	$("#btnUndo").click(() => {
@@ -52,7 +54,7 @@ $(document).ready(() => {
 		U = undoStack.pop();
 		let divId: string = "operationDiv" + operationDivIdx;
 		$("#" + divId).hide();
-		let buttonId: string = "toggleButton" + operationDivIdx;
+		const buttonId: string = "toggleButton" + operationDivIdx;
 		$("#" + buttonId).hide();
 		--operationDivIdx;
 		divId = "operationDiv" + operationDivIdx;
@@ -71,7 +73,7 @@ $(document).ready(() => {
 		++operationDivIdx;
 		divId = "operationDiv" + operationDivIdx;
 		$("#" + divId).show();
-		let buttonId: string = "toggleButton" + operationDivIdx;
+		const buttonId: string = "toggleButton" + operationDivIdx;
 		$("#" + buttonId).show();
 		setEditOperations();
 		setAvailableOperations();
@@ -79,9 +81,9 @@ $(document).ready(() => {
 	$("#btnReset").click(() => {
 		init();
 		while (operationDivIdx > 0) {
-			let divId: string = "operationDiv" + operationDivIdx;
+			const divId: string = "operationDiv" + operationDivIdx;
 			$("#" + divId).remove();
-			let buttonId: string = "toggleButton" + operationDivIdx;
+			const buttonId: string = "toggleButton" + operationDivIdx;
 			$("#" + buttonId).remove();
 			--operationDivIdx;
 		}
@@ -108,17 +110,17 @@ $(document).ready(() => {
 		clearRedo();
 		if (operationDivIdx > 0) { $("#" + "operationDiv" + operationDivIdx).toggle(); }
 		++operationDivIdx;
-		let divId: string = "operationDiv" + operationDivIdx;
-		let div: JQuery = $("<div id='" + divId + "'></div>");
-		let buttonId: string = "toggleButton" + operationDivIdx;
-		let toggleButton: JQuery = $("<button id='" + buttonId + "'></button>").addClass("operationButton").text(title);
+		const divId: string = "operationDiv" + operationDivIdx;
+		const div: JQuery = $("<div id='" + divId + "'></div>");
+		const buttonId: string = "toggleButton" + operationDivIdx;
+		const toggleButton: JQuery = $("<button id='" + buttonId + "'></button>").addClass("operationButton").text(title);
 		$(document).on("click", "#" + buttonId, () => {
 			$("#" + divId).toggle();
 		});
 		$("#content").append(toggleButton);
 		$("#content").append(div);
-		let previousMatrix: Matrix = undoStack.isEmpty() ? initialMatrix : undoStack.peek();
-		let description: JQuery = $("<div></div>").append("L*U=P*A");
+		const previousMatrix: Matrix = undoStack.isEmpty() ? initialMatrix : undoStack.peek();
+		const description: JQuery = $("<div></div>").append("L*U=P*A");
 		MatrixPresenter.printMatrixEquality2(L, "*", U, P, "*", A, description);
 		div.append(description);
 		if (U.isUpperTriangular()) {
@@ -147,9 +149,9 @@ $(document).ready(() => {
 		let i: number = operationDivIdx;
 		while (!redoStack.isEmpty()) {
 			++i;
-			let divId: string = "operationDiv" + i;
+			const divId: string = "operationDiv" + i;
 			$("#" + divId).remove();
-			let buttonId: string = "toggleButton" + i;
+			const buttonId: string = "toggleButton" + i;
 			$("#" + buttonId).remove();
 			redoStack.pop();
 			redoLStack.pop();

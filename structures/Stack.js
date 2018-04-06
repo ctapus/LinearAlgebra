@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Stack = /** @class */ (function () {
     function Stack() {
         this.stack = [];
@@ -10,13 +12,13 @@ var Stack = /** @class */ (function () {
     };
     Stack.prototype.pop = function () {
         if (this.isEmpty()) {
-            throw "Stack is empty";
+            throw new Error("Stack is empty");
         }
         return this.stack.pop();
     };
     Stack.prototype.peek = function () {
         if (this.isEmpty()) {
-            throw "Stack is empty";
+            throw new Error("Stack is empty");
         }
         return this.stack[this.stack.length - 1];
     };
@@ -25,4 +27,5 @@ var Stack = /** @class */ (function () {
     };
     return Stack;
 }());
+exports.Stack = Stack;
 //# sourceMappingURL=Stack.js.map

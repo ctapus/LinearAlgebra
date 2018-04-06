@@ -1,5 +1,5 @@
-﻿class Stack<T> {
-	private stack: Array<T>;
+﻿export class Stack<T> {
+	private stack: T[];
 	constructor() {
 		this.stack = [];
 	}
@@ -10,14 +10,14 @@
 		this.stack.push(element);
 	}
 	public pop(): T {
-		if (this.isEmpty()) { throw "Stack is empty"; }
+		if (this.isEmpty()) { throw new Error("Stack is empty"); }
 		return this.stack.pop();
 	}
 	public peek(): T {
-		if (this.isEmpty()) { throw "Stack is empty"; }
+		if (this.isEmpty()) { throw new Error("Stack is empty"); }
 		return this.stack[this.stack.length - 1];
 	}
-	public toArray(): Array<T> {
+	public toArray(): T[] {
 		return this.stack;
 	}
 }

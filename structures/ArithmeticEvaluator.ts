@@ -1,4 +1,6 @@
-﻿import { RationalNumber } from "../structures/RationalNumber";
+﻿import { Queue } from "../structures/Queue";
+import { RationalNumber } from "../structures/RationalNumber";
+import { Stack } from "../structures/Stack";
 
 export class ArithmeticEvaluator {
 	private static isNumber(code: string): boolean {
@@ -23,7 +25,7 @@ export class ArithmeticEvaluator {
 		if (/[\^]/.test(operator)) {
 			 return 3;
 		}
-		throw "Unknown operator.";
+		throw new Error("Unknown operator.");
 	}
 	public static toReversePolishNotation(code: string): string[] {
 		let tokens: string[] = code.match(/\(|\)|\d+(\.\d+)?|\w+|[\+\-\*\/\^]/g);
@@ -53,14 +55,14 @@ export class ArithmeticEvaluator {
 				if (!operatorStack.isEmpty() && operatorStack.peek() === "(") {
 					operatorStack.pop();
 				} else {
-					throw "Mismatched parentheses.";
+					throw new Error("Mismatched parentheses.");
 				}
 			}
 			i++;
 		}
 		while (!operatorStack.isEmpty()) {
 			if (operatorStack.peek() === "(") {
-				throw "Mismatched parentheses.";
+				throw new Error("Mismatched parentheses.");
 			} else {
 				outputQueue.enqueue(operatorStack.pop());
 			}
@@ -226,9 +228,13 @@ export class Parser {
 			if (token.type !== TokenType.RParen) {
 				throw Error("Unbalanced parenthesis");
 			}
-		} else if (token.type === TokenType.Number) {
-			value = value.mult(token.value);
-		} else { throw Error("Not a number"); }
+		} else {
+			if (token.type === TokenType.Number) {
+				value = value.mult(token.value);
+			} else {
+				throw Error("Not a number");
+			}
+		}
 		return value;
 	}
 }

@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var RationalNumber_1 = require("../structures/RationalNumber");
-var Matrix_1 = require("../structures/Matrix");
 var ALUGenerator_1 = require("../generators/ALUGenerator");
 var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
+var Matrix_1 = require("../structures/Matrix");
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Stack_1 = require("../structures/Stack");
 $(document).ready(function () {
     var generator = new ALUGenerator_1.ALUGenerator();
     var undoStack;
@@ -94,10 +95,10 @@ $(document).ready(function () {
         setAvailableOperations();
     });
     function init() {
-        undoStack = new Stack();
-        redoStack = new Stack();
-        undoLStack = new Stack();
-        redoLStack = new Stack();
+        undoStack = new Stack_1.Stack();
+        redoStack = new Stack_1.Stack();
+        undoLStack = new Stack_1.Stack();
+        redoLStack = new Stack_1.Stack();
         A = initialMatrix.deepCopy();
         U = initialMatrix.deepCopy();
         L = new Matrix_1.MatrixIdentity(U.m);

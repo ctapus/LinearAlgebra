@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Queue = /** @class */ (function () {
     function Queue() {
         this.queue = [];
@@ -10,13 +12,13 @@ var Queue = /** @class */ (function () {
     };
     Queue.prototype.dequeue = function () {
         if (this.isEmpty()) {
-            throw "Queue is empty";
+            throw new Error("Queue is empty");
         }
         return this.queue.shift();
     };
     Queue.prototype.peek = function () {
         if (this.isEmpty()) {
-            throw "Queue is empty";
+            throw new Error("Queue is empty");
         }
         return this.queue[0];
     };
@@ -25,4 +27,5 @@ var Queue = /** @class */ (function () {
     };
     return Queue;
 }());
+exports.Queue = Queue;
 //# sourceMappingURL=Queue.js.map
