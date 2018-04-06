@@ -1,6 +1,7 @@
-﻿/// <reference path="RationalNumber.ts" />
+﻿import { Matrix } from "../structures/Matrix";
+import { Vector } from "../structures/Vector";
 
-class VectorSpace {
+export class VectorSpace {
 	public m: number;
 	public elements: Vector[];
 	constructor(n: number);

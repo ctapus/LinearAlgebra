@@ -1,6 +1,8 @@
-﻿/// <reference path="../structures/SystemOfLinearEquations.ts" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Matrix } from "../structures/Matrix";
+import { SystemOfLinearEquations } from "../structures/SystemOfLinearEquations";
 
-class SystemOfLinearEquationsGenerator {
+export class SystemOfLinearEquationsGenerator {
 	public probabilityToBeConsistent: number = 0.8;// 80% for the system to have solutions
 	public probabilityToBeIndependent: number = 0.8;// 80% for all equation in the system to be linear independent
 	public probabilityToHaveUniqueSolution: number = 0.8;// if the system has solution, 80% for the system to have a uniques solution

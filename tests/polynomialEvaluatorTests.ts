@@ -1,6 +1,6 @@
-﻿/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/PolynomialEvaluator.ts" />
-/// <chutzpah_reference path="../structures/PolynomialEvaluator.js" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Polynomial, PolynomialTerm, VariableTerm } from "../structures/Polynomial";
+import { PolynomialLexer, PolynomialParser, PolynomialToken, PolynomialTokenType } from "../structures/PolynomialEvaluator";
 
 QUnit.module("PolynomialEvaluator");
 QUnit.test("lexer", () => {

@@ -1,6 +1,6 @@
-﻿/// <reference path="../structures/Matrix.ts" />
+﻿import { Matrix } from "../structures/Matrix";
 
-class MatrixPresenter {
+export class MatrixPresenter {
 	public static printTableMatrix(matrix: Matrix, container: JQuery): void {
 		let rowEchelonForm: boolean = matrix.isRowEchelonForm();
 		let reducedRowEchelonForm: boolean = rowEchelonForm ? matrix.isReducedRowEchelonForm() : false;

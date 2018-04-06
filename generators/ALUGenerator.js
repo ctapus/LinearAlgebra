@@ -1,4 +1,7 @@
-/// <reference path="../structures/SystemOfLinearEquations.ts" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Matrix_1 = require("../structures/Matrix");
 var ALUGenerator = /** @class */ (function () {
     function ALUGenerator() {
         this.probabilityToBeSquare = 0.8; // 80% to generate a square matrix
@@ -14,8 +17,8 @@ var ALUGenerator = /** @class */ (function () {
         this.valueOfElementsMax = 10;
     }
     ALUGenerator.prototype.random = function () {
-        // A=LU for A mxn => L is mxm and U is mxn OR L is mxn and U is nxn
-        var L = new Matrix(this.numberOfRows, this.numberOfRows);
+        // if A=LU for A mxn => L is mxm and U is mxn OR L is mxn and U is nxn
+        var L = new Matrix_1.Matrix(this.numberOfRows, this.numberOfRows);
         for (var i = 0; i < L.m; i++) {
             for (var j = 0; j < L.n; j++) {
                 if (i === j) {
@@ -26,12 +29,12 @@ var ALUGenerator = /** @class */ (function () {
                         L.elements[i][j] = this.randomVariableValue();
                     }
                     else {
-                        L.elements[i][j] = new RationalNumber(0);
+                        L.elements[i][j] = new RationalNumber_1.RationalNumber(0);
                     }
                 }
             }
         }
-        var U = new Matrix(this.numberOfRows, this.numberOfCols);
+        var U = new Matrix_1.Matrix(this.numberOfRows, this.numberOfCols);
         for (var i = 0; i < U.m; i++) {
             for (var j = 0; j < U.n; j++) {
                 if (i === j) {
@@ -42,7 +45,7 @@ var ALUGenerator = /** @class */ (function () {
                         U.elements[i][j] = this.randomVariableValue();
                     }
                     else {
-                        U.elements[i][j] = new RationalNumber(0);
+                        U.elements[i][j] = new RationalNumber_1.RationalNumber(0);
                     }
                 }
             }
@@ -50,7 +53,7 @@ var ALUGenerator = /** @class */ (function () {
         return L.mult(U);
     };
     ALUGenerator.prototype.randomVariableValue = function () {
-        return new RationalNumber(Math.floor(Math.random() * (this.valueOfElementsMax - this.valueOfElementsMin) + this.valueOfElementsMin));
+        return new RationalNumber_1.RationalNumber(Math.floor(Math.random() * (this.valueOfElementsMax - this.valueOfElementsMin) + this.valueOfElementsMin));
     };
     ALUGenerator.prototype.randomNonZeroVariableValue = function () {
         var r = this.randomVariableValue();
@@ -61,4 +64,5 @@ var ALUGenerator = /** @class */ (function () {
     };
     return ALUGenerator;
 }());
+exports.ALUGenerator = ALUGenerator;
 //# sourceMappingURL=ALUGenerator.js.map

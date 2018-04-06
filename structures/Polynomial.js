@@ -1,4 +1,6 @@
-/// <reference path="RationalNumber.ts" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
 var PolynomialExpression = /** @class */ (function () {
     function PolynomialExpression(terms) {
         if (terms === void 0) { terms = null; }
@@ -25,6 +27,7 @@ var PolynomialExpression = /** @class */ (function () {
     };
     return PolynomialExpression;
 }());
+exports.PolynomialExpression = PolynomialExpression;
 var PolynomialExpressionTerm = /** @class */ (function () {
     function PolynomialExpressionTerm(polynomial, exponent) {
         if (exponent === void 0) { exponent = 1; }
@@ -42,6 +45,7 @@ var PolynomialExpressionTerm = /** @class */ (function () {
     };
     return PolynomialExpressionTerm;
 }());
+exports.PolynomialExpressionTerm = PolynomialExpressionTerm;
 var Polynomial = /** @class */ (function () {
     function Polynomial(terms) {
         if (terms === void 0) { terms = null; }
@@ -110,7 +114,7 @@ var Polynomial = /** @class */ (function () {
                 var t2 = newTerms_2[_c];
                 if (t.equals(t2)) {
                     t.coefficient.add(t2.coefficient);
-                    t2.coefficient = new RationalNumber(0);
+                    t2.coefficient = new RationalNumber_1.RationalNumber(0);
                 }
             }
         }
@@ -141,6 +145,7 @@ var Polynomial = /** @class */ (function () {
     };
     return Polynomial;
 }());
+exports.Polynomial = Polynomial;
 var PolynomialTerm = /** @class */ (function () {
     function PolynomialTerm(termCoefficient, variables) {
         if (variables === void 0) { variables = null; }
@@ -247,6 +252,7 @@ var PolynomialTerm = /** @class */ (function () {
     };
     return PolynomialTerm;
 }());
+exports.PolynomialTerm = PolynomialTerm;
 var VariableTerm = /** @class */ (function () {
     function VariableTerm(variable, exponent) {
         if ("" === variable) {
@@ -266,4 +272,5 @@ var VariableTerm = /** @class */ (function () {
     };
     return VariableTerm;
 }());
+exports.VariableTerm = VariableTerm;
 //# sourceMappingURL=Polynomial.js.map

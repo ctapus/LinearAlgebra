@@ -1,5 +1,6 @@
-﻿/// <reference path="../structures/Vector.ts" />
-/// <reference path="../presenters/MatrixPresenter.ts" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Matrix, MatrixIdentity } from "../structures/Matrix";
+import { MatrixPresenter } from "../presenters/MatrixPresenter";
 
 $(document).ready(() => {
 	let undoStack: Stack<Matrix>;

@@ -1,11 +1,12 @@
-/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/Matrix.ts" />
-/// <chutzpah_reference path="../structures/Matrix.js" />
-/// <chutzpah_reference path="../structures/MatrixIdentity.js" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Matrix_1 = require("../structures/Matrix");
+var Vector_1 = require("../structures/Vector");
 QUnit.module("Matrix");
 QUnit.test("identity", function () {
     // arange
-    var identity = new MatrixIdentity(3);
+    var identity = new Matrix_1.MatrixIdentity(3);
     // act
     // assert
     QUnit.assert.ok(identity, "identity returned null");
@@ -21,7 +22,7 @@ QUnit.test("identity", function () {
 });
 QUnit.test("permutation", function () {
     // arange
-    var identity = new MatrixPermutation(3, 1, 2);
+    var identity = new Matrix_1.MatrixPermutation(3, 1, 2);
     // act
     // assert
     QUnit.assert.ok(identity, "identity returned null");
@@ -37,69 +38,69 @@ QUnit.test("permutation", function () {
 });
 QUnit.test("equals Positiv", function () {
     // arange
-    var M1 = new Matrix(3, 3);
-    M1.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)]];
-    var M2 = new Matrix(3, 3);
-    M2.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)]];
+    var M1 = new Matrix_1.Matrix(3, 3);
+    M1.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)]];
+    var M2 = new Matrix_1.Matrix(3, 3);
+    M2.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.equal(M1.equals(M2), true, "incorrect value");
 });
 QUnit.test("equals Negativ 1", function () {
     // arange
-    var M1 = new Matrix(3, 3);
-    M1.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)]];
-    var M2 = new Matrix(1, 1);
+    var M1 = new Matrix_1.Matrix(3, 3);
+    M1.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)]];
+    var M2 = new Matrix_1.Matrix(1, 1);
     // act
     // assert
     QUnit.assert.equal(M1.equals(M2), false, "incorrect value");
 });
 QUnit.test("equals Negativ 2", function () {
     // arange
-    var M1 = new Matrix(3, 3);
-    M1.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)]];
-    var M2 = new Matrix(3, 3);
-    M2.elements = [[new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)]];
+    var M1 = new Matrix_1.Matrix(3, 3);
+    M1.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)]];
+    var M2 = new Matrix_1.Matrix(3, 3);
+    M2.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.equal(M1.equals(M2), false, "incorrect value");
 });
 QUnit.test("isIdentity Positiv", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.equal(m.isIdentity(), true, "incorrect value");
 });
 QUnit.test("isIdentity Negativ", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.equal(m.isIdentity(), false, "incorrect value");
 });
 QUnit.test("isDiagonal Positiv", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -107,10 +108,10 @@ QUnit.test("isDiagonal Positiv", function () {
 });
 QUnit.test("isDiagonal Negativ", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -118,10 +119,10 @@ QUnit.test("isDiagonal Negativ", function () {
 });
 QUnit.test("isUpperTriangular Positiv", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -129,10 +130,10 @@ QUnit.test("isUpperTriangular Positiv", function () {
 });
 QUnit.test("isUpperTriangular Negativ", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -140,10 +141,10 @@ QUnit.test("isUpperTriangular Negativ", function () {
 });
 QUnit.test("isLowerTriangular Positiv", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(0)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -151,10 +152,10 @@ QUnit.test("isLowerTriangular Positiv", function () {
 });
 QUnit.test("isLowerTriangular Negativ", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -162,10 +163,10 @@ QUnit.test("isLowerTriangular Negativ", function () {
 });
 QUnit.test("isSymmetric Positiv", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(2), new RationalNumber(3)],
-        [new RationalNumber(2), new RationalNumber(1), new RationalNumber(4)],
-        [new RationalNumber(3), new RationalNumber(4), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3)],
+        [new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(4)],
+        [new RationalNumber_1.RationalNumber(3), new RationalNumber_1.RationalNumber(4), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -173,10 +174,10 @@ QUnit.test("isSymmetric Positiv", function () {
 });
 QUnit.test("isSymmetric Negativ", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(2), new RationalNumber(3)],
-        [new RationalNumber(4), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3)],
+        [new RationalNumber_1.RationalNumber(4), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -184,14 +185,14 @@ QUnit.test("isSymmetric Negativ", function () {
 });
 QUnit.test("augment matrix-vector", function () {
     // arange
-    var m = new Matrix(3, 2);
-    m.elements = [[new RationalNumber(0), new RationalNumber(1)],
-        [new RationalNumber(10), new RationalNumber(11)],
-        [new RationalNumber(20), new RationalNumber(21)]];
-    var v = new Vector(3);
-    v.elements = [new RationalNumber(2), new RationalNumber(12), new RationalNumber(22)];
+    var m = new Matrix_1.Matrix(3, 2);
+    m.elements = [[new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(10), new RationalNumber_1.RationalNumber(11)],
+        [new RationalNumber_1.RationalNumber(20), new RationalNumber_1.RationalNumber(21)]];
+    var v = new Vector_1.Vector(3);
+    v.elements = [new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(12), new RationalNumber_1.RationalNumber(22)];
     // act
-    var am = Matrix.augment(m, v);
+    var am = Matrix_1.Matrix.augment(m, v);
     // assert
     QUnit.assert.ok(am, "identity returned null");
     QUnit.assert.equal(am.m, 3, "incorrect value");
@@ -208,16 +209,16 @@ QUnit.test("augment matrix-vector", function () {
 });
 QUnit.test("augment matrix-matrix", function () {
     // arange
-    var m = new Matrix(3, 2);
-    m.elements = [[new RationalNumber(0), new RationalNumber(1)],
-        [new RationalNumber(10), new RationalNumber(11)],
-        [new RationalNumber(20), new RationalNumber(21)]];
-    var m2 = new Matrix(3, 2);
-    m2.elements = [[new RationalNumber(2), new RationalNumber(3)],
-        [new RationalNumber(12), new RationalNumber(13)],
-        [new RationalNumber(22), new RationalNumber(23)]];
+    var m = new Matrix_1.Matrix(3, 2);
+    m.elements = [[new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(10), new RationalNumber_1.RationalNumber(11)],
+        [new RationalNumber_1.RationalNumber(20), new RationalNumber_1.RationalNumber(21)]];
+    var m2 = new Matrix_1.Matrix(3, 2);
+    m2.elements = [[new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3)],
+        [new RationalNumber_1.RationalNumber(12), new RationalNumber_1.RationalNumber(13)],
+        [new RationalNumber_1.RationalNumber(22), new RationalNumber_1.RationalNumber(23)]];
     // act
-    var am = Matrix.augment(m, m2);
+    var am = Matrix_1.Matrix.augment(m, m2);
     // assert
     QUnit.assert.ok(am, "identity returned null");
     QUnit.assert.equal(am.m, 3, "incorrect value");
@@ -237,10 +238,10 @@ QUnit.test("augment matrix-matrix", function () {
 });
 QUnit.test("mult number", function () {
     // arange
-    var m = new Matrix(3, 2);
-    m.elements = [[new RationalNumber(0), new RationalNumber(1)],
-        [new RationalNumber(10), new RationalNumber(11)],
-        [new RationalNumber(20), new RationalNumber(21)]];
+    var m = new Matrix_1.Matrix(3, 2);
+    m.elements = [[new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(10), new RationalNumber_1.RationalNumber(11)],
+        [new RationalNumber_1.RationalNumber(20), new RationalNumber_1.RationalNumber(21)]];
     var mult1 = 3;
     // act
     var res = m.mult(mult1);
@@ -257,11 +258,11 @@ QUnit.test("mult number", function () {
 });
 QUnit.test("mult rational", function () {
     // arange
-    var m = new Matrix(3, 2);
-    m.elements = [[new RationalNumber(0), new RationalNumber(1)],
-        [new RationalNumber(10), new RationalNumber(11)],
-        [new RationalNumber(20), new RationalNumber(21)]];
-    var mult1 = new RationalNumber(3);
+    var m = new Matrix_1.Matrix(3, 2);
+    m.elements = [[new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(10), new RationalNumber_1.RationalNumber(11)],
+        [new RationalNumber_1.RationalNumber(20), new RationalNumber_1.RationalNumber(21)]];
+    var mult1 = new RationalNumber_1.RationalNumber(3);
     // act
     var res = m.mult(mult1);
     // assert
@@ -277,19 +278,19 @@ QUnit.test("mult rational", function () {
 });
 QUnit.test("mult matrix", function () {
     // arange
-    var m = new Matrix(3, 2);
-    m.elements = [[new RationalNumber(0), new RationalNumber(1)],
-        [new RationalNumber(10), new RationalNumber(11)],
-        [new RationalNumber(20), new RationalNumber(21)]];
-    var m2 = new Matrix(2, 3);
-    m2.elements = [[new RationalNumber(2), new RationalNumber(3), new RationalNumber(4)],
-        [new RationalNumber(12), new RationalNumber(13), new RationalNumber(14)]];
-    m2.elements[0][0] = new RationalNumber(2);
-    m2.elements[0][1] = new RationalNumber(3);
-    m2.elements[0][2] = new RationalNumber(4);
-    m2.elements[1][0] = new RationalNumber(12);
-    m2.elements[1][1] = new RationalNumber(13);
-    m2.elements[1][2] = new RationalNumber(14);
+    var m = new Matrix_1.Matrix(3, 2);
+    m.elements = [[new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(10), new RationalNumber_1.RationalNumber(11)],
+        [new RationalNumber_1.RationalNumber(20), new RationalNumber_1.RationalNumber(21)]];
+    var m2 = new Matrix_1.Matrix(2, 3);
+    m2.elements = [[new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3), new RationalNumber_1.RationalNumber(4)],
+        [new RationalNumber_1.RationalNumber(12), new RationalNumber_1.RationalNumber(13), new RationalNumber_1.RationalNumber(14)]];
+    m2.elements[0][0] = new RationalNumber_1.RationalNumber(2);
+    m2.elements[0][1] = new RationalNumber_1.RationalNumber(3);
+    m2.elements[0][2] = new RationalNumber_1.RationalNumber(4);
+    m2.elements[1][0] = new RationalNumber_1.RationalNumber(12);
+    m2.elements[1][1] = new RationalNumber_1.RationalNumber(13);
+    m2.elements[1][2] = new RationalNumber_1.RationalNumber(14);
     // act
     var am = m.mult(m2);
     // assert
@@ -308,10 +309,10 @@ QUnit.test("mult matrix", function () {
 });
 QUnit.test("isRowEchelonForm Positiv 1", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -319,11 +320,11 @@ QUnit.test("isRowEchelonForm Positiv 1", function () {
 });
 QUnit.test("isRowEchelonForm Positiv 2", function () {
     // arange
-    var m = new Matrix(4, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(0)]];
+    var m = new Matrix_1.Matrix(4, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -331,10 +332,10 @@ QUnit.test("isRowEchelonForm Positiv 2", function () {
 });
 QUnit.test("isRowEchelonForm Negativ zero row", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(0), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -342,10 +343,10 @@ QUnit.test("isRowEchelonForm Negativ zero row", function () {
 });
 QUnit.test("isRowEchelonForm Negativ pivot not one", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(3), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(3), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -353,10 +354,10 @@ QUnit.test("isRowEchelonForm Negativ pivot not one", function () {
 });
 QUnit.test("isRowEchelonForm Negativ leading coefficient", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -364,10 +365,10 @@ QUnit.test("isRowEchelonForm Negativ leading coefficient", function () {
 });
 QUnit.test("isReducedRowEchelonForm Positiv", function () {
     // arange
-    var m = new Matrix(3, 4);
-    m.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(0), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 4);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -375,10 +376,10 @@ QUnit.test("isReducedRowEchelonForm Positiv", function () {
 });
 QUnit.test("isReducedRowEchelonForm Negativ 1", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(0), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -386,10 +387,10 @@ QUnit.test("isReducedRowEchelonForm Negativ 1", function () {
 });
 QUnit.test("isReducedRowEchelonForm Negativ 2", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(1), new RationalNumber(0), new RationalNumber(0)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(0)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)]];
     // act
     // assert
     QUnit.assert.ok(m, "matrix is null");
@@ -397,10 +398,10 @@ QUnit.test("isReducedRowEchelonForm Negativ 2", function () {
 });
 QUnit.test("vectorProduct", function () {
     // arange
-    var T = new Matrix(2, 2);
-    T.elements = [[new RationalNumber(-2), new RationalNumber(0)], [new RationalNumber(0), new RationalNumber(-1)]];
-    var vector = new ColumnVector(2);
-    vector.elements = [new RationalNumber(1), new RationalNumber(1)];
+    var T = new Matrix_1.Matrix(2, 2);
+    T.elements = [[new RationalNumber_1.RationalNumber(-2), new RationalNumber_1.RationalNumber(0)], [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(-1)]];
+    var vector = new Vector_1.ColumnVector(2);
+    vector.elements = [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)];
     // act
     var transformedVector = T.vectorProduct(vector);
     // assert
@@ -410,10 +411,10 @@ QUnit.test("vectorProduct", function () {
 });
 QUnit.test("toReducedRowEchelonForm positiv 1", function () {
     // arange
-    var m = new Matrix(3, 4);
-    m.elements = [[new RationalNumber(1), new RationalNumber(2), new RationalNumber(-1), new RationalNumber(-4)],
-        [new RationalNumber(2), new RationalNumber(3), new RationalNumber(-1), new RationalNumber(-11)],
-        [new RationalNumber(-2), new RationalNumber(0), new RationalNumber(-3), new RationalNumber(22)]];
+    var m = new Matrix_1.Matrix(3, 4);
+    m.elements = [[new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(-1), new RationalNumber_1.RationalNumber(-4)],
+        [new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3), new RationalNumber_1.RationalNumber(-1), new RationalNumber_1.RationalNumber(-11)],
+        [new RationalNumber_1.RationalNumber(-2), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(-3), new RationalNumber_1.RationalNumber(22)]];
     // act
     var rref = m.toReducedRowEchelonForm();
     // assert
@@ -433,12 +434,12 @@ QUnit.test("toReducedRowEchelonForm positiv 1", function () {
 });
 QUnit.test("toReducedRowEchelonForm positiv 2", function () {
     // arange
-    var m = new Matrix(4, 5);
+    var m = new Matrix_1.Matrix(4, 5);
     m.elements = [
-        [new RationalNumber(1), new RationalNumber(1), new RationalNumber(-2), new RationalNumber(0), new RationalNumber(-1)],
-        [new RationalNumber(1), new RationalNumber(2), new RationalNumber(0), new RationalNumber(-4), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(1), new RationalNumber(3), new RationalNumber(-3), new RationalNumber(2)],
-        [new RationalNumber(2), new RationalNumber(3), new RationalNumber(0), new RationalNumber(-2), new RationalNumber(0)]
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(-2), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(-1)],
+        [new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(-4), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(3), new RationalNumber_1.RationalNumber(-3), new RationalNumber_1.RationalNumber(2)],
+        [new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(-2), new RationalNumber_1.RationalNumber(0)]
     ];
     // act
     var rref = m.toReducedRowEchelonForm();
@@ -469,8 +470,8 @@ QUnit.test("toReducedRowEchelonForm positiv 2", function () {
 });
 QUnit.test("determinant positiv", function () {
     // arange
-    var m = new Matrix(1, 1);
-    m.elements = [[new RationalNumber(2)]];
+    var m = new Matrix_1.Matrix(1, 1);
+    m.elements = [[new RationalNumber_1.RationalNumber(2)]];
     // act
     var det = m.determinant();
     // assert
@@ -478,9 +479,9 @@ QUnit.test("determinant positiv", function () {
 });
 QUnit.test("determinant positiv 2", function () {
     // arange
-    var m = new Matrix(2, 2);
-    m.elements = [[new RationalNumber(2), new RationalNumber(3)],
-        [new RationalNumber(-3), new RationalNumber(2)]];
+    var m = new Matrix_1.Matrix(2, 2);
+    m.elements = [[new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3)],
+        [new RationalNumber_1.RationalNumber(-3), new RationalNumber_1.RationalNumber(2)]];
     // act
     var det = m.determinant();
     // assert
@@ -488,10 +489,10 @@ QUnit.test("determinant positiv 2", function () {
 });
 QUnit.test("determinant positiv 3", function () {
     // arange
-    var m = new Matrix(3, 3);
-    m.elements = [[new RationalNumber(2), new RationalNumber(3), new RationalNumber(-2)],
-        [new RationalNumber(-3), new RationalNumber(2), new RationalNumber(2)],
-        [new RationalNumber(0), new RationalNumber(4), new RationalNumber(1)]];
+    var m = new Matrix_1.Matrix(3, 3);
+    m.elements = [[new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3), new RationalNumber_1.RationalNumber(-2)],
+        [new RationalNumber_1.RationalNumber(-3), new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(2)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(4), new RationalNumber_1.RationalNumber(1)]];
     // act
     var det = m.determinant();
     // assert
@@ -499,11 +500,11 @@ QUnit.test("determinant positiv 3", function () {
 });
 QUnit.test("determinant positiv 4", function () {
     // arange
-    var m = new Matrix(4, 4);
-    m.elements = [[new RationalNumber(2), new RationalNumber(3), new RationalNumber(-2), new RationalNumber(4)],
-        [new RationalNumber(-3), new RationalNumber(2), new RationalNumber(2), new RationalNumber(1)],
-        [new RationalNumber(0), new RationalNumber(4), new RationalNumber(1), new RationalNumber(1)],
-        [new RationalNumber(2), new RationalNumber(3), new RationalNumber(0), new RationalNumber(2)]];
+    var m = new Matrix_1.Matrix(4, 4);
+    m.elements = [[new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3), new RationalNumber_1.RationalNumber(-2), new RationalNumber_1.RationalNumber(4)],
+        [new RationalNumber_1.RationalNumber(-3), new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(4), new RationalNumber_1.RationalNumber(1), new RationalNumber_1.RationalNumber(1)],
+        [new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(3), new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(2)]];
     // act
     var det = m.determinant();
     // assert

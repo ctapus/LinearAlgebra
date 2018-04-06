@@ -1,4 +1,8 @@
-/// <reference path="../structures/SystemOfLinearEquations.ts" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Matrix_1 = require("../structures/Matrix");
+var SystemOfLinearEquations_1 = require("../structures/SystemOfLinearEquations");
 var SystemOfLinearEquationsGenerator = /** @class */ (function () {
     function SystemOfLinearEquationsGenerator() {
         this.probabilityToBeConsistent = 0.8; // 80% for the system to have solutions
@@ -42,7 +46,7 @@ var SystemOfLinearEquationsGenerator = /** @class */ (function () {
         var augmentedMatrix = this.generateIndependentSystem();
         this.makeSystemDependent(augmentedMatrix); // based on the numberOfIndependentEquations and numberOfEquations
         this.makeSystemInconsistent(augmentedMatrix); // based on the hasSolution
-        var ret = new SystemOfLinearEquations(augmentedMatrix.m, augmentedMatrix.n - 1);
+        var ret = new SystemOfLinearEquations_1.SystemOfLinearEquations(augmentedMatrix.m, augmentedMatrix.n - 1);
         for (var i = 0; i < ret.noEquations; i++) {
             for (var j = 0; j < ret.noVariables; j++) {
                 ret.A.elements[i][j] = augmentedMatrix.elements[i][j];
@@ -62,12 +66,12 @@ var SystemOfLinearEquationsGenerator = /** @class */ (function () {
         for (var i = 0; i < this.numberOfVariables; i++) {
             variables[i] = this.randomVariableValue();
         }
-        var augmentedMatrix = new Matrix(this.numberOfIndependentEquations + this.numberOfDependentEquations, this.numberOfVariables + 1);
+        var augmentedMatrix = new Matrix_1.Matrix(this.numberOfIndependentEquations + this.numberOfDependentEquations, this.numberOfVariables + 1);
         // +1 becasue it represents the augmented matrix
         for (var i_1 = 0; i_1 < this.numberOfIndependentEquations; i_1++) {
-            var freeTerm = new RationalNumber(0);
+            var freeTerm = new RationalNumber_1.RationalNumber(0);
             for (var j = 0; j < this.numberOfVariables; j++) {
-                augmentedMatrix.elements[i_1][j] = new RationalNumber(Math.floor(Math.random() * 10 - 5)); // coeficients' range
+                augmentedMatrix.elements[i_1][j] = new RationalNumber_1.RationalNumber(Math.floor(Math.random() * 10 - 5)); // coeficients' range
                 freeTerm = freeTerm.add(augmentedMatrix.elements[i_1][j].mult(variables[j]));
             }
             augmentedMatrix.elements[i_1][this.numberOfVariables] = freeTerm;
@@ -81,8 +85,8 @@ var SystemOfLinearEquationsGenerator = /** @class */ (function () {
             while (row1 === row2) {
                 row2 = Math.floor(Math.random() * this.numberOfIndependentEquations);
             }
-            var coeficient1 = new RationalNumber(Math.floor(Math.random() * 10 - 5));
-            var coeficient2 = new RationalNumber(Math.floor(Math.random() * 10 - 5));
+            var coeficient1 = new RationalNumber_1.RationalNumber(Math.floor(Math.random() * 10 - 5));
+            var coeficient2 = new RationalNumber_1.RationalNumber(Math.floor(Math.random() * 10 - 5));
             for (var j = 0; j < (this.numberOfVariables + 1); j++) {
                 augmentedMatrix.elements[i][j] = coeficient1.mult(augmentedMatrix.elements[row1][j])
                     .add(coeficient2.mult(augmentedMatrix.elements[row2][j]));
@@ -92,11 +96,12 @@ var SystemOfLinearEquationsGenerator = /** @class */ (function () {
     SystemOfLinearEquationsGenerator.prototype.makeSystemInconsistent = function (augmentedMatrix) {
         if (!this.hasSolution) {
             for (var i = 0; i < this.numberOfEquations; i++) {
-                augmentedMatrix.elements[i][this.numberOfVariables + 1] = new RationalNumber(Math.floor(Math.random() * 100 - 50));
+                augmentedMatrix.elements[i][this.numberOfVariables + 1] = new RationalNumber_1.RationalNumber(Math.floor(Math.random() * 100 - 50));
                 // just change the free variables random
             }
         }
     };
     return SystemOfLinearEquationsGenerator;
 }());
+exports.SystemOfLinearEquationsGenerator = SystemOfLinearEquationsGenerator;
 //# sourceMappingURL=SystemOfLinearEquationsGenerator.js.map

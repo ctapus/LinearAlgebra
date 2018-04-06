@@ -1,6 +1,5 @@
-﻿/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/Polynomial.ts" />
-/// <chutzpah_reference path="../structures/Polynomial.js" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Polynomial, PolynomialTerm, VariableTerm } from "../structures/Polynomial";
 
 QUnit.module("Polynomial");
 QUnit.test("identity", () => {

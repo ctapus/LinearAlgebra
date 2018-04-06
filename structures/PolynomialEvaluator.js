@@ -1,4 +1,8 @@
-//TODO: refactor to generics
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Polynomial_1 = require("../structures/Polynomial");
+var RationalNumber_1 = require("../structures/RationalNumber");
+// todo: refactor to generics
 var PolynomialTokenType;
 (function (PolynomialTokenType) {
     PolynomialTokenType[PolynomialTokenType["Plus"] = 0] = "Plus";
@@ -12,7 +16,7 @@ var PolynomialTokenType;
     PolynomialTokenType[PolynomialTokenType["RParen"] = 8] = "RParen";
     PolynomialTokenType[PolynomialTokenType["End"] = 9] = "End";
     PolynomialTokenType[PolynomialTokenType["Unknown"] = 10] = "Unknown";
-})(PolynomialTokenType || (PolynomialTokenType = {}));
+})(PolynomialTokenType = exports.PolynomialTokenType || (exports.PolynomialTokenType = {}));
 var PolynomialToken = /** @class */ (function () {
     function PolynomialToken(type, value, variable) {
         this.type = type;
@@ -21,20 +25,23 @@ var PolynomialToken = /** @class */ (function () {
     }
     return PolynomialToken;
 }());
+exports.PolynomialToken = PolynomialToken;
 var PolynomialLexer = /** @class */ (function () {
     function PolynomialLexer(input) {
         this.tokens = input.replace(" ", "").match(/\(|\)|\d+(\.\d+)?|[\+\-\*\/\^]|[a-zA-Z]+[a-zA-Z0-9_]*/g);
         this.tokenIndex = 0;
     }
     PolynomialLexer.prototype.getTokenAndAdvance = function () {
-        if (this.tokens.length === this.tokenIndex)
+        if (this.tokens.length === this.tokenIndex) {
             return new PolynomialToken(PolynomialTokenType.End);
+        }
         var input = this.tokens[this.tokenIndex++];
         return this.getToken(input);
     };
     PolynomialLexer.prototype.revert = function () {
-        if (this.tokenIndex <= 0)
+        if (this.tokenIndex <= 0) {
             throw Error("Index out of range");
+        }
         this.tokenIndex--;
     };
     PolynomialLexer.prototype.getToken = function (input) {
@@ -69,6 +76,7 @@ var PolynomialLexer = /** @class */ (function () {
     };
     return PolynomialLexer;
 }());
+exports.PolynomialLexer = PolynomialLexer;
 var PolynomialParser = /** @class */ (function () {
     function PolynomialParser() {
     }
@@ -105,7 +113,7 @@ var PolynomialParser = /** @class */ (function () {
                     polynomial = polynomial.div(this.expr());
                     break;
                 case PolynomialTokenType.Caret:
-                    //TODO: implement it
+                    // todo: implement it
                     break;
                 default:
                     break;
@@ -118,7 +126,7 @@ var PolynomialParser = /** @class */ (function () {
         token = this.lex.getTokenAndAdvance();
         while (PolynomialTokenType.Plus === token.type || PolynomialTokenType.Minus === token.type ||
             PolynomialTokenType.Asterisk === token.type || PolynomialTokenType.Slash === token.type) {
-            //TODO: make a polynomial expression structure
+            // todo: make a polynomial expression structure
             token = this.lex.getTokenAndAdvance();
         }
         return polynomial;
@@ -153,7 +161,7 @@ var PolynomialParser = /** @class */ (function () {
             token = this.lex.getTokenAndAdvance();
         }
         this.lex.revert();
-        return new Polynomial(polynomialTerms);
+        return new Polynomial_1.Polynomial(polynomialTerms);
     };
     PolynomialParser.prototype.polynomialTerm = function () {
         var ret = null;
@@ -161,7 +169,7 @@ var PolynomialParser = /** @class */ (function () {
         var variableTerms = [];
         var token = this.lex.getTokenAndAdvance();
         if (PolynomialTokenType.Number === token.type) {
-            coefficient = new RationalNumber(token.value);
+            coefficient = new RationalNumber_1.RationalNumber(token.value);
             token = this.lex.getTokenAndAdvance();
             if (PolynomialTokenType.Asterisk === token.type) {
                 var vt = this.variableTerm();
@@ -172,17 +180,17 @@ var PolynomialParser = /** @class */ (function () {
             else {
                 this.lex.revert();
             }
-            ret = new PolynomialTerm(coefficient, variableTerms);
+            ret = new Polynomial_1.PolynomialTerm(coefficient, variableTerms);
         }
         else {
             if (PolynomialTokenType.Variable === token.type) {
                 this.lex.revert();
-                coefficient = new RationalNumber(1);
+                coefficient = new RationalNumber_1.RationalNumber(1);
                 var vt = this.variableTerm();
                 if (null !== vt) {
                     variableTerms.push(vt);
                 }
-                ret = new PolynomialTerm(coefficient, variableTerms);
+                ret = new Polynomial_1.PolynomialTerm(coefficient, variableTerms);
             }
         }
         token = this.lex.getTokenAndAdvance();
@@ -216,12 +224,13 @@ var PolynomialParser = /** @class */ (function () {
             else {
                 this.lex.revert();
             }
-            ret = new VariableTerm(variable, exponent);
+            ret = new Polynomial_1.VariableTerm(variable, exponent);
         }
         return ret;
     };
     return PolynomialParser;
 }());
+exports.PolynomialParser = PolynomialParser;
 /*
 expr			: LPARAM polynomial RPARAM
                 | LPARAM polynomial RPARAM CARET number

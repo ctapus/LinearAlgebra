@@ -1,7 +1,6 @@
-﻿/// <reference path="../structures/Vector.ts" />
-/// <reference path="../structures/Matrix.ts" />
+﻿import { SystemOfLinearEquations } from "../structures/SystemOfLinearEquations";
 
-class SystemOfLinearEquationsPresenter {
+export class SystemOfLinearEquationsPresenter {
 	public static printTableSystem(systemOfEquations: SystemOfLinearEquations, container: JQuery): void {
 		let table0: JQuery = $("<table></table>");
 		let tr0: JQuery = $("<tr></tr>");

@@ -1,4 +1,5 @@
-/// <reference path="../structures/Matrix.ts" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var MatrixPresenter = /** @class */ (function () {
     function MatrixPresenter() {
     }
@@ -136,4 +137,5 @@ var MatrixPresenter = /** @class */ (function () {
     };
     return MatrixPresenter;
 }());
+exports.MatrixPresenter = MatrixPresenter;
 //# sourceMappingURL=MatrixPresenter.js.map

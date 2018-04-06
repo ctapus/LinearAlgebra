@@ -1,6 +1,4 @@
-﻿/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/rationalNumber.ts" />
-/// <chutzpah_reference path="../structures/rationalNumber.js" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
 
 QUnit.module("RationalNumber");
 QUnit.test("constructor two params", () => {

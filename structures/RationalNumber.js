@@ -1,4 +1,6 @@
-/// <reference path="ArithmeticEvaluator.ts" />
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var ArithmeticEvaluator_1 = require("../structures/ArithmeticEvaluator");
 var RationalNumber = /** @class */ (function () {
     function RationalNumber(n, d) {
         if (d === void 0) { d = 1; }
@@ -140,7 +142,7 @@ var RationalNumber = /** @class */ (function () {
         return new RationalNumber(this.numerator, this.denominator);
     };
     RationalNumber.fromString = function (code) {
-        var p = new Parser();
+        var p = new ArithmeticEvaluator_1.Parser();
         return p.parse(code);
     };
     RationalNumber.isNumber = function (code) {
@@ -247,4 +249,5 @@ var RationalNumber = /** @class */ (function () {
     };
     return RationalNumber;
 }());
+exports.RationalNumber = RationalNumber;
 //# sourceMappingURL=RationalNumber.js.map

@@ -1,7 +1,7 @@
-﻿/// <reference path="MatrixIdentity.ts" />
-/// <reference path="Vector.ts" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Vector, RowVector, ColumnVector } from "../structures/Vector";
 
-class Matrix {
+export class Matrix {
 	public m: number;// rows
 	public n: number;// columns
 	elements: RationalNumber[][];
@@ -384,5 +384,68 @@ class Matrix {
 		// todo: change below
 		const matrix: Matrix = new Matrix(Math.floor(Math.random() * 4) + 3, Math.floor(Math.random() * 4) + 3);
 		return matrix;
+	}
+}
+
+export class MatrixIdentity extends Matrix {
+	constructor(m: number) {
+		super(m, m);
+		this.elements = [];
+		for (let i: number = 0; i < this.m; i++) {
+			this.elements[i] = [];
+			for (let j: number = 0; j < this.m; j++) {
+				if (i === j) {
+					this.elements[i][j] = new RationalNumber(1);
+				} else { this.elements[i][j] = new RationalNumber(0); }
+			}
+		}
+	}
+}
+
+// elimination - multiply on the left (E*A); Row-addition transformations
+// to mult*(row2 of Matrix A) add (row1 of Matrix A)
+export class MatrixElimination extends Matrix {
+	public row1: number;
+	public row2: number;
+	constructor(m: number, r1: number, r2: number, mult: number | RationalNumber) {
+		if (m < r1 || m < r2) { throw new Error("Column index must be less than or equal to the matrix size."); }
+		super(m, m);
+		this.row1 = r1;
+		this.row2 = r2;
+		this.elements = [];
+		for (let i: number = 0; i < this.m; i++) {
+			this.elements[i] = [];
+			for (let j: number = 0; j < this.m; j++) {
+				if (i === j) {
+					this.elements[i][j] = new RationalNumber(1);
+				} else { this.elements[i][j] = new RationalNumber(0); }
+			}
+		}
+		if (typeof mult === "number") {
+			this.elements[r1][r2] = new RationalNumber(mult);
+		} else {
+			if (mult instanceof RationalNumber) { this.elements[r1][r2] = mult; }
+		}
+	}
+}
+
+// permutation - multiply on the right (A*P); Row-switching transformations
+export class MatrixPermutation extends Matrix {
+	constructor(m: number, row1: number, row2: number) {
+		if (m < row1 || m < row2) { throw new Error("Column index must be less than or equal to the matrix size."); }
+		super(m, m);
+		this.elements = [];
+		for (let i: number = 0; i < this.m; i++) {
+			this.elements[i] = [];
+			for (let j: number = 0; j < this.m; j++) {
+				if (i === j) {
+					this.elements[i][j] = new RationalNumber(1);
+				} else { this.elements[i][j] = new RationalNumber(0); }
+			}
+		}
+		this.elements[row1][row1] = new RationalNumber(0);
+		this.elements[row1][row2] = new RationalNumber(1);
+		this.elements[row2][row2] = new RationalNumber(0);
+		this.elements[row2][row1] = new RationalNumber(1);
 	}
 }

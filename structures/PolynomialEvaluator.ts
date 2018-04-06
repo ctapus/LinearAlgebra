@@ -1,6 +1,9 @@
-﻿//TODO: refactor to generics
-enum PolynomialTokenType { Plus, Minus, Asterisk, Slash, Caret, Number, Variable, LParen, RParen, End, Unknown }
-class PolynomialToken {
+﻿import { Polynomial, PolynomialTerm, VariableTerm } from "../structures/Polynomial";
+import { RationalNumber } from "../structures/RationalNumber";
+
+// todo: refactor to generics
+export enum PolynomialTokenType { Plus, Minus, Asterisk, Slash, Caret, Number, Variable, LParen, RParen, End, Unknown }
+export class PolynomialToken {
 	public type: PolynomialTokenType;
 	public value: number;
 	public variable: string;
@@ -10,7 +13,7 @@ class PolynomialToken {
 		this.variable = variable;
 	}
 }
-class PolynomialLexer {
+export class PolynomialLexer {
 	private tokens: string[];
 	private tokenIndex: number;
 	constructor(input: string) {
@@ -18,12 +21,12 @@ class PolynomialLexer {
 		this.tokenIndex = 0;
 	}
 	public getTokenAndAdvance(): PolynomialToken {
-		if (this.tokens.length === this.tokenIndex) return new PolynomialToken(PolynomialTokenType.End);
+		if (this.tokens.length === this.tokenIndex) { return new PolynomialToken(PolynomialTokenType.End); }
 		let input: string = this.tokens[this.tokenIndex++];
 		return this.getToken(input);
 	}
 	public revert(): void {
-		if (this.tokenIndex <= 0) throw Error("Index out of range");
+		if (this.tokenIndex <= 0) { throw Error("Index out of range"); }
 		this.tokenIndex--;
 	}
 	private getToken(input: string): PolynomialToken {
@@ -57,7 +60,7 @@ class PolynomialLexer {
 		return new PolynomialToken(PolynomialTokenType.Unknown);
 	}
 }
-class PolynomialParser {
+export class PolynomialParser {
 	private lex: PolynomialLexer;
 	public parse(code: string): Polynomial {
 		this.lex = new PolynomialLexer(code);
@@ -92,20 +95,19 @@ class PolynomialParser {
 					polynomial = polynomial.div(this.expr());
 					break;
 				case PolynomialTokenType.Caret:
-					//TODO: implement it
+					// todo: implement it
 					break;
 				default:
 					break;
 			}
-		}
-		else {
+		} else {
 			this.lex.revert();
 			polynomial = this.polynomial();
 		}
 		token = this.lex.getTokenAndAdvance();
 		while (PolynomialTokenType.Plus === token.type || PolynomialTokenType.Minus === token.type ||
 			PolynomialTokenType.Asterisk === token.type || PolynomialTokenType.Slash === token.type) {
-			//TODO: make a polynomial expression structure
+			// todo: make a polynomial expression structure
 			token = this.lex.getTokenAndAdvance();
 		}
 		return polynomial;
@@ -159,8 +161,7 @@ class PolynomialParser {
 				this.lex.revert();
 			}
 			ret = new PolynomialTerm(coefficient, variableTerms);
-		}
-		else {
+		} else {
 			if (PolynomialTokenType.Variable === token.type) {
 				this.lex.revert();
 				coefficient = new RationalNumber(1);
@@ -194,12 +195,10 @@ class PolynomialParser {
 				token = this.lex.getTokenAndAdvance();
 				if (PolynomialTokenType.Number === token.type) {
 					exponent = token.value;
-				}
-				else {
+				} else {
 					throw Error("Exponent missing");
 				}
-			}
-			else {
+			} else {
 				this.lex.revert();
 			}
 			ret = new VariableTerm(variable, exponent);

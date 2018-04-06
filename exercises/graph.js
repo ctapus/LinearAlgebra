@@ -1,6 +1,4 @@
-/// <reference path="../node_modules/@types/jquery/index.d.ts" />
-/// <reference path="../structures/Vector.ts" />
-/// <reference path="../presenters/MatrixPresenter.ts" />
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -11,20 +9,26 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+Object.defineProperty(exports, "__esModule", { value: true });
+/// <reference path="../node_modules/@types/jquery/index.d.ts" />
+var RationalNumber_1 = require("../structures/RationalNumber");
+var Vector_1 = require("../structures/Vector");
+var Matrix_1 = require("../structures/Matrix");
+var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
 var Vector2D = /** @class */ (function (_super) {
     __extends(Vector2D, _super);
     function Vector2D(x, y) {
         var _this = _super.call(this, 2) || this;
         if (typeof x === "number") {
-            _this.elements[0] = new RationalNumber(x);
+            _this.elements[0] = new RationalNumber_1.RationalNumber(x);
         }
-        else if (x instanceof RationalNumber) {
+        else if (x instanceof RationalNumber_1.RationalNumber) {
             _this.elements[0] = x;
         }
         if (typeof y === "number") {
-            _this.elements[1] = new RationalNumber(y);
+            _this.elements[1] = new RationalNumber_1.RationalNumber(y);
         }
-        else if (y instanceof RationalNumber) {
+        else if (y instanceof RationalNumber_1.RationalNumber) {
             _this.elements[1] = y;
         }
         return _this;
@@ -44,13 +48,13 @@ var Vector2D = /** @class */ (function (_super) {
         configurable: true
     });
     Vector2D.prototype.toRowVector = function () {
-        var res = new RowVector(2);
-        res.elements = [new RationalNumber(this.x), new RationalNumber(this.y)];
+        var res = new Vector_1.RowVector(2);
+        res.elements = [new RationalNumber_1.RationalNumber(this.x), new RationalNumber_1.RationalNumber(this.y)];
         return res;
     };
     Vector2D.prototype.toColumnVector = function () {
-        var res = new ColumnVector(2);
-        res.elements = [new RationalNumber(this.x), new RationalNumber(this.y)];
+        var res = new Vector_1.ColumnVector(2);
+        res.elements = [new RationalNumber_1.RationalNumber(this.x), new RationalNumber_1.RationalNumber(this.y)];
         return res;
     };
     Vector2D.fromVector = function (v) {
@@ -60,19 +64,19 @@ var Vector2D = /** @class */ (function (_super) {
         return new Vector2D(v.elements[0], v.elements[1]);
     };
     Vector2D.GetScallingMatrix = function (scale) {
-        var m = new Matrix(2, 2);
-        m.elements = [[new RationalNumber(scale), new RationalNumber(0)], [new RationalNumber(0), new RationalNumber(scale)]];
+        var m = new Matrix_1.Matrix(2, 2);
+        m.elements = [[new RationalNumber_1.RationalNumber(scale), new RationalNumber_1.RationalNumber(0)], [new RationalNumber_1.RationalNumber(0), new RationalNumber_1.RationalNumber(scale)]];
         return m;
     };
     Vector2D.GetRotationMatrix = function (angle) {
         var rotationAngle = angle * (180 / Math.PI); // converted to radians
-        var m = new Matrix(2, 2);
-        m.elements = [[new RationalNumber(Math.cos(rotationAngle)), new RationalNumber(-Math.sin(rotationAngle))],
-            [new RationalNumber(Math.sin(rotationAngle)), new RationalNumber(Math.cos(rotationAngle))]];
+        var m = new Matrix_1.Matrix(2, 2);
+        m.elements = [[new RationalNumber_1.RationalNumber(Math.cos(rotationAngle)), new RationalNumber_1.RationalNumber(-Math.sin(rotationAngle))],
+            [new RationalNumber_1.RationalNumber(Math.sin(rotationAngle)), new RationalNumber_1.RationalNumber(Math.cos(rotationAngle))]];
         return m;
     };
     return Vector2D;
-}(Vector));
+}(Vector_1.Vector));
 function randomVector2D() {
     return new Vector2D(Math.floor(Math.random() * 20) - 10, Math.floor(Math.random() * 20) - 10);
 }
@@ -161,7 +165,7 @@ $(document).ready(function () {
             $("#legend").append($("<div></div>").text("Transformation matrix:"));
             var divMatrix = $("<div></div>");
             $("#legend").append(divMatrix);
-            MatrixPresenter.printTableMatrix(transformation, divMatrix);
+            MatrixPresenter_1.MatrixPresenter.printTableMatrix(transformation, divMatrix);
             $("#legend").append($("<div></div>").text("Transformed vector: (" + transformedVector.x + ", " + transformedVector.y + ")")
                 .css("color", transformedVectorColor));
         }
@@ -169,15 +173,15 @@ $(document).ready(function () {
     function drawChangeCoordinates() {
         drawVector(secondBasis[0], secondVectorSpaceAxesColor);
         drawVector(secondBasis[1], secondVectorSpaceAxesColor);
-        var changeOfCoordinatesMatrix = new Matrix(2, 2);
-        changeOfCoordinatesMatrix.elements[0] = [new RationalNumber(6), new RationalNumber(2)];
-        changeOfCoordinatesMatrix.elements[1] = [new RationalNumber(2), new RationalNumber(6)];
+        var changeOfCoordinatesMatrix = new Matrix_1.Matrix(2, 2);
+        changeOfCoordinatesMatrix.elements[0] = [new RationalNumber_1.RationalNumber(6), new RationalNumber_1.RationalNumber(2)];
+        changeOfCoordinatesMatrix.elements[1] = [new RationalNumber_1.RationalNumber(2), new RationalNumber_1.RationalNumber(6)];
         var vectorSecondBasis = Vector2D.fromVector(changeOfCoordinatesMatrix
             .vectorProduct(vector.toColumnVector())); // it's the other way around
         $("#legend").append($("<div></div>").text("Change of basis matrix:"));
         var divMatrix = $("<div></div>");
         $("#legend").append(divMatrix);
-        MatrixPresenter.printTableMatrix(changeOfCoordinatesMatrix, divMatrix);
+        MatrixPresenter_1.MatrixPresenter.printTableMatrix(changeOfCoordinatesMatrix, divMatrix);
         $("#legend").append($("<div></div>").text("Vector in the new basis: (" + vectorSecondBasis.x + ", " + vectorSecondBasis.y + ")")
             .css("color", transformedVectorColor));
     }

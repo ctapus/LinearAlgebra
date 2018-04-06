@@ -1,6 +1,4 @@
-﻿/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/Queue.ts" />
-/// <chutzpah_reference path="../structures/Queue.js" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
 
 QUnit.module("Queue");
 QUnit.test("isEmptyPositive", () => {

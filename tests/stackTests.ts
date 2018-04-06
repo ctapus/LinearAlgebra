@@ -1,6 +1,4 @@
-﻿/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/Stack.ts" />
-/// <chutzpah_reference path="../structures/Stack.js" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
 
 QUnit.module("Stack");
 QUnit.test("isEmptyPositive", () => {

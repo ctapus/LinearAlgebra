@@ -1,7 +1,7 @@
-﻿/// <reference path="../node_modules/@types/qunit/index.d.ts" />
-/// <reference path="../structures/VectorSpace.ts" />
-/// <chutzpah_reference path="../structures/Vector.js" />
-/// <chutzpah_reference path="../structures/VectorSpace.js" />
+﻿import { RationalNumber } from "../structures/RationalNumber";
+import { Vector } from "../structures/Vector";
+import { VectorSpace } from "../structures/VectorSpace";
+import { Matrix } from "../structures/Matrix";
 
 QUnit.module("VectorSpace");
 QUnit.test("number constructor", () => {
