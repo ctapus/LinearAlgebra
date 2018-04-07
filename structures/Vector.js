@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var Matrix_1 = require("../structures/Matrix");
 var RationalNumber_1 = require("../structures/RationalNumber");
 var Vector = /** @class */ (function () {

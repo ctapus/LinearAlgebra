@@ -3,13 +3,13 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-   "typescript": "^2.6.1"
+    "typescript": "^2.6.1"
   },
   "devDependencies": {
     "@types/bootstrap": "^4.0.0",
+    "@types/chai": "^4.0.5",
     "@types/jquery": "^3.3.1",
     "@types/jqueryui": "^1.12.2",
-    "@types/chai": "^4.0.5",
     "@types/mocha": "^2.2.44",
     "chai": "^4.1.2",
     "del": "^3.0.0",

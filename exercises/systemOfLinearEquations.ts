@@ -1,4 +1,5 @@
-﻿import { SystemOfLinearEquationsGenerator } from "../generators/SystemOfLinearEquationsGenerator";
+﻿import * as $ from "jquery";
+import { SystemOfLinearEquationsGenerator } from "../generators/SystemOfLinearEquationsGenerator";
 import { MatrixPresenter } from "../presenters/MatrixPresenter";
 import { SystemOfLinearEquationsPresenter } from "../presenters/SystemOfLinearEquationsPresenter";
 import { Matrix, MatrixIdentity } from "../structures/Matrix";

@@ -1,4 +1,5 @@
-﻿import { ALUGenerator } from "../generators/ALUGenerator";
+﻿import * as $ from "jquery";
+import { ALUGenerator } from "../generators/ALUGenerator";
 import { MatrixPresenter } from "../presenters/MatrixPresenter";
 import { Matrix, MatrixIdentity } from "../structures/Matrix";
 import { Queue } from "../structures/Queue";

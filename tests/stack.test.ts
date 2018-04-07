@@ -1,8 +1,8 @@
-import { expect } from "chai";
-import { Stack } from "../structures/Stack";
 // tslint:disable:no-unused-expression
 // tslint:disable:eofline
 // tslint:disable:max-line-length
+import { expect } from "chai";
+import { Stack } from "../structures/Stack";
 
 describe("Stack test suite", () => {
     it("isEmpty should return true for an empty stack", () => {

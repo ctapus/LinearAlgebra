@@ -1,9 +1,10 @@
+// tslint:disable:no-unused-expression
+// tslint:disable:eofline
+// tslint:disable:max-line-length
 import { expect } from "chai";
 import { Matrix } from "../structures/Matrix";
 import { RationalNumber } from "../structures/RationalNumber";
 import { RowVector, Vector } from "../structures/Vector";
-// tslint:disable:no-unused-expression
-// tslint:disable:eofline
 
 describe("Vector test suite", () => {
   it("Can be constructed from an array", () => {

@@ -1,9 +1,9 @@
-import { expect } from "chai";
-import { Polynomial, PolynomialTerm, VariableTerm } from "../structures/Polynomial";
-import { RationalNumber } from "../structures/RationalNumber";
 // tslint:disable:no-unused-expression
 // tslint:disable:eofline
 // tslint:disable:max-line-length
+import { expect } from "chai";
+import { Polynomial, PolynomialTerm, VariableTerm } from "../structures/Polynomial";
+import { RationalNumber } from "../structures/RationalNumber";
 
 describe("Polinomial test suite", () => {
     it("Can be constructed", () => {

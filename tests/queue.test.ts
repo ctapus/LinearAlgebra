@@ -1,8 +1,8 @@
-import { expect } from "chai";
-import { Queue } from "../structures/Queue";
 // tslint:disable:no-unused-expression
 // tslint:disable:eofline
 // tslint:disable:max-line-length
+import { expect } from "chai";
+import { Queue } from "../structures/Queue";
 
 describe("Queue test suite", () => {
     it("isEmpty should return true for an empty queue", () => {

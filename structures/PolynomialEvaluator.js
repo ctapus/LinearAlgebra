@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var Polynomial_1 = require("../structures/Polynomial");
 var RationalNumber_1 = require("../structures/RationalNumber");
 // todo: refactor to generics

@@ -1,4 +1,4 @@
-﻿/// <reference path="../node_modules/@types/jquery/index.d.ts" />
+﻿import * as $ from "jquery";
 import { MatrixPresenter } from "../presenters/MatrixPresenter";
 import { Matrix } from "../structures/Matrix";
 import { Queue } from "../structures/Queue";

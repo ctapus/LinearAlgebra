@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var RationalNumber_1 = require("../structures/RationalNumber");
 var Matrix_1 = require("../structures/Matrix");
 var Vector_1 = require("../structures/Vector");
