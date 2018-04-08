@@ -18,7 +18,7 @@ describe("Vector test suite", () => {
   it("Can be constructed from a number", () => {
     const vector: Vector = new Vector(3);
     expect(vector).to.not.be.null;
-    expect(vector.m).to.equals(3);
+    expect(vector.m).to.equal(3);
   });
   it("Can be added to a vector of same dimension", () => {
     const v1: Vector = new Vector([1, 2, 3]);

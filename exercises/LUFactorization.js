@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var $ = require("jquery");
 var ALUGenerator_1 = require("../generators/ALUGenerator");
 var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
 var Matrix_1 = require("../structures/Matrix");

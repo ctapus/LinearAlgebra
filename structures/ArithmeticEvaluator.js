@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Queue_1 = require("../structures/Queue");
 var RationalNumber_1 = require("../structures/RationalNumber");
 var Stack_1 = require("../structures/Stack");

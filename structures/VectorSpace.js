@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Matrix_1 = require("../structures/Matrix");
 var VectorSpace = /** @class */ (function () {
     function VectorSpace(n) {

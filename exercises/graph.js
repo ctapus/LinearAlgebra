@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-/// <reference path="../node_modules/@types/jquery/index.d.ts" />
+var $ = require("jquery");
 var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
 var Matrix_1 = require("../structures/Matrix");
 var Queue_1 = require("../structures/Queue");

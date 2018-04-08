@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 // tslint:disable:no-unused-expression
 // tslint:disable:eofline
 // tslint:disable:max-line-length
@@ -8,7 +8,7 @@ var ArithmeticEvaluator_1 = require("../structures/ArithmeticEvaluator");
 describe("ArithmeticEvaluator test suite", function () {
     it("Can lex", function () {
         var tokens = ArithmeticEvaluator_1.ArithmeticEvaluator.toReversePolishNotation("3.5 + 4/(2 + 2)");
-        chai_1.expect(tokens).to.not.be["null"];
+        chai_1.expect(tokens).to.not.be.null;
         chai_1.expect(tokens.length).to.equal(7);
         chai_1.expect(tokens[0]).to.equal("3.5");
         chai_1.expect(tokens[1]).to.equal("4");
@@ -20,7 +20,7 @@ describe("ArithmeticEvaluator test suite", function () {
     });
     it("Can lex a negative expression", function () {
         var tokens = ArithmeticEvaluator_1.ArithmeticEvaluator.toReversePolishNotation("-3/2");
-        chai_1.expect(tokens).to.not.be["null"];
+        chai_1.expect(tokens).to.not.be.null;
         chai_1.expect(tokens.length).to.equal(4);
         chai_1.expect(tokens[0]).to.equal("3");
         chai_1.expect(tokens[1]).to.equal("2");
@@ -52,22 +52,22 @@ describe("ArithmeticEvaluator test suite", function () {
     it("Can parse", function () {
         var parser = new ArithmeticEvaluator_1.Parser();
         var res = parser.parse("3+3/1");
-        chai_1.expect(res.equals(6)).to.be["true"];
+        chai_1.expect(res.equals(6)).to.be.true;
     });
     it("Can parse paranthesis", function () {
         var parser = new ArithmeticEvaluator_1.Parser();
         var res = parser.parse("3+3/(1+2)");
-        chai_1.expect(res.equals(4)).to.be["true"];
+        chai_1.expect(res.equals(4)).to.be.true;
     });
     it("Can parse unary operator", function () {
         var parser = new ArithmeticEvaluator_1.Parser();
         var res = parser.parse("-3/+(1+2)");
-        chai_1.expect(res.equals(-1)).to.be["true"];
+        chai_1.expect(res.equals(-1)).to.be.true;
     });
     it("Can parse power", function () {
         var parser = new ArithmeticEvaluator_1.Parser();
         var res = parser.parse("+3^2+2");
-        chai_1.expect(res.equals(11)).to.be["true"];
+        chai_1.expect(res.equals(11)).to.be.true;
     });
 });
 //# sourceMappingURL=arithmeticEvaluator.test.js.map
