@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var RationalNumber_1 = require("../structures/RationalNumber");
-var PolynomialExpression = /** @class */ (function () {
-    function PolynomialExpression(terms) {
-        if (terms === void 0) { terms = null; }
+import { RationalNumber } from "../structures/RationalNumber";
+export class PolynomialExpression {
+    constructor(terms = null) {
         if (null === terms) {
             this.terms = [];
         }
@@ -11,44 +8,36 @@ var PolynomialExpression = /** @class */ (function () {
             this.terms = terms;
         }
     }
-    PolynomialExpression.prototype.condense = function () {
-        for (var _i = 0, _a = this.terms; _i < _a.length; _i++) {
-            var pt = _a[_i];
+    condense() {
+        for (let pt of this.terms) {
             pt.condense();
         }
-    };
-    PolynomialExpression.prototype.calculate = function () {
-        var ret = new Polynomial();
-        for (var _i = 0, _a = this.terms; _i < _a.length; _i++) {
-            var pt = _a[_i];
+    }
+    calculate() {
+        let ret = new Polynomial();
+        for (let pt of this.terms) {
             ret.add(pt.calculate());
         }
         return ret;
-    };
-    return PolynomialExpression;
-}());
-exports.PolynomialExpression = PolynomialExpression;
-var PolynomialExpressionTerm = /** @class */ (function () {
-    function PolynomialExpressionTerm(polynomial, exponent) {
-        if (exponent === void 0) { exponent = 1; }
+    }
+}
+export class PolynomialExpressionTerm {
+    constructor(polynomial, exponent = 1) {
         this.polynomial = polynomial;
         this.exponent = exponent;
     }
-    PolynomialExpressionTerm.prototype.condense = function () {
+    condense() {
         this.polynomial.condense();
-    };
-    PolynomialExpressionTerm.prototype.deepCopy = function () {
+    }
+    deepCopy() {
         return new PolynomialExpressionTerm(this.polynomial.deepCopy(), this.exponent);
-    };
-    PolynomialExpressionTerm.prototype.calculate = function () {
+    }
+    calculate() {
         return this.polynomial.deepCopy().exp(this.exponent);
-    };
-    return PolynomialExpressionTerm;
-}());
-exports.PolynomialExpressionTerm = PolynomialExpressionTerm;
-var Polynomial = /** @class */ (function () {
-    function Polynomial(terms) {
-        if (terms === void 0) { terms = null; }
+    }
+}
+export class Polynomial {
+    constructor(terms = null) {
         if (null === terms) {
             this.terms = [];
         }
@@ -56,99 +45,88 @@ var Polynomial = /** @class */ (function () {
             this.terms = terms;
         }
     }
-    Polynomial.prototype.add = function (p) {
+    add(p) {
         this.condense();
         p.condense();
-        var res = new Polynomial();
+        let res = new Polynomial();
         res.terms.concat(this.terms);
         res.terms.concat(p.terms);
         res.condense();
         return res;
-    };
-    Polynomial.prototype.sub = function (p) {
+    }
+    sub(p) {
         this.condense();
         p.condense();
-        var res = new Polynomial();
+        let res = new Polynomial();
         res.terms.concat(this.terms);
-        res.terms.concat(p.terms.map(function (term) { return new PolynomialTerm(term.coefficient.mult(-1), term.variables); }));
+        res.terms.concat(p.terms.map((term) => new PolynomialTerm(term.coefficient.mult(-1), term.variables)));
         res.condense();
         return res;
-    };
-    Polynomial.prototype.mult = function (p) {
+    }
+    mult(p) {
         this.condense();
         p.condense();
-        var res = new Polynomial();
-        for (var _i = 0, _a = this.terms; _i < _a.length; _i++) {
-            var t1 = _a[_i];
-            for (var _b = 0, _c = p.terms; _b < _c.length; _b++) {
-                var t2 = _c[_b];
-                var t = new PolynomialTerm(t1.coefficient.mult(t2.coefficient));
+        let res = new Polynomial();
+        for (let t1 of this.terms) {
+            for (let t2 of p.terms) {
+                let t = new PolynomialTerm(t1.coefficient.mult(t2.coefficient));
                 res.terms.concat(t);
             }
         }
         res.condense();
         return res;
-    };
-    Polynomial.prototype.div = function (p) {
+    }
+    div(p) {
         throw "Not implemented.";
-    };
-    Polynomial.prototype.exp = function (p) {
-        var res = this.deepCopy();
-        for (var i = 1; i <= p; i++) {
+    }
+    exp(p) {
+        let res = this.deepCopy();
+        for (let i = 1; i <= p; i++) {
             res = res.mult(this);
         }
         return res;
-    };
-    Polynomial.prototype.condense = function () {
-        var newTerms = [];
-        for (var _i = 0, _a = this.terms; _i < _a.length; _i++) {
-            var t = _a[_i];
+    }
+    condense() {
+        let newTerms = [];
+        for (let t of this.terms) {
             if (!t.coefficient.equals(0)) {
                 t.condense();
                 newTerms.push(t);
             }
         }
-        for (var _b = 0, newTerms_1 = newTerms; _b < newTerms_1.length; _b++) {
-            var t = newTerms_1[_b];
-            for (var _c = 0, newTerms_2 = newTerms; _c < newTerms_2.length; _c++) {
-                var t2 = newTerms_2[_c];
+        for (let t of newTerms) {
+            for (let t2 of newTerms) {
                 if (t.equals(t2)) {
                     t.coefficient.add(t2.coefficient);
-                    t2.coefficient = new RationalNumber_1.RationalNumber(0);
+                    t2.coefficient = new RationalNumber(0);
                 }
             }
         }
-        var newTerms2 = [];
-        for (var _d = 0, newTerms_3 = newTerms; _d < newTerms_3.length; _d++) {
-            var t = newTerms_3[_d];
+        let newTerms2 = [];
+        for (let t of newTerms) {
             if (!t.coefficient.equals(0)) {
                 newTerms2.push(t);
             }
         }
         this.terms = newTerms2;
-    };
-    Polynomial.prototype.toString = function () {
-        var ts = "";
-        for (var _i = 0, _a = this.terms; _i < _a.length; _i++) {
-            var pt = _a[_i];
+    }
+    toString() {
+        let ts = "";
+        for (let pt of this.terms) {
             ts += pt.toString();
         }
         return ts;
-    };
-    Polynomial.prototype.deepCopy = function () {
-        var ret = new Polynomial();
-        for (var _i = 0, _a = this.terms; _i < _a.length; _i++) {
-            var t = _a[_i];
+    }
+    deepCopy() {
+        let ret = new Polynomial();
+        for (let t of this.terms) {
             ret.terms.push(t.deepCopy());
         }
         return ret;
-    };
-    return Polynomial;
-}());
-exports.Polynomial = Polynomial;
-var PolynomialTerm = /** @class */ (function () {
-    function PolynomialTerm(termCoefficient, variables) {
-        if (variables === void 0) { variables = null; }
+    }
+}
+export class PolynomialTerm {
+    constructor(termCoefficient, variables = null) {
         this.coefficient = termCoefficient;
         if (null === variables) {
             this.variables = [];
@@ -157,35 +135,31 @@ var PolynomialTerm = /** @class */ (function () {
             this.variables = variables;
         }
     }
-    PolynomialTerm.prototype.condense = function () {
+    condense() {
         if (this.coefficient.equals(0)) {
             this.variables = null;
             return;
         }
-        for (var _i = 0, _a = this.variables; _i < _a.length; _i++) {
-            var vt = _a[_i];
-            for (var _b = 0, _c = this.variables; _b < _c.length; _b++) {
-                var v = _c[_b];
+        for (let vt of this.variables) {
+            for (let v of this.variables) {
                 if (vt.variable === v.variable) {
                     vt.exponent += v.exponent;
                     v.exponent = 0;
                 }
             }
         }
-        var newVariables = [];
-        for (var _d = 0, _e = this.variables; _d < _e.length; _d++) {
-            var vt = _e[_d];
+        let newVariables = [];
+        for (let vt of this.variables) {
             if (0 !== vt.exponent) {
                 newVariables.push(vt);
             }
         }
         this.variables = newVariables;
-    };
-    PolynomialTerm.prototype.toString = function () {
-        var vs = "";
-        for (var _i = 0, _a = this.variables; _i < _a.length; _i++) {
-            var vt = _a[_i];
-            var svt = vt.toString();
+    }
+    toString() {
+        let vs = "";
+        for (let vt of this.variables) {
+            let svt = vt.toString();
             if ("1" !== svt) {
                 vs += "*" + svt;
             }
@@ -207,17 +181,15 @@ var PolynomialTerm = /** @class */ (function () {
             return "" === vs ? this.coefficient.toString() : this.coefficient + "*" + vs;
         }
         return "";
-    };
-    PolynomialTerm.prototype.equals = function (polynomialTerm) {
+    }
+    equals(polynomialTerm) {
         if (this.coefficient !== polynomialTerm.coefficient) {
             return false;
         }
         // all this variableTerms are contained in the compared PolynomialTerm variableTerms
-        for (var _i = 0, _a = this.variables; _i < _a.length; _i++) {
-            var variable = _a[_i];
-            var found = false;
-            for (var _b = 0, _c = polynomialTerm.variables; _b < _c.length; _b++) {
-                var v = _c[_b];
+        for (let variable of this.variables) {
+            let found = false;
+            for (let v of polynomialTerm.variables) {
                 if (variable.equals(v)) {
                     found = true;
                 }
@@ -227,11 +199,9 @@ var PolynomialTerm = /** @class */ (function () {
             }
         }
         // all the compared PolynomailTerm variableTerms are contained in the this variableTerms
-        for (var _d = 0, _e = polynomialTerm.variables; _d < _e.length; _d++) {
-            var v = _e[_d];
-            var found = false;
-            for (var _f = 0, _g = this.variables; _f < _g.length; _f++) {
-                var variable = _g[_f];
+        for (let v of polynomialTerm.variables) {
+            let found = false;
+            for (let variable of this.variables) {
                 if (v.equals(variable)) {
                     found = true;
                 }
@@ -241,36 +211,31 @@ var PolynomialTerm = /** @class */ (function () {
             }
         }
         return true;
-    };
-    PolynomialTerm.prototype.deepCopy = function () {
-        var ret = new PolynomialTerm(this.coefficient.deepCopy());
-        for (var _i = 0, _a = this.variables; _i < _a.length; _i++) {
-            var v = _a[_i];
+    }
+    deepCopy() {
+        let ret = new PolynomialTerm(this.coefficient.deepCopy());
+        for (let v of this.variables) {
             this.variables.push(v.deepCopy());
         }
         return ret;
-    };
-    return PolynomialTerm;
-}());
-exports.PolynomialTerm = PolynomialTerm;
-var VariableTerm = /** @class */ (function () {
-    function VariableTerm(variable, exponent) {
+    }
+}
+export class VariableTerm {
+    constructor(variable, exponent) {
         if ("" === variable) {
             throw Error("Variable missing.");
         }
         this.variable = variable;
         this.exponent = exponent;
     }
-    VariableTerm.prototype.toString = function () {
+    toString() {
         return 0 === this.exponent ? "1" : this.variable + (1 === this.exponent ? "" : "^" + this.exponent);
-    };
-    VariableTerm.prototype.equals = function (variableTerm) {
+    }
+    equals(variableTerm) {
         return this.exponent === variableTerm.exponent && this.variable === variableTerm.variable;
-    };
-    VariableTerm.prototype.deepCopy = function () {
+    }
+    deepCopy() {
         return new VariableTerm(this.variable, this.exponent);
-    };
-    return VariableTerm;
-}());
-exports.VariableTerm = VariableTerm;
+    }
+}
 //# sourceMappingURL=Polynomial.js.map

@@ -1,3 +1,3 @@
-$(document).ready(function () {
+$(document).ready(() => {
 });
 //# sourceMappingURL=index.js.map

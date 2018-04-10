@@ -1,21 +1,19 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // tslint:disable:no-unused-expression
 // tslint:disable:eofline
 // tslint:disable:max-line-length
-var chai_1 = require("chai");
-var Stack_1 = require("../structures/Stack");
-describe("Stack test suite", function () {
-    it("isEmpty should return true for an empty stack", function () {
-        var stack = new Stack_1.Stack();
-        chai_1.expect(stack).to.not.be.null;
-        chai_1.expect(stack.isEmpty()).to.be.true;
+import { expect } from "chai";
+import { Stack } from "../structures/Stack";
+describe("Stack test suite", () => {
+    it("isEmpty should return true for an empty stack", () => {
+        const stack = new Stack();
+        expect(stack).to.not.be.null;
+        expect(stack.isEmpty()).to.be.true;
     });
-    it("isEmpty should return false for a non-empty stack", function () {
-        var stack = new Stack_1.Stack();
+    it("isEmpty should return false for a non-empty stack", () => {
+        const stack = new Stack();
         stack.push(1);
-        chai_1.expect(stack).to.not.be.null;
-        chai_1.expect(stack.isEmpty()).to.be.false;
+        expect(stack).to.not.be.null;
+        expect(stack.isEmpty()).to.be.false;
     });
 });
 //# sourceMappingURL=stack.test.js.map

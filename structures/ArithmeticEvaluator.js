@@ -1,24 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var Queue_1 = require("../structures/Queue");
-var RationalNumber_1 = require("../structures/RationalNumber");
-var Stack_1 = require("../structures/Stack");
-var ArithmeticEvaluator = /** @class */ (function () {
-    function ArithmeticEvaluator() {
-    }
-    ArithmeticEvaluator.isNumber = function (code) {
+import { Queue } from "../structures/Queue";
+import { RationalNumber } from "../structures/RationalNumber";
+import { Stack } from "../structures/Stack";
+export class ArithmeticEvaluator {
+    static isNumber(code) {
         return /^\d/.test(code);
-    };
-    ArithmeticEvaluator.isOperator = function (code) {
+    }
+    static isOperator(code) {
         return /[\+\-\*\/\^]/.test(code);
-    };
-    ArithmeticEvaluator.isLeftAssociativeOperator = function (operator) {
+    }
+    static isLeftAssociativeOperator(operator) {
         return /[\+\-\*\/]/.test(operator);
-    };
-    ArithmeticEvaluator.isRightAssociativeOperator = function (operator) {
+    }
+    static isRightAssociativeOperator(operator) {
         return /[\^]/.test(operator);
-    };
-    ArithmeticEvaluator.precedence = function (operator) {
+    }
+    static precedence(operator) {
         if (/[\+\-]/.test(operator)) {
             return 1;
         }
@@ -29,18 +25,18 @@ var ArithmeticEvaluator = /** @class */ (function () {
             return 3;
         }
         throw new Error("Unknown operator.");
-    };
-    ArithmeticEvaluator.toReversePolishNotation = function (code) {
-        var tokens = code.match(/\(|\)|\d+(\.\d+)?|\w+|[\+\-\*\/\^]/g);
-        var i = 0;
-        var outputQueue = new Queue_1.Queue();
-        var operatorStack = new Stack_1.Stack();
+    }
+    static toReversePolishNotation(code) {
+        let tokens = code.match(/\(|\)|\d+(\.\d+)?|\w+|[\+\-\*\/\^]/g);
+        let i = 0;
+        let outputQueue = new Queue();
+        let operatorStack = new Stack();
         while (i < tokens.length) {
             if (this.isNumber(tokens[i])) {
                 outputQueue.enqueue(tokens[i]);
             }
             else if (this.isOperator(tokens[i])) {
-                var op1 = tokens[i];
+                let op1 = tokens[i];
                 while (!operatorStack.isEmpty() && this.isOperator(operatorStack.peek())) {
                     if ((this.isLeftAssociativeOperator(op1) && (this.precedence(op1) <= this.precedence(operatorStack.peek()))) ||
                         (this.isRightAssociativeOperator(op1) && (this.precedence(op1) < this.precedence(operatorStack.peek())))) {
@@ -77,16 +73,16 @@ var ArithmeticEvaluator = /** @class */ (function () {
             }
         }
         return outputQueue.toArray();
-    };
-    ArithmeticEvaluator.evaluateFromRPN = function (tokens) {
-        var stack = new Stack_1.Stack();
-        for (var i = 0; i < tokens.length; i++) {
+    }
+    static evaluateFromRPN(tokens) {
+        let stack = new Stack();
+        for (let i = 0; i < tokens.length; i++) {
             if (!this.isOperator(tokens[i])) {
                 stack.push(parseFloat(tokens[i]));
             }
             else {
-                var op1 = stack.pop();
-                var op2 = stack.pop();
+                let op1 = stack.pop();
+                let op2 = stack.pop();
                 switch (tokens[i]) {
                     case "+":
                         stack.push(op2 + op1);
@@ -107,11 +103,9 @@ var ArithmeticEvaluator = /** @class */ (function () {
             }
         }
         return stack.pop();
-    };
-    return ArithmeticEvaluator;
-}());
-exports.ArithmeticEvaluator = ArithmeticEvaluator;
-var TokenType;
+    }
+}
+export var TokenType;
 (function (TokenType) {
     TokenType[TokenType["Plus"] = 0] = "Plus";
     TokenType[TokenType["Minus"] = 1] = "Minus";
@@ -123,41 +117,39 @@ var TokenType;
     TokenType[TokenType["RParen"] = 7] = "RParen";
     TokenType[TokenType["End"] = 8] = "End";
     TokenType[TokenType["Unknown"] = 9] = "Unknown";
-})(TokenType = exports.TokenType || (exports.TokenType = {}));
-var Token = /** @class */ (function () {
-    function Token(type, value) {
+})(TokenType || (TokenType = {}));
+export class Token {
+    constructor(type, value) {
         this.type = type;
         this.value = value;
     }
-    return Token;
-}());
-exports.Token = Token;
-var Lexer = /** @class */ (function () {
-    function Lexer(input) {
+}
+export class Lexer {
+    constructor(input) {
         this.tokens = input.replace(" ", "").match(/\(|\)|\d+(\.\d+)?|[\+\-\*\/\^]/g);
         this.tokenIndex = 0;
     }
-    Lexer.prototype.getNextToken = function () {
+    getNextToken() {
         if (this.tokens.length === this.tokenIndex) {
             return new Token(TokenType.End);
         }
-        var input = this.tokens[this.tokenIndex++];
+        let input = this.tokens[this.tokenIndex++];
         return this.getToken(input);
-    };
-    Lexer.prototype.getCurrentToken = function () {
+    }
+    getCurrentToken() {
         if (this.tokens.length - 1 === this.tokenIndex) {
             return new Token(TokenType.End);
         }
-        var input = this.tokens[this.tokenIndex];
+        let input = this.tokens[this.tokenIndex];
         return this.getToken(input);
-    };
-    Lexer.prototype.revert = function () {
+    }
+    revert() {
         if (this.tokenIndex <= 0) {
             throw Error("Index out of range");
         }
         this.tokenIndex--;
-    };
-    Lexer.prototype.getToken = function (input) {
+    }
+    getToken(input) {
         if (/\+/.test(input)) {
             return new Token(TokenType.Plus);
         }
@@ -183,28 +175,24 @@ var Lexer = /** @class */ (function () {
             return new Token(TokenType.RParen);
         }
         return new Token(TokenType.Unknown);
-    };
-    return Lexer;
-}());
-exports.Lexer = Lexer;
-var Parser = /** @class */ (function () {
-    function Parser() {
     }
-    Parser.prototype.parse = function (code) {
+}
+export class Parser {
+    parse(code) {
         this.lex = new Lexer(code);
-        var expression = this.fourthOrderOperators();
-        var token = this.lex.getCurrentToken(); // is already advanced because of number()
+        let expression = this.fourthOrderOperators();
+        let token = this.lex.getCurrentToken(); // is already advanced because of number()
         if (token.type === TokenType.End) {
             return expression;
         }
         throw Error("End expected");
-    };
+    }
     // addition and substraction
-    Parser.prototype.fourthOrderOperators = function () {
-        var component1 = this.thirdOrderOperators();
-        var token = this.lex.getNextToken();
+    fourthOrderOperators() {
+        let component1 = this.thirdOrderOperators();
+        let token = this.lex.getNextToken();
         while (token.type === TokenType.Plus || token.type === TokenType.Minus) {
-            var component2 = this.thirdOrderOperators();
+            let component2 = this.thirdOrderOperators();
             if (token.type === TokenType.Plus) {
                 component1 = component1.add(component2);
             }
@@ -215,13 +203,13 @@ var Parser = /** @class */ (function () {
         }
         this.lex.revert();
         return component1;
-    };
+    }
     // multiplication and division
-    Parser.prototype.thirdOrderOperators = function () {
-        var factor1 = this.secondOrderOperators();
-        var token = this.lex.getNextToken();
+    thirdOrderOperators() {
+        let factor1 = this.secondOrderOperators();
+        let token = this.lex.getNextToken();
         while (token.type === TokenType.Multiply || token.type === TokenType.Divide) {
-            var factor2 = this.secondOrderOperators();
+            let factor2 = this.secondOrderOperators();
             if (token.type === TokenType.Multiply) {
                 factor1 = factor1.mult(factor2);
             }
@@ -232,23 +220,23 @@ var Parser = /** @class */ (function () {
         }
         this.lex.revert();
         return factor1;
-    };
+    }
     // exponents and roots
-    Parser.prototype.secondOrderOperators = function () {
-        var factor1 = this.firstOrderOperators();
-        var token = this.lex.getNextToken();
+    secondOrderOperators() {
+        let factor1 = this.firstOrderOperators();
+        let token = this.lex.getNextToken();
         while (token.type === TokenType.Exponent) {
-            var factor2 = this.firstOrderOperators();
+            let factor2 = this.firstOrderOperators();
             factor1 = factor1.exp(factor2);
             token = this.lex.getNextToken();
         }
         this.lex.revert();
         return factor1;
-    };
+    }
     // numbers and parantheses
-    Parser.prototype.firstOrderOperators = function () {
-        var value = new RationalNumber_1.RationalNumber(1);
-        var token = this.lex.getNextToken();
+    firstOrderOperators() {
+        let value = new RationalNumber(1);
+        let token = this.lex.getNextToken();
         if (token.type === TokenType.Plus || token.type === TokenType.Minus) {
             if (token.type === TokenType.Minus) {
                 value = value.mult(-1);
@@ -271,10 +259,8 @@ var Parser = /** @class */ (function () {
             }
         }
         return value;
-    };
-    return Parser;
-}());
-exports.Parser = Parser;
+    }
+}
 /*
     public static evaluate(expresion: string): RationalNumber {
     var digitPattern = new RegExp('0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9');

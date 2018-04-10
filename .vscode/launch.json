@@ -2,13 +2,6 @@
     "version": "0.1.0",
     "configurations": [
         {
-            "name": "Launch localhost",
-            "type": "chrome",
-            "request": "launch",
-            "url": "http://localhost/exercises/graph.html",
-            "webRoot": "${workspaceFolder}/exercises/graph.html"
-        },
-        {
             "name": "Launch graph.html (disable sourcemaps)",
             "type": "chrome",
             "request": "launch",

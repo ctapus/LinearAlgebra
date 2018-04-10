@@ -1,19 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var $ = require("jquery");
-var SystemOfLinearEquationsGenerator_1 = require("../generators/SystemOfLinearEquationsGenerator");
-var MatrixPresenter_1 = require("../presenters/MatrixPresenter");
-var SystemOfLinearEquationsPresenter_1 = require("../presenters/SystemOfLinearEquationsPresenter");
-var Matrix_1 = require("../structures/Matrix");
-var RationalNumber_1 = require("../structures/RationalNumber");
-var Stack_1 = require("../structures/Stack");
-$(document).ready(function () {
-    var generator = new SystemOfLinearEquationsGenerator_1.SystemOfLinearEquationsGenerator();
-    var systemOfEquations = generator.random();
-    var undoStack;
-    var redoStack;
-    var workingMatrix = null;
-    var operationDivIdx = 0;
+import * as $ from "jquery";
+import { SystemOfLinearEquationsGenerator } from "../generators/SystemOfLinearEquationsGenerator";
+import { MatrixPresenter } from "../presenters/MatrixPresenter";
+import { SystemOfLinearEquationsPresenter } from "../presenters/SystemOfLinearEquationsPresenter";
+import { Matrix, MatrixIdentity } from "../structures/Matrix";
+import { RationalNumber } from "../structures/RationalNumber";
+import { Stack } from "../structures/Stack";
+$(document).ready(() => {
+    const generator = new SystemOfLinearEquationsGenerator();
+    const systemOfEquations = generator.random();
+    let undoStack;
+    let redoStack;
+    let workingMatrix = null;
+    let operationDivIdx = 0;
     init();
     $("#details").append("<div>System has solution: " + generator.hasSolution + "</div>");
     $("#details").append("<div>System has unique solution: " + generator.hasUniqueSolution + "</div>");
@@ -24,37 +22,37 @@ $(document).ready(function () {
     $("#details").append("<div>Number of equations: " + generator.numberOfEquations + "</div>");
     $("#details").append("<div>Number of independent equations: " + generator.numberOfIndependentEquations + "</div>");
     $("#details").append("<div>Number of dependent equations: " + generator.numberOfDependentEquations + "</div>");
-    SystemOfLinearEquationsPresenter_1.SystemOfLinearEquationsPresenter.printTableSystem(systemOfEquations, $("#content"));
-    $("#toggleDetails").click(function () {
+    SystemOfLinearEquationsPresenter.printTableSystem(systemOfEquations, $("#content"));
+    $("#toggleDetails").click(() => {
         $("#details").slideToggle();
     });
-    $("#btnAugmentMatrix").click(function () {
+    $("#btnAugmentMatrix").click(() => {
         $("#error").text("");
         preProcessOperation();
         if ("A" === $("#selAugmentOptions1").val()) {
             workingMatrix = systemOfEquations.A.deepCopy();
         }
         if ("I" === $("#selAugmentOptions1").val()) {
-            workingMatrix = new Matrix_1.MatrixIdentity(systemOfEquations.noEquations);
+            workingMatrix = new MatrixIdentity(systemOfEquations.noEquations);
         }
         else if ("b" === $("#selAugmentOptions1").val()) {
             workingMatrix = systemOfEquations.b.toMatrix();
         }
         if ("A" === $("#selAugmentOptions2").val()) {
-            workingMatrix = Matrix_1.Matrix.augment(workingMatrix, systemOfEquations.A);
+            workingMatrix = Matrix.augment(workingMatrix, systemOfEquations.A);
         }
         if ("I" === $("#selAugmentOptions2").val()) {
-            workingMatrix = Matrix_1.Matrix.augment(workingMatrix, new Matrix_1.MatrixIdentity(systemOfEquations.noEquations));
+            workingMatrix = Matrix.augment(workingMatrix, new MatrixIdentity(systemOfEquations.noEquations));
         }
         else if ("b" === $("#selAugmentOptions2").val()) {
-            workingMatrix = Matrix_1.Matrix.augment(workingMatrix, systemOfEquations.b);
+            workingMatrix = Matrix.augment(workingMatrix, systemOfEquations.b);
         }
         postProcessOperation("Augmented " + $("#selAugmentOptions1").val() + " with " + $("#selAugmentOptions2").val() + ".");
     });
-    $("#btnSwitchRows").click(function () {
+    $("#btnSwitchRows").click(() => {
         $("#error").text("");
-        var idxRow1 = Number($("#row1").val()) - 1;
-        var idxRow2 = Number($("#row2").val()) - 1;
+        const idxRow1 = Number($("#row1").val()) - 1;
+        const idxRow2 = Number($("#row2").val()) - 1;
         if (0 > idxRow1 || workingMatrix.m < idxRow1 || 0 > idxRow2 || workingMatrix.m < idxRow2) {
             $("#error").text("Row index must be greater than 0 and smaller than " + workingMatrix.m);
             return;
@@ -63,10 +61,10 @@ $(document).ready(function () {
         workingMatrix.switchRows(idxRow1, idxRow2);
         postProcessOperation("Switched row " + $("#row1").val() + " with row " + $("#row2").val() + ".");
     });
-    $("#btnMultiplyRow").click(function () {
+    $("#btnMultiplyRow").click(() => {
         $("#error").text("");
-        var idxRow = Number($("#rowIdx").val()) - 1;
-        var scalar = RationalNumber_1.RationalNumber.fromString($("#scalar").val().toString());
+        const idxRow = Number($("#rowIdx").val()) - 1;
+        const scalar = RationalNumber.fromString($("#scalar").val().toString());
         if (0 > idxRow || workingMatrix.m < idxRow) {
             $("#error").text("Row index must be greater than 0 and smaller than " + workingMatrix.m);
             return;
@@ -75,29 +73,29 @@ $(document).ready(function () {
         workingMatrix.multiplyRow(idxRow, scalar);
         postProcessOperation("Multiplied row " + $("#rowIdx").val() + " with scalar" + $("#scalar").val() + ".");
     });
-    $("#btnAddRows").click(function () {
+    $("#btnAddRows").click(() => {
         $("#error").text("");
-        var idxRow1 = Number($("#addRow1Idx").val()) - 1;
-        var idxRow2 = Number($("#addRow2Idx").val()) - 1;
-        var scalar1 = RationalNumber_1.RationalNumber.fromString($("#addRow1Mult").val().toString());
-        var scalar2 = RationalNumber_1.RationalNumber.fromString($("#addRow2Mult").val().toString());
+        const idxRow1 = Number($("#addRow1Idx").val()) - 1;
+        const idxRow2 = Number($("#addRow2Idx").val()) - 1;
+        const scalar1 = RationalNumber.fromString($("#addRow1Mult").val().toString());
+        const scalar2 = RationalNumber.fromString($("#addRow2Mult").val().toString());
         if (0 > idxRow1 || workingMatrix.m < idxRow1 || 0 > idxRow2 || workingMatrix.m < idxRow2) {
             $("#error").text("Row index must be greater than 0 and smaller than " + workingMatrix.m);
             return;
         }
         preProcessOperation();
         workingMatrix.addRow1ToRow2(idxRow1, scalar1, idxRow2, scalar2);
-        postProcessOperation("Added " + scalar1 + " time(s) row " + $("#addRow1Idx").val() + " to " + scalar2 + " time(s) row " + $("#addRow2Idx").val() + ".");
+        postProcessOperation(`Added ${scalar1} time(s) row ${$("#addRow1Idx").val()} to ${scalar2} time(s) row ${$("#addRow2Idx").val()}.`);
     });
-    $("#btnUndo").click(function () {
+    $("#btnUndo").click(() => {
         if (undoStack.isEmpty()) {
             return;
         }
         redoStack.push(null != workingMatrix ? workingMatrix.deepCopy() : null);
         workingMatrix = undoStack.pop();
-        var divId = "operationDiv" + operationDivIdx;
+        let divId = "operationDiv" + operationDivIdx;
         $("#" + divId).hide();
-        var buttonId = "toggleButton" + operationDivIdx;
+        const buttonId = "toggleButton" + operationDivIdx;
         $("#" + buttonId).hide();
         --operationDivIdx;
         divId = "operationDiv" + operationDivIdx;
@@ -105,28 +103,28 @@ $(document).ready(function () {
         setEditOperations();
         setAvailableOperations();
     });
-    $("#btnRedo").click(function () {
+    $("#btnRedo").click(() => {
         if (redoStack.isEmpty()) {
             return;
         }
         undoStack.push(null != workingMatrix ? workingMatrix.deepCopy() : null);
         workingMatrix = redoStack.pop();
-        var divId = "operationDiv" + operationDivIdx;
+        let divId = "operationDiv" + operationDivIdx;
         $("#" + divId).hide();
         ++operationDivIdx;
         divId = "operationDiv" + operationDivIdx;
         $("#" + divId).show();
-        var buttonId = "toggleButton" + operationDivIdx;
+        const buttonId = "toggleButton" + operationDivIdx;
         $("#" + buttonId).show();
         setEditOperations();
         setAvailableOperations();
     });
-    $("#btnReset").click(function () {
+    $("#btnReset").click(() => {
         init();
         while (operationDivIdx > 0) {
-            var divId = "operationDiv" + operationDivIdx;
+            const divId = "operationDiv" + operationDivIdx;
             $("#" + divId).remove();
-            var buttonId = "toggleButton" + operationDivIdx;
+            const buttonId = "toggleButton" + operationDivIdx;
             $("#" + buttonId).remove();
             --operationDivIdx;
         }
@@ -134,8 +132,8 @@ $(document).ready(function () {
         setAvailableOperations();
     });
     function init() {
-        undoStack = new Stack_1.Stack();
-        redoStack = new Stack_1.Stack();
+        undoStack = new Stack();
+        redoStack = new Stack();
         workingMatrix = null;
         setEditOperations();
         setAvailableOperations();
@@ -149,16 +147,16 @@ $(document).ready(function () {
             $("#" + "operationDiv" + operationDivIdx).toggle();
         }
         ++operationDivIdx;
-        var divId = "operationDiv" + operationDivIdx;
-        var div = $("<div id='" + divId + "'></div>");
-        var buttonId = "toggleButton" + operationDivIdx;
-        var toggleButton = $("<button id='" + buttonId + "'></button>").addClass("operationButton").text(title);
-        $(document).on("click", "#" + buttonId, function () {
+        const divId = "operationDiv" + operationDivIdx;
+        const div = $("<div id='" + divId + "'></div>");
+        const buttonId = "toggleButton" + operationDivIdx;
+        const toggleButton = $("<button id='" + buttonId + "'></button>").addClass("operationButton").text(title);
+        $(document).on("click", "#" + buttonId, () => {
             $("#" + divId).toggle();
         });
         $("#content").append(toggleButton);
         $("#content").append(div);
-        MatrixPresenter_1.MatrixPresenter.printTableMatrix(workingMatrix, div);
+        MatrixPresenter.printTableMatrix(workingMatrix, div);
         if (workingMatrix.isReducedRowEchelonForm()) {
             toggleButton.append(" Matrix is in reduced row eschelon form.");
         }
@@ -193,12 +191,12 @@ $(document).ready(function () {
         }
     }
     function clearRedo() {
-        var i = operationDivIdx;
+        let i = operationDivIdx;
         while (!redoStack.isEmpty()) {
             ++i;
-            var divId = "operationDiv" + i;
+            const divId = "operationDiv" + i;
             $("#" + divId).remove();
-            var buttonId = "toggleButton" + i;
+            const buttonId = "toggleButton" + i;
             $("#" + buttonId).remove();
             redoStack.pop();
         }

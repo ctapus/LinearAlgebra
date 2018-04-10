@@ -1,3 +1,11 @@
 {
+    "files.exclude": {
+        "**/*.js": { "when": "$(basename).ts"},
+        "**/*.d.ts": { "when": "$(basename).ts"},
+        "**/*.map": true
+    },
+    "typescript.referencesCodeLens.enabled": true,
+    "typescript.implementationsCodeLens.enabled": true,
+    "window.zoomLevel": 0,
     "mocha.files.glob": "tests/**/*.test.js"
 }
