@@ -3,6 +3,7 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
+    "jquery": "^3.3.1",
     "typescript": "^2.6.1"
   },
   "devDependencies": {
@@ -16,6 +17,13 @@
     "gulp": "^3.9.1",
     "gulp-typescript": "^3.2.3",
     "mocha": "^4.0.1",
-    "mochawesome": "^2.3.1"
+    "mochawesome": "^2.3.1",
+    "ts-loader": "^4.2.0",
+    "web-cli": "^1.0.0-prealpha",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.14"
+  },
+  "scripts": {
+    "start": "start http://localhost:8000/ & webpack-dev-server"
   }
 }

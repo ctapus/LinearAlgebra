@@ -6,6 +6,9 @@
         "sourceMap": true,
         "target": "ES2015"
     },
+    "types": [
+        "jquery"
+    ],
     "exclude": [
         "node_modules"
     ]
