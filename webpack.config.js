@@ -23,6 +23,14 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
-    }
+        path: path.resolve(__dirname, 'exercises')
+    },
+    devServer: {
+        host: 'localhost',
+        port: 3000,
+        contentBase: './exercises',
+        hot: true,
+        open: true,
+        openPage: ''
+      },
 };
