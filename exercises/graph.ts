@@ -70,7 +70,7 @@ transformations.enqueue(Vector2D.GetRotationMatrix(60));
 const secondVectorSpaceAxesColor: string = "#006666";
 const secondVectorSpaceGridColor: string = "#fff0f0";
 $(document).ready(() => {
-	const canvas: HTMLCanvasElement = <HTMLCanvasElement>$("#graphCanvas")[0];
+	const canvas: HTMLCanvasElement = $("#graphCanvas")[0] as HTMLCanvasElement;
 	const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
 	const canvasWidth: number = canvas.width;
 	const canvasHeight: number = canvas.height;
