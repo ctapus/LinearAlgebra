@@ -1,4 +1,8 @@
-﻿.mainDiv {
+﻿.ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.mainDiv {
 	max-width: 600px;
 	margin: auto;
 	background-color: #efefef;

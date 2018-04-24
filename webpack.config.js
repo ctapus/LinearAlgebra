@@ -1,7 +1,17 @@
 const path = require('path');
 var webpack = require("webpack");
 module.exports = {
-    entry: './exercises/graph.ts',
+    entry: {
+        graph: './exercises/graph.ts',
+        inverseMatrix: './exercises/inverseMatrix.ts',
+        systemOfLinearEquations: './exercises/systemOfLinearEquations.ts',
+        LUFactorization: './exercises/LUFactorization.ts',
+        QRFactorization: './exercises/QRFactorization.ts'
+    },
+    output: {
+        path: path.resolve(__dirname, 'exercises'),
+        filename: '[name].js'
+    },
     module: {
         rules: [
             {
@@ -22,14 +32,10 @@ module.exports = {
     resolve: {
         extensions: [".tsx", ".ts", ".js"]
     },
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'exercises')
-    },
     devServer: {
         host: 'localhost',
         port: 3000,
-        contentBase: './exercises',
+        contentBase: './',
         hot: true,
         open: true,
         openPage: ''
