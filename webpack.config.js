@@ -39,5 +39,6 @@ module.exports = {
         hot: true,
         open: true,
         openPage: ''
-      },
+      }, 
+      watch: true
 };

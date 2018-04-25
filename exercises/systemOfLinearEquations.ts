@@ -19,7 +19,7 @@ $(document).ready(() => {
 	init();
 	$("#details").append("<div>System has solution: " + generator.hasSolution + "</div>");
 	$("#details").append("<div>System has unique solution: " + generator.hasUniqueSolution + "</div>");
-	$("#details").append("<div>System has dependenent equations: " + generator.hasDependentEquations + "</div>");
+	$("#details").append("<div>System has dependent equations: " + generator.hasDependentEquations + "</div>");
 	$("#details").append("<div>Number of variables: " + generator.numberOfVariables + "</div>");
 	$("#details").append("<div>Number of leading variables: " + generator.numberOfLeadingVariables + "</div>");
 	$("#details").append("<div>Number of free variables: " + generator.numberOfFreeVariables + "</div>");
@@ -29,6 +29,9 @@ $(document).ready(() => {
 	SystemOfLinearEquationsPresenter.printTableSystem(systemOfEquations, $("#content"));
 	$("#toggleDetails").click(() => {
 		$("#details").slideToggle();
+	});
+	$("#cbSystemHasSolution").click(() => {
+		$("#divSystemHasUniqueSolution").toggle($("#cbSystemHasSolution").is(":checked"));
 	});
 	$("#btnAugmentMatrix").click(() => {
 		$("#error").text("");

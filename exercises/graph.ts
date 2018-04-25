@@ -7,6 +7,22 @@ import { Stack } from "../structures/Stack";
 import { ColumnVector, RowVector, Vector } from "../structures/Vector";
 
 class Vector2D extends Vector {
+	public static fromVector(v: Vector): Vector2D {
+		if (v.m !== 2) { throw new Error("Vector dimension must be 2."); }
+		return new Vector2D(v.elements[0], v.elements[1]);
+	}
+	public static GetScallingMatrix(scale: number): Matrix {
+		const m: Matrix = new Matrix(2, 2);
+		m.elements = [[new RationalNumber(scale), new RationalNumber(0)], [new RationalNumber(0), new RationalNumber(scale)]];
+		return m;
+	}
+	public static GetRotationMatrix(angle: number): Matrix {
+		const rotationAngle: number = angle * (180 / Math.PI); // converted to radians
+		const m: Matrix = new Matrix(2, 2);
+		m.elements = [[new RationalNumber(Math.cos(rotationAngle)), new RationalNumber(-Math.sin(rotationAngle))],
+		 [new RationalNumber(Math.sin(rotationAngle)), new RationalNumber(Math.cos(rotationAngle))]];
+		return m;
+	}
 	constructor(x: number | RationalNumber, y: number | RationalNumber) {
 		super(2);
 		if (typeof x === "number") {
@@ -35,22 +51,6 @@ class Vector2D extends Vector {
 		const res: ColumnVector = new ColumnVector(2);
 		res.elements = [new RationalNumber(this.x), new RationalNumber(this.y)];
 		return res;
-	}
-	public static fromVector(v: Vector): Vector2D {
-		if (v.m !== 2) { throw new Error("Vector dimension must be 2."); }
-		return new Vector2D(v.elements[0], v.elements[1]);
-	}
-	public static GetScallingMatrix(scale: number): Matrix {
-		const m: Matrix = new Matrix(2, 2);
-		m.elements = [[new RationalNumber(scale), new RationalNumber(0)], [new RationalNumber(0), new RationalNumber(scale)]];
-		return m;
-	}
-	public static GetRotationMatrix(angle: number): Matrix {
-		const rotationAngle: number = angle * (180 / Math.PI);// converted to radians
-		const m: Matrix = new Matrix(2, 2);
-		m.elements = [[new RationalNumber(Math.cos(rotationAngle)), new RationalNumber(-Math.sin(rotationAngle))],
-		 [new RationalNumber(Math.sin(rotationAngle)), new RationalNumber(Math.cos(rotationAngle))]];
-		return m;
 	}
 }
 function randomVector2D(): Vector2D {
@@ -83,7 +83,6 @@ $(document).ready(() => {
 	drawVector(vector);
 	// drawTransformedVector(vector, transformations);
 	drawChangeCoordinates();
-
 
 	function drawOrthonormalGrid(): void {
 		// grid
