@@ -30,8 +30,17 @@ $(document).ready(() => {
 	$("#toggleDetails").click(() => {
 		$("#details").slideToggle();
 	});
-	$("#cbSystemHasSolution").click(() => {
+	$("#cbSystemHasSolution").change(() => {
 		$("#divSystemHasUniqueSolution").toggle($("#cbSystemHasSolution").is(":checked"));
+		$("#divSystemHasSolution").removeClass("ui-state-error");
+	});
+	$("#btnCheckSolution").click(() => {
+		if ($("#cbSystemHasSolution").is(":checked") !== generator.hasSolution) {
+			$("#divSystemHasSolution").addClass("ui-state-error");
+		}
+		if ($("#cbSystemHasUniqueSolution").is(":checked") !== generator.hasUniqueSolution) {
+			$("#divSystemHasUniqueSolution").addClass("ui-state-error");
+		}
 	});
 	$("#btnAugmentMatrix").click(() => {
 		$("#error").text("");

@@ -66,12 +66,13 @@
 			<br />
 			<span>Solution:</span>
 			<br />
-			<input id="cbSystemHasSolution" type="checkbox">System has solution (is consistent)</input>
-			<br />
-			<div id="divSystemHasUniqueSolution" style="display: none;">
+			<div id="divSystemHasSolution" class="ui-corner-all">
+				<input id="cbSystemHasSolution" type="checkbox" />System has solution (is consistent)
+			</div>
+			<div id="divSystemHasUniqueSolution" class="ui-corner-all" style="display: none;">
 				<input id="cbSystemHasUniqueSolution" type="checkbox" />System has unique solution (is independent)
 			</div>
-			<br />
+			<button id="btnCheckSolution" type="button">Check solution</button>
 		</div>
 		<div id="error" style="color: red">
 		</div>
