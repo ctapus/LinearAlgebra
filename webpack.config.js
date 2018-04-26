@@ -1,5 +1,5 @@
 const path = require('path');
-var webpack = require("webpack");
+const webpack = require('webpack');
 module.exports = {
     entry: {
         graph: './exercises/graph.ts',
@@ -9,8 +9,8 @@ module.exports = {
         QRFactorization: './exercises/QRFactorization.ts'
     },
     output: {
-        path: path.resolve(__dirname, 'exercises'),
-        filename: '[name].js'
+        path: path.resolve(__dirname, './exercises'),
+        filename: './[name].js'
     },
     module: {
         rules: [
@@ -22,23 +22,22 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({            
-            $: "jquery",
-            jQuery: "jquery",
+            $: 'jquery',
+            jQuery: 'jquery',
             jquery: 'jquery'
         })
     ],
     resolve: {
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: ['.tsx', '.ts', '.js']
     },
     devServer: {
-        host: 'localhost',
-        port: 3000,
-        contentBase: './',
-        hot: true,
+        stats: 'errors-only',
+        host: process.env.HOST,
+        port: process.env.PORT,
         open: true,
+        overlay: true,
+        contentBase: './',
         openPage: ''
-      }, 
-      watch: true
+      }
 };
