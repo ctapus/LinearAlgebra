@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Linear Algebra</title>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="../app.css" type="text/css" />
+	<script src="//code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src="VectorSpaceBasis.js"></script>
+</head>
+<body>
+	<br />
+	<div class="navigationDiv ui-widget ui-widget-content ui-corner-all">
+		<a href="../index.html">Home</a>
+	</div>
+	<br />
+	<div class="mainDiv ui-widget ui-widget-content ui-corner-all">
+		<h1>Find the basis and the dimension of the vector space</h1>
+		<p>
+			A set of vectors is a basis if they are linearly independent and they span the vector space.
+		</p>
+		<div id="content"></div>
+		<div id="operations">
+			<div>
+				<button id="btnUndo" type="button">Undo</button>
+				<button id="btnRedo" type="button">Redo</button>
+				<button id="btnReset" type="button">Reset</button>
+			</div>
+		</div>
+		<div id="error" style="color: red">
+		</div>
+	</div>
+</body>
+</html>

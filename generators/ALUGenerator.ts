@@ -1,8 +1,8 @@
-﻿import { RationalNumber } from "../structures/RationalNumber";
-import { Matrix } from "../structures/Matrix";
+﻿import { Matrix } from "../structures/Matrix";
+import { RationalNumber } from "../structures/RationalNumber";
 
 export class ALUGenerator {
-	public probabilityToBeSquare: number = 0.8;// 80% to generate a square matrix
+	public probabilityToBeSquare: number = 0.8; // 80% to generate a square matrix
 	public isSquare: boolean = Math.random() <= this.probabilityToBeSquare;
 	public numberOfRowsMin: number = 3;
 	public numberOfRowsMax: number = 7;
@@ -15,11 +15,11 @@ export class ALUGenerator {
 	public valueOfElementsMax: number = 10;
 	public random(): Matrix {
 		// if A=LU for A mxn => L is mxm and U is mxn OR L is mxn and U is nxn
-		let L: Matrix = new Matrix(this.numberOfRows, this.numberOfRows);
+		const L: Matrix = new Matrix(this.numberOfRows, this.numberOfRows);
 		for (let i: number = 0; i < L.m; i++) {
 			for (let j: number = 0; j < L.n; j++) {
 				if (i === j) {
-					L.elements[i][j] = this.randomNonZeroVariableValue();// new RationalNumber(1);
+					L.elements[i][j] = this.randomNonZeroVariableValue(); // new RationalNumber(1);
 				} else {
 					if (i > j) {
 						L.elements[i][j] = this.randomVariableValue();
@@ -29,11 +29,11 @@ export class ALUGenerator {
 				}
 			}
 		}
-		let U: Matrix = new Matrix(this.numberOfRows, this.numberOfCols);
+		const U: Matrix = new Matrix(this.numberOfRows, this.numberOfCols);
 		for (let i: number = 0; i < U.m; i++) {
 			for (let j: number = 0; j < U.n; j++) {
 				if (i === j) {
-					U.elements[i][j] = this.randomNonZeroVariableValue();// new RationalNumber(1);
+					U.elements[i][j] = this.randomNonZeroVariableValue(); // new RationalNumber(1);
 				} else {
 					if (i < j) {
 						U.elements[i][j] = this.randomVariableValue();

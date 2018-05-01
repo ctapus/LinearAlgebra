@@ -6,7 +6,8 @@ module.exports = {
         inverseMatrix: './exercises/inverseMatrix.ts',
         systemOfLinearEquations: './exercises/systemOfLinearEquations.ts',
         LUFactorization: './exercises/LUFactorization.ts',
-        QRFactorization: './exercises/QRFactorization.ts'
+        QRFactorization: './exercises/QRFactorization.ts',
+        VectorSpaceBasis: './exercises/VectorSpaceBasis.ts'
     },
     output: {
         path: path.resolve(__dirname, './exercises'),

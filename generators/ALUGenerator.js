@@ -1,5 +1,5 @@
-import { RationalNumber } from "../structures/RationalNumber";
 import { Matrix } from "../structures/Matrix";
+import { RationalNumber } from "../structures/RationalNumber";
 export class ALUGenerator {
     constructor() {
         this.probabilityToBeSquare = 0.8; // 80% to generate a square matrix
@@ -16,7 +16,7 @@ export class ALUGenerator {
     }
     random() {
         // if A=LU for A mxn => L is mxm and U is mxn OR L is mxn and U is nxn
-        let L = new Matrix(this.numberOfRows, this.numberOfRows);
+        const L = new Matrix(this.numberOfRows, this.numberOfRows);
         for (let i = 0; i < L.m; i++) {
             for (let j = 0; j < L.n; j++) {
                 if (i === j) {
@@ -32,7 +32,7 @@ export class ALUGenerator {
                 }
             }
         }
-        let U = new Matrix(this.numberOfRows, this.numberOfCols);
+        const U = new Matrix(this.numberOfRows, this.numberOfCols);
         for (let i = 0; i < U.m; i++) {
             for (let j = 0; j < U.n; j++) {
                 if (i === j) {

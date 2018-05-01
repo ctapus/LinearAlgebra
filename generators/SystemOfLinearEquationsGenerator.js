@@ -1,5 +1,5 @@
-import { RationalNumber } from "../structures/RationalNumber";
 import { Matrix } from "../structures/Matrix";
+import { RationalNumber } from "../structures/RationalNumber";
 import { SystemOfLinearEquations } from "../structures/SystemOfLinearEquations";
 export class SystemOfLinearEquationsGenerator {
     constructor() {
@@ -41,10 +41,10 @@ export class SystemOfLinearEquationsGenerator {
         //
     }
     random() {
-        let augmentedMatrix = this.generateIndependentSystem();
+        const augmentedMatrix = this.generateIndependentSystem();
         this.makeSystemDependent(augmentedMatrix); // based on the numberOfIndependentEquations and numberOfEquations
         this.makeSystemInconsistent(augmentedMatrix); // based on the hasSolution
-        let ret = new SystemOfLinearEquations(augmentedMatrix.m, augmentedMatrix.n - 1);
+        const ret = new SystemOfLinearEquations(augmentedMatrix.m, augmentedMatrix.n - 1);
         for (let i = 0; i < ret.noEquations; i++) {
             for (let j = 0; j < ret.noVariables; j++) {
                 ret.A.elements[i][j] = augmentedMatrix.elements[i][j];
@@ -60,11 +60,11 @@ export class SystemOfLinearEquationsGenerator {
     }
     // equation systems: independent, dependendt or inconsistent
     generateIndependentSystem() {
-        let variables = [];
-        for (var i = 0; i < this.numberOfVariables; i++) {
+        const variables = [];
+        for (let i = 0; i < this.numberOfVariables; i++) {
             variables[i] = this.randomVariableValue();
         }
-        let augmentedMatrix = new Matrix(this.numberOfIndependentEquations + this.numberOfDependentEquations, this.numberOfVariables + 1);
+        const augmentedMatrix = new Matrix(this.numberOfIndependentEquations + this.numberOfDependentEquations, this.numberOfVariables + 1);
         // +1 becasue it represents the augmented matrix
         for (let i = 0; i < this.numberOfIndependentEquations; i++) {
             let freeTerm = new RationalNumber(0);
@@ -78,13 +78,13 @@ export class SystemOfLinearEquationsGenerator {
     }
     makeSystemDependent(augmentedMatrix) {
         for (let i = this.numberOfIndependentEquations; i < this.numberOfEquations; i++) {
-            let row1 = Math.floor(Math.random() * this.numberOfIndependentEquations);
+            const row1 = Math.floor(Math.random() * this.numberOfIndependentEquations);
             let row2 = Math.floor(Math.random() * this.numberOfIndependentEquations);
             while (row1 === row2) {
                 row2 = Math.floor(Math.random() * this.numberOfIndependentEquations);
             }
-            let coeficient1 = new RationalNumber(Math.floor(Math.random() * 10 - 5));
-            let coeficient2 = new RationalNumber(Math.floor(Math.random() * 10 - 5));
+            const coeficient1 = new RationalNumber(Math.floor(Math.random() * 10 - 5));
+            const coeficient2 = new RationalNumber(Math.floor(Math.random() * 10 - 5));
             for (let j = 0; j < (this.numberOfVariables + 1); j++) {
                 augmentedMatrix.elements[i][j] = coeficient1.mult(augmentedMatrix.elements[row1][j])
                     .add(coeficient2.mult(augmentedMatrix.elements[row2][j]));
