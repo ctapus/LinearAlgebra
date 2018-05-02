@@ -10,5 +10,5 @@ import { VectorSpace } from "../structures/VectorSpace";
 $(document).ready(() => {
 	const generator: VectorSpaceGenerator = new VectorSpaceGenerator();
 	const vectorSpace: VectorSpace = generator.random();
-	VectorSpacePresenter.printTableMatrix(vectorSpace, $("#content"));
+	VectorSpacePresenter.printVectorSpace(vectorSpace, $("#content"));
 });

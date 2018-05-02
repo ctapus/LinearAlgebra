@@ -13,9 +13,9 @@ export class VectorSpaceGenerator {
     random() {
         const ret = new VectorSpace(this.numberOfVectors);
         for (let i = 0; i < ret.m; i++) {
-            const v = new Vector(this.vectorSpaceDimension);
-            for (let j = 0; j < this.vectorSpaceDimension; j++) {
-                v[j] = j === i ? 1 : 0;
+            ret.elements[i] = new Vector(this.vectorSpaceDimension);
+            for (let j = 0; j < this.vectorSpaceDimension && j < ret.m; j++) {
+                ret.elements[i][j] = j === i ? 1 : 0;
             }
         }
         return ret;

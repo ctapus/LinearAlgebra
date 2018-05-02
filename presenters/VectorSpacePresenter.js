@@ -1,16 +1,18 @@
 export class VectorSpacePresenter {
-    static printTableMatrix(vectorSpace, container) {
+    static printVectorSpace(vectorSpace, container) {
+        console.log(vectorSpace);
         const table = $("<table></table>").addClass("matrix");
+        container.append(table);
+        container.append("<br />");
         for (let i = 0; i < vectorSpace.m; i++) {
             const tr = $("<tr></tr>");
-            for (let j = 0; j < vectorSpace.m; j++) {
-                const td = $("<td></td>").text(vectorSpace.elements[i][j].toString()).addClass("matrixElement");
+            const vector = vectorSpace.elements[i];
+            for (let j = 0; j < vector.m; j++) {
+                const td = $("<td></td>").text(vector.elements[j].toString()).addClass("matrixElement");
                 tr.append(td);
             }
             table.append(tr);
         }
-        container.append(table);
-        container.append("<br />");
     }
 }
 //# sourceMappingURL=VectorSpacePresenter.js.map
