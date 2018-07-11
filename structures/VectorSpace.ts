@@ -4,8 +4,7 @@ import { Vector } from "../structures/Vector";
 export class VectorSpace {
 	public m: number;
 	public elements: Vector[];
-	constructor(n: number);
-	constructor(elements: Vector[]);
+	constructor(n: number | Vector[]);
 	constructor(n: any) {
 		if (typeof n === "number") {
 			this.m = n;

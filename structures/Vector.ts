@@ -4,8 +4,7 @@ import { RationalNumber } from "../structures/RationalNumber";
 export class Vector {
 	public m: number;
 	public elements: RationalNumber[];
-	constructor(n: number);
-	constructor(elements: number[]);
+	constructor(n: number | number[]);
 	constructor(n: any) {
 		if (typeof n === "number") {
 			this.m = n;
@@ -54,6 +53,14 @@ export class Vector {
 	public crossProduct(x: Vector): Vector {
 		throw new Error("Not implemented.");
 	}
+	// [ALIASES]: magnitude, norm
+	public length(): RationalNumber {
+		const length: RationalNumber = new RationalNumber(0);
+		for (let i: number = 0; i < this.m; i++) {
+			length.add(this.elements[i]);
+		}
+		return length;
+	}
 	public deepCopy(): Vector {
 		const ret: Vector = new Vector(this.m);
 		for (let i: number = 0; i < this.m; i++) {
@@ -68,7 +75,7 @@ export class Vector {
 		}
 		return ret;
 	}
-	public static arelLinearlyIndependent(vectors: Vector[]): boolean {
+	public static areLinearlyIndependent(vectors: Vector[]): boolean {
 		let m: number = vectors.length;
 		if (0 === m) { return true; }
 		let n: number = vectors[0].m;
@@ -76,7 +83,6 @@ export class Vector {
 			if (n !== vectors[i].m) { throw new Error("Mismatched dimensions."); }
 		}
 		if (m > n) { return false; }
-
 	}
 }
 export class ColumnVector extends Vector {

@@ -56,6 +56,14 @@ export class Vector {
     crossProduct(x) {
         throw new Error("Not implemented.");
     }
+    // [ALIASES]: magnitude, norm
+    length() {
+        const length = new RationalNumber(0);
+        for (let i = 0; i < this.m; i++) {
+            length.add(this.elements[i]);
+        }
+        return length;
+    }
     deepCopy() {
         const ret = new Vector(this.m);
         for (let i = 0; i < this.m; i++) {
@@ -70,7 +78,7 @@ export class Vector {
         }
         return ret;
     }
-    static arelLinearlyIndependent(vectors) {
+    static areLinearlyIndependent(vectors) {
         let m = vectors.length;
         if (0 === m) {
             return true;
