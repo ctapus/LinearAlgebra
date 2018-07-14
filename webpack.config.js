@@ -9,6 +9,7 @@ module.exports = {
         QRFactorization: './exercises/QRFactorization.ts',
         VectorSpaceBasis: './exercises/VectorSpaceBasis.ts'
     },
+    devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, './exercises'),
         filename: './[name].js'
