@@ -115,8 +115,11 @@ export class Polynomial {
 	}
 	public toString(): string {
 		let ts: string = "";
-		for (let pt of this.terms) {
+		for (let pt of this.terms.sort((t1, t2) => t2.variables[0].exponent - t1.variables[0].exponent)) {
 			ts += pt.toString();
+		}
+		if(ts.length > 0 && ts[0] === '+') {
+			return ts.substring(1);
 		}
 		return ts;
 	}
