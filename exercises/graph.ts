@@ -1,9 +1,7 @@
-﻿import * as $ from "jquery";
-import { MatrixPresenter } from "../presenters/MatrixPresenter";
+﻿import { MatrixPresenter } from "../presenters/MatrixPresenter";
 import { Matrix } from "../structures/Matrix";
 import { Queue } from "../structures/Queue";
 import { RationalNumber } from "../structures/RationalNumber";
-import { Stack } from "../structures/Stack";
 import { ColumnVector, RowVector, Vector } from "../structures/Vector";
 
 class Vector2D extends Vector {
