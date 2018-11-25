@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 module.exports = {
     entry: {
+        fractals: './exercises/fractals.ts',
         graph: './exercises/graph.ts',
         inverseMatrix: './exercises/inverseMatrix.ts',
         systemOfLinearEquations: './exercises/systemOfLinearEquations.ts',

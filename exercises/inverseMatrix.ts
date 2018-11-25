@@ -1,7 +1,6 @@
 ﻿import * as $ from "jquery";
 import { MatrixPresenter } from "../presenters/MatrixPresenter";
 import { Matrix, MatrixIdentity } from "../structures/Matrix";
-import { Queue } from "../structures/Queue";
 import { RationalNumber } from "../structures/RationalNumber";
 import { Stack } from "../structures/Stack";
 

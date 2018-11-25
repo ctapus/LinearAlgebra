@@ -23,9 +23,10 @@
     "webpack-dev-server": "^3.1.4"
   },
   "scripts": {
-    "pretest": "rimraf ./structures/*.js ./structures/*.js.map",
+    "clean": "rimraf ./structures/*.js ./structures/*.js.map ./presenters/*.js ./presenters/*.js.map ./generators/*.js ./generators/*.js.map ./exercises/*.js ./exercises/*.js.map",
     "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha -r ts-node/register ./tests/*.spec.ts",
     "start": "webpack-dev-server --mode development --watch",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "build-dev": "webpack --mode development"
   }
 }

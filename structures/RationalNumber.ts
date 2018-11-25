@@ -3,6 +3,12 @@ import { Queue } from "../structures/Queue";
 import { Stack } from "../structures/Stack";
 
 export class RationalNumber {
+	public static greatestCommonDivisor(a: number, b: number): number {
+		return b ? RationalNumber.greatestCommonDivisor(b, a % b) : a;
+	}
+	public static leastCommonMultiple(a: number, b: number): number {
+		return Math.abs(a * b / RationalNumber.greatestCommonDivisor(a, b));
+	}
 	public numerator: number;
 	public denominator: number;
 	constructor(n: number, d: number = 1) {
@@ -10,63 +16,57 @@ export class RationalNumber {
 			throw new Error("Division by zero!");
 		}
 		// todo: potential for overflow. When Math.sign becomes available in TypeScript use it instead of the multiplication
-		let sign: number = n * d >= 0 ? 1 : -1;
+		const sign: number = n * d >= 0 ? 1 : -1;
 		this.numerator = sign * Math.abs(n);
 		this.denominator = Math.abs(d);
 	}
-	private greatestCommonDivisor(a: number, b: number): number {
-		return b ? this.greatestCommonDivisor(b, a % b) : a;
-	}
-	private leastCommonMultiple(a: number, b: number): number {
-		return Math.abs(a * b / this.greatestCommonDivisor(a, b));
-	}
 	public simplifiedForm(): RationalNumber {
-		let gcd: number = this.greatestCommonDivisor(this.numerator, this.denominator);
+		const gcd: number = RationalNumber.greatestCommonDivisor(this.numerator, this.denominator);
 		return new RationalNumber(this.numerator / gcd, this.denominator / gcd);
 	}
 
 	public equals(x: number | RationalNumber): boolean {
-		let rn1: RationalNumber = this.simplifiedForm();
+		const rn1: RationalNumber = this.simplifiedForm();
 		if (typeof x === "number") {
 			return rn1.numerator === x && rn1.denominator === 1;
 		} else {
-			let rn2: RationalNumber = x.simplifiedForm();
+			const rn2: RationalNumber = x.simplifiedForm();
 			return rn1.numerator === rn2.numerator && rn1.denominator === rn2.denominator;
 		}
 	}
 	public lt(x: number | RationalNumber): boolean {
-		let rn1: RationalNumber = this.simplifiedForm();
+		const rn1: RationalNumber = this.simplifiedForm();
 		if (typeof x === "number") {
 			return rn1.numerator < x * rn1.denominator;
 		} else {
-			let rn2: RationalNumber = x.simplifiedForm();
+			const rn2: RationalNumber = x.simplifiedForm();
 			return rn1.numerator * rn2.denominator < rn2.numerator * rn1.denominator;
 		}
 	}
 	public le(x: number | RationalNumber): boolean {
-		let rn1: RationalNumber = this.simplifiedForm();
+		const rn1: RationalNumber = this.simplifiedForm();
 		if (typeof x === "number") {
 			return rn1.numerator <= x * rn1.denominator;
 		} else {
-			let rn2: RationalNumber = x.simplifiedForm();
+			const rn2: RationalNumber = x.simplifiedForm();
 			return rn1.numerator * rn2.denominator <= rn2.numerator * rn1.denominator;
 		}
 	}
 	public gt(x: number | RationalNumber): boolean {
-		let rn1: RationalNumber = this.simplifiedForm();
+		const rn1: RationalNumber = this.simplifiedForm();
 		if (typeof x === "number") {
 			return rn1.numerator > x * rn1.denominator;
 		} else {
-			let rn2: RationalNumber = x.simplifiedForm();
+			const rn2: RationalNumber = x.simplifiedForm();
 			return rn1.numerator * rn2.denominator > rn2.numerator * rn1.denominator;
 		}
 	}
 	public ge(x: number | RationalNumber): boolean {
-		let rn1: RationalNumber = this.simplifiedForm();
+		const rn1: RationalNumber = this.simplifiedForm();
 		if (typeof x === "number") {
 			return rn1.numerator >= x * rn1.denominator;
 		} else {
-			let rn2: RationalNumber = x.simplifiedForm();
+			const rn2: RationalNumber = x.simplifiedForm();
 			return rn1.numerator * rn2.denominator >= rn2.numerator * rn1.denominator;
 		}
 	}
@@ -84,9 +84,9 @@ export class RationalNumber {
 		if (typeof x === "number") {
 			return new RationalNumber((this.numerator + x * this.denominator), this.denominator);
 		} else {
-			let lcm: number = this.leastCommonMultiple(this.denominator, x.denominator);
-			let n1: number = this.numerator * lcm / this.denominator;
-			let n2: number = x.numerator * lcm / x.denominator;
+			const lcm: number = RationalNumber.leastCommonMultiple(this.denominator, x.denominator);
+			const n1: number = this.numerator * lcm / this.denominator;
+			const n2: number = x.numerator * lcm / x.denominator;
 			return new RationalNumber(n1 + n2, lcm);
 		}
 	}
@@ -94,9 +94,9 @@ export class RationalNumber {
 		if (typeof x === "number") {
 			return new RationalNumber((this.numerator - x * this.denominator), this.denominator);
 		} else {
-			let lcm: number = this.leastCommonMultiple(this.denominator, x.denominator);
-			let n1: number = this.numerator * lcm / this.denominator;
-			let n2: number = x.numerator * lcm / x.denominator;
+			const lcm: number = RationalNumber.leastCommonMultiple(this.denominator, x.denominator);
+			const n1: number = this.numerator * lcm / this.denominator;
+			const n2: number = x.numerator * lcm / x.denominator;
 			return new RationalNumber(n1 - n2, lcm);
 		}
 	}

@@ -3,11 +3,9 @@ import { SystemOfLinearEquationsGenerator } from "../generators/SystemOfLinearEq
 import { MatrixPresenter } from "../presenters/MatrixPresenter";
 import { SystemOfLinearEquationsPresenter } from "../presenters/SystemOfLinearEquationsPresenter";
 import { Matrix, MatrixIdentity } from "../structures/Matrix";
-import { Queue } from "../structures/Queue";
 import { RationalNumber } from "../structures/RationalNumber";
 import { Stack } from "../structures/Stack";
 import { SystemOfLinearEquations } from "../structures/SystemOfLinearEquations";
-import { Vector } from "../structures/Vector";
 
 $(document).ready(() => {
 	const generator: SystemOfLinearEquationsGenerator = new SystemOfLinearEquationsGenerator();
