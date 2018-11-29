@@ -2,17 +2,17 @@ const path = require('path');
 const webpack = require('webpack');
 module.exports = {
     entry: {
-        fractals: './exercises/fractals.ts',
-        graph: './exercises/graph.ts',
-        inverseMatrix: './exercises/inverseMatrix.ts',
-        systemOfLinearEquations: './exercises/systemOfLinearEquations.ts',
-        LUFactorization: './exercises/LUFactorization.ts',
-        QRFactorization: './exercises/QRFactorization.ts',
-        VectorSpaceBasis: './exercises/VectorSpaceBasis.ts'
+        fractals: './src/exercises/fractals.ts',
+        graph: './src/exercises/graph.ts',
+        inverseMatrix: './src/exercises/inverseMatrix.ts',
+        systemOfLinearEquations: './src/exercises/systemOfLinearEquations.ts',
+        LUFactorization: './src/exercises/LUFactorization.ts',
+        QRFactorization: './src/exercises/QRFactorization.ts',
+        VectorSpaceBasis: './src/exercises/VectorSpaceBasis.ts'
     },
     devtool: 'inline-source-map',
     output: {
-        path: path.resolve(__dirname, './exercises'),
+        path: path.resolve(__dirname, './scripts'),
         filename: './[name].js'
     },
     module: {
