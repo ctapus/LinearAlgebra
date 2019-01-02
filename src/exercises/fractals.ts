@@ -7,13 +7,13 @@ $(document).ready(() => {
 	const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
 	const canvasWidth: number = canvas.width;
 	const canvasHeight: number = canvas.height;
-	const zoom: number = 200;
 	let offsetX: number = parseInt($("#xOffset").val() as string, 10);
 	let offsetY: number = parseInt($("#yOffset").val() as string, 10);
+	let zoom: number = parseInt($("#zoom").val() as string, 10);
 	const originX: number = canvasWidth / 2;
 	const originY: number = canvasHeight / 2;
-	const maxAbsoluteValue: number = 100;
-	const maxIterations: number = 100;
+	const maxSquaredAbsoluteValue: number = 2 * 2;
+	const maxIterations: number = 1000;
 	$("#legend").append($("<div></div>").text("Canvas size: " + canvasWidth + " x " + canvasHeight + " px"));
 	$("#legend").append($("<div></div>").text("Canvas origin: " + originX + " x " + originY + " px"));
 	drawFractal();
@@ -24,16 +24,17 @@ $(document).ready(() => {
 	function diverges(cx, cy): boolean {
 		let a: number = 0;
 		let b: number = 0;
-		let absoluteValue: number = 0;
+		let squaredAbsoluteValue: number = 0;
 		let iteration: number = maxIterations;
 		do {
 			// x1 = x0^2 + c
-			a = Math.pow(a, 2) + Math.pow(b, 2) + cx;
+			const temp: number = Math.pow(a, 2) - Math.pow(b, 2) + cx;
 			b = 2 * a * b + cy;
-			absoluteValue = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+			a = temp;
+			squaredAbsoluteValue = Math.pow(a, 2) + Math.pow(b, 2);
 			iteration--;
 		}
-		while (iteration > 0 && absoluteValue < maxAbsoluteValue);
+		while (iteration > 0 && squaredAbsoluteValue < maxSquaredAbsoluteValue);
 		return iteration === 0;
 	}
 	function drawFractal(): void {
@@ -59,13 +60,15 @@ $(document).ready(() => {
 		}
 	}
 	$("#xOffset").change(() => {
-		offsetX = parseInt($("#xOffset").val() as string, 10);
-		offsetY = parseInt($("#yOffset").val() as string, 10);
+		offsetX = parseFloat($("#xOffset").val() as string);
 		drawFractal();
 	});
 	$("#yOffset").change(() => {
-		offsetX = parseInt($("#xOffset").val() as string, 10);
-		offsetY = parseInt($("#yOffset").val() as string, 10);
+		offsetY = parseFloat($("#yOffset").val() as string);
+		drawFractal();
+	});
+	$("#zoom").change(() => {
+		zoom = parseFloat($("#zoom").val() as string);
 		drawFractal();
 	});
 });
