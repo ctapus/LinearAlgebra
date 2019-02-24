@@ -4,6 +4,7 @@ module.exports = {
     entry: {
         fractals: './src/exercises/fractals.ts',
         graph: './src/exercises/graph.ts',
+        decisionTree: './src/exercises/decisionTree.ts',
         inverseMatrix: './src/exercises/inverseMatrix.ts',
         systemOfLinearEquations: './src/exercises/systemOfLinearEquations.ts',
         LUFactorization: './src/exercises/LUFactorization.ts',

@@ -14,13 +14,13 @@
     "cross-env": "^5.2.0",
     "mocha": "^5.2.0",
     "rimraf": "^2.6.2",
-    "ts-loader": "^4.4.2",
-    "ts-node": "^7.0.0",
+    "ts-loader": "^5.3.3",
+    "ts-node": "^8.0.2",
     "tslint": "^5.10.0",
-    "typescript": "^2.9.2",
-    "webpack": "^4.26.1",
-    "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.10"
+    "typescript": "^3.3.3",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
     "clean": "rimraf ./structures/*.js ./structures/*.js.map ./presenters/*.js ./presenters/*.js.map ./generators/*.js ./generators/*.js.map ./exercises/*.js ./exercises/*.js.map",
