@@ -1,5 +1,6 @@
+type Feature = Array<(string | number)>;
 // DataSet
-const dataset: Array<Array<(string | number)>> = [
+const dataset: Feature[] = [
     ["DK", "January", "February", 58, "M", "A", "February" ],
     ["ES", "January", "January", 71, "F", "A", "January" ],
     ["ES", "February", "March", 69, "M", "A", "March" ],
@@ -45,10 +46,16 @@ $(document).ready(() => {
     }
     let giniRow: string = "";
     for (let i: number = 0; i < dataset[0].length; i++) {
-        const giniIndex: number = DecisionTree.calculateGini(DecisionTree.getColumnFromArray(dataset, i));
-        giniRow += `<td>${giniIndex}</td>`;
+        const giniImpurity: number = DecisionTree.calculateGiniImpurity(DecisionTree.getColumnFromArray(dataset, i));
+        giniRow += `<td>${giniImpurity}</td>`;
     }
     $("#tblDataset").append($(`<tr>${giniRow}</tr>`));
+    let entropyRow: string = "";
+    for (let i: number = 0; i < dataset[0].length; i++) {
+        const entropy: number = DecisionTree.calculateEntropy(DecisionTree.getColumnFromArray(dataset, i));
+        entropyRow += `<td>${entropy}</td>`;
+    }
+    $("#tblDataset").append($(`<tr>${entropyRow}</tr>`));
 });
 
 class DecisionTree {
@@ -61,7 +68,7 @@ class DecisionTree {
         }
         return Array.from(res.values());
     }
-    public static getColumnFromArray(data: Array<Array<(string | number)>>, columnIndex: number): Array<(string | number)> {
+    public static getColumnFromArray(data: Feature[], columnIndex: number): Feature {
         if (data === null || data.length === 0) {
             return null;
         }
@@ -74,9 +81,9 @@ class DecisionTree {
         
     }
 
-    public static calculateGini(data: Array<(string | number)>): number {
+    public static calculateGiniImpurity(feature: Feature): number {
         const dictionary: { [key: string]: number } = {};
-        for (const element of data) {
+        for (const element of feature) {
             if (!dictionary.hasOwnProperty(element)) {
                 dictionary[element] = 0;
             }
@@ -87,8 +94,27 @@ class DecisionTree {
         let gini: number = 1;
         for (const key of Object.keys(dictionary)) {
             const value: number = dictionary[key];
-            gini -= Math.pow(value/data.length, 2);
+            const pi: number = value/feature.length;
+            gini -= Math.pow(pi, 2);
         }
         return gini;
+    }
+    public static calculateEntropy(feature: Feature): number {
+        const dictionary: { [key: string]: number } = {};
+        for (const element of feature) {
+            if (!dictionary.hasOwnProperty(element)) {
+                dictionary[element] = 0;
+            }
+            else {
+                dictionary[element] ++;
+            }
+        }
+        let entropy: number = 0;
+        for (const key of Object.keys(dictionary)) {
+            const value: number = dictionary[key];
+            const pi: number = value/feature.length;
+            entropy -= pi * Math.log2(pi);
+        }
+        return entropy;
     }
 }
