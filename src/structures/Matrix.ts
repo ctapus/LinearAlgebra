@@ -1,9 +1,9 @@
-﻿import { RationalNumber } from "../structures/RationalNumber";
-import { Vector, RowVector, ColumnVector } from "../structures/Vector";
+﻿import { RationalNumber } from "./RationalNumber";
+import { Vector, RowVector, ColumnVector } from "./Vector";
 
 export class Matrix {
-	public m: number;// rows
-	public n: number;// columns
+	public m: number; // rows
+	public n: number; // columns
 	elements: RationalNumber[][];
 	constructor(m: number, n: number) {
 		this.m = m;
@@ -25,7 +25,7 @@ export class Matrix {
 		return true;
 	}
 	public add(x: Matrix): Matrix {
-		if (this.m !== x.m || this.n !== x.n) { throw "Mismatched dimensions."; }
+		if (this.m !== x.m || this.n !== x.n) { throw new Error("Mismatched dimensions."); }
 		const res: Matrix = new Matrix(this.m, this.n);
 		for (let i: number = 0; i < res.m; i++) {
 			for (let j: number = 0; j < res.n; j++) {
@@ -35,7 +35,7 @@ export class Matrix {
 		return res;
 	}
 	public sub(x: Matrix): Matrix {
-		if (this.m !== x.m || this.n !== x.n) { throw "Mismatched dimensions."; }
+		if (this.m !== x.m || this.n !== x.n) { throw new Error("Mismatched dimensions."); }
 		const res: Matrix = new Matrix(this.m, this.n);
 		for (let i: number = 0; i < res.m; i++) {
 			for (let j: number = 0; j < res.n; j++) {
@@ -48,7 +48,7 @@ export class Matrix {
 		let res: Matrix = null;
 		if (typeof x === "number") {
 			res = new Matrix(this.m, this.n);
-			for (let i:number = 0; i < res.m; i++) {
+			for (let i: number = 0; i < res.m; i++) {
 				for (let j: number = 0; j < res.n; j++) {
 					res.elements[i][j] = this.elements[i][j].mult(x);
 				}
@@ -62,7 +62,7 @@ export class Matrix {
 			}
 		} else {
 			if (x instanceof Matrix) {
-				if (this.n !== x.m) { throw "Mismatched dimensions."; }
+				if (this.n !== x.m) { throw new Error("Mismatched dimensions."); }
 				res = new Matrix(this.m, x.n);
 				for (let i: number = 0; i < res.m; i++) {
 					for (let j: number = 0; j < res.n; j++) {
@@ -78,7 +78,7 @@ export class Matrix {
 		return res;
 	}
 	public vectorProduct(v: ColumnVector): ColumnVector {
-		if (this.n !== v.m) { throw "Mismatched dimensions."; }
+		if (this.n !== v.m) { throw new Error("Mismatched dimensions."); }
 		const res: ColumnVector = new ColumnVector(v.m);
 		for (let i: number = 0; i < this.m; i++) {
 			let sum: RationalNumber = new RationalNumber(0);
@@ -99,7 +99,7 @@ export class Matrix {
 		return ret;
 	}
 	public deepCopy(): Matrix {
-		let ret: Matrix = new Matrix(this.m, this.n);
+		const ret: Matrix = new Matrix(this.m, this.n);
 		for (let i: number = 0; i < this.m; i++) {
 			for (let j: number = 0; j < this.n; j++) {
 				ret.elements[i][j] = this.elements[i][j];
@@ -110,7 +110,7 @@ export class Matrix {
 	public switchRows(idx1: number, idx2: number): void {
 		if (this.m < idx1 || this.m < idx2) { return; }
 		for (let i: number = 0; i < this.n; i++) {
-			let tmp: RationalNumber = this.elements[idx1][i];
+			const tmp: RationalNumber = this.elements[idx1][i];
 			this.elements[idx1][i] = this.elements[idx2][i];
 			this.elements[idx2][i] = tmp;
 		}
@@ -166,13 +166,13 @@ export class Matrix {
 	}
 	// a matrix is normal if it commutes with its conjugate transpose
 	public isNormal(): boolean {
-		throw "Not implemented";
+		throw new Error("Not implemented");
 	}
 	// the conjugate transpose of an m-by-n matrix A with complex entries is the n-by-m matrix A∗ obtained from A
 	// by taking the transpose and then taking the complex conjugate of each entry
 	// [ALIASES]: Hermitian transpose
 	public toConjugateTranspose(): Matrix {
-		throw "Not implemented";
+		throw new Error("Not implemented");
 	}
 	public isUpperTriangular(): boolean {
 		// todo: check if definition is valid for a non square matrix
@@ -207,7 +207,7 @@ export class Matrix {
 	// an orthogonal matrix is a square matrix with real entries whose columns and rows are orthogonal unit vectors
 	// [ALIASES]: real orthogonal matrix
 	public isOrthogonal(): boolean {
-		let MT: Matrix = this.transpose();
+		const MT: Matrix = this.transpose();
 		return this.mult(MT).isIdentity();
 	}
 	public isRowEchelonForm(): boolean {
@@ -245,7 +245,7 @@ export class Matrix {
 		return true;
 	}
 	public toReducedRowEchelonForm(): Matrix {
-		let res: Matrix = this.deepCopy();
+		const res: Matrix = this.deepCopy();
 		let lead: number = 0;
 		for (let r: number = 0; r < res.m; r++) {
 			if (res.n <= lead) {
@@ -279,14 +279,14 @@ export class Matrix {
 	public determinant(): RationalNumber {
 		// todo: implement an optimized version, like A=PLU
 		if (this.m !== this.n) {
-			throw "Determinant can only be calculated on a square matrix";
+			throw new Error("Determinant can only be calculated on a square matrix");
 		}
 		if (this.m === 1) {
 			return this.elements[0][0];
 		}
 		let ret: RationalNumber = new RationalNumber(0);
 		for (let i: number = 0; i < this.n; i++) {
-			let minor: RationalNumber = this.elements[0][i].mult(this.cofactor(0, i).determinant());
+			const minor: RationalNumber = this.elements[0][i].mult(this.cofactor(0, i).determinant());
 			ret = ret.add(minor.mult((-1) ** i));
 		}
 		return ret;
@@ -312,7 +312,7 @@ export class Matrix {
 		return acc;
 	}
 	private cofactor(rowId: number, columnId: number): Matrix {
-		let ret: Matrix = new Matrix(this.m - 1, this.n - 1);
+		const ret: Matrix = new Matrix(this.m - 1, this.n - 1);
 		let rowOffset: number = 0;
 		for (let i: number = 0; i < this.m - 1; i++) {
 			if (i === rowId) {

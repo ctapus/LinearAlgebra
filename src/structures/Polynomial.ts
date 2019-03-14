@@ -1,4 +1,4 @@
-﻿import { RationalNumber } from "../structures/RationalNumber";
+﻿import { RationalNumber } from "./RationalNumber";
 
 export class PolynomialExpression {
 	public terms: PolynomialExpressionTerm[];
@@ -10,13 +10,13 @@ export class PolynomialExpression {
 		}
 	}
 	public condense(): void {
-		for (let pt of this.terms) {
+		for (const pt of this.terms) {
 			pt.condense();
 		}
 	}
 	public calculate(): Polynomial {
-		let ret: Polynomial = new Polynomial();
-		for (let pt of this.terms) {
+		const ret: Polynomial = new Polynomial();
+		for (const pt of this.terms) {
 			ret.add(pt.calculate());
 		}
 		return ret;

@@ -1,5 +1,5 @@
-﻿import { Matrix } from "../structures/Matrix";
-import { RationalNumber } from "../structures/RationalNumber";
+﻿import { Matrix } from "./Matrix";
+import { RationalNumber } from "./RationalNumber";
 
 export class Vector {
 	public m: number;

@@ -1,5 +1,5 @@
-﻿import { Matrix } from "../structures/Matrix";
-import { Vector } from "../structures/Vector";
+﻿import { Matrix } from "./Matrix";
+import { Vector } from "./Vector";
 
 export class VectorSpace {
 	public m: number;

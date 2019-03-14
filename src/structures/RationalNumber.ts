@@ -1,6 +1,6 @@
-﻿import { Parser } from "../structures/ArithmeticEvaluator";
-import { Queue } from "../structures/Queue";
-import { Stack } from "../structures/Stack";
+﻿import { Parser } from "./ArithmeticEvaluator";
+import { Queue } from "./Queue";
+import { Stack } from "./Stack";
 
 export class RationalNumber {
 	public static greatestCommonDivisor(a: number, b: number): number {

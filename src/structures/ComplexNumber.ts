@@ -1,7 +1,4 @@
-﻿import { Parser } from "../structures/ArithmeticEvaluator";
-import { Queue } from "../structures/Queue";
-import { Stack } from "../structures/Stack";
-import { RationalNumber } from "./RationalNumber";
+﻿import { RationalNumber } from "./RationalNumber";
 
 // TODO: implement polar form
 export class ComplexNumber {

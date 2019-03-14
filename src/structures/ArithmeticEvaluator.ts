@@ -1,6 +1,6 @@
-﻿import { Queue } from "../structures/Queue";
-import { RationalNumber } from "../structures/RationalNumber";
-import { Stack } from "../structures/Stack";
+﻿import { Queue } from "./Queue";
+import { RationalNumber } from "./RationalNumber";
+import { Stack } from "./Stack";
 
 export class ArithmeticEvaluator {
 	private static isNumber(code: string): boolean {
