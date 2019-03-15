@@ -1,5 +1,5 @@
 
-import { DecisionTree, Feature } from "../structures/decisionTree";
+import { DecisionTree, Feature } from "../structures/DecisionTree";
 // DataSet
 const dataset: Feature[] = [
     ["DK", "January", "February", 58, "M", "A", "February" ],
