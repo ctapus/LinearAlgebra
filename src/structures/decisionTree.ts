@@ -18,9 +18,9 @@ export class DecisionTree {
         let right: Feature[] = new Array<Feature>();
         for(const x of data) {
             if(filter(x)) {
-                left.concat(x);
+                left.push(x);
             } else {
-                right.concat(x);
+                right.push(x);
             }
         }
         return [left, right];
@@ -66,12 +66,19 @@ export class DecisionTree {
         }
         return entropy;
     }
-    public static informationGain(left: Feature, right: Feature, currentImpurity: number): number {
+    public static calculateInformationGain(left: Feature, right: Feature, currentImpurity: number): number {
         /**
          * @remarks
          * The uncertainty of the starting node, minus the weighted impurity of two child nodes
          */
         const p: number = left.length / (left.length + right.length);
         return currentImpurity - p*this.calculateGiniImpurity(left) - (1-p)*this.calculateGiniImpurity(right);
+    }
+    public static calculateBestSplit() {
+        /**
+         * @remarks
+         * Find the best question to ask by iterating over every feature / value and calculating the information gain
+         */
+        let bestGain: nunber = 0;
     }
 }
