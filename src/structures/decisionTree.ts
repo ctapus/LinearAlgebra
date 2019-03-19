@@ -74,11 +74,35 @@ export class DecisionTree {
         const p: number = left.length / (left.length + right.length);
         return currentImpurity - p*this.calculateGiniImpurity(left) - (1-p)*this.calculateGiniImpurity(right);
     }
-    public static calculateBestSplit() {
+    public static calculateBestSplit(dataset: Feature[], labelsColumnIndex: number): [number, (f: FeatureType[]) => boolean] {
+        // TODO: refactor the labelsColumnIndex
         /**
          * @remarks
          * Find the best question to ask by iterating over every feature / value and calculating the information gain
          */
-        let bestGain: nunber = 0;
+        let bestInformationGain: number = 0;
+        let bestQuestion: (f: FeatureType[]) => boolean = null;
+        let currentUncertainty: number = this.calculateGiniImpurity(this.getColumnFromArray(dataset, labelsColumnIndex));
+        for(let colIdx=0;  colIdx < dataset.length; colIdx++) {
+            if(colIdx === labelsColumnIndex) {
+                continue;
+            }
+            const values: Feature = this.getUniqueValues(this.getColumnFromArray(dataset, colIdx));
+            for(const currentValue of values) {
+                const question: (f: FeatureType[]) => boolean = (x => x[colIdx] === currentValue);
+                let partition: [Feature[], Feature[]] = this.partitionData(dataset, question);
+                if(partition[0].length === 0 || partition[1].length === 0) {
+                    continue;
+                }
+                const trueColumn: Feature = this.getColumnFromArray(partition[0], colIdx);
+                const falseColumn: Feature = this.getColumnFromArray(partition[1], colIdx);
+                const informationGain: number = this.calculateInformationGain(trueColumn, falseColumn, currentUncertainty);
+                if(informationGain > bestInformationGain) {
+                    bestInformationGain = informationGain;
+                    bestQuestion = question;
+                }
+            }
+        }
+        return [bestInformationGain, bestQuestion];
     }
 }
