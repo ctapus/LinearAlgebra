@@ -22,7 +22,7 @@ export class ComplexNumber {
 		if (typeof x === "number" || x instanceof RationalNumber) {
 			return this.realPart.equals(x) && this.imaginaryPart.equals(0);
 		} else {
-			return this.realPart === x.realPart && this.imaginaryPart === x.imaginaryPart;
+			return this.realPart.equals(x.realPart) && this.imaginaryPart.equals(x.imaginaryPart);
 		}
 	}
 

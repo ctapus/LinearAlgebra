@@ -2,7 +2,7 @@
 // tslint:disable:eofline
 // tslint:disable:max-line-length
 import { expect } from "chai";
-import { DecisionTree, Feature } from "../structures/DecisionTree";
+import { DecisionTree, Feature, FeatureType, Question } from "../structures/DecisionTree";
 
 describe("DecisionTree test suite", () => {
 	it("can get a column", () => {
@@ -50,7 +50,7 @@ describe("DecisionTree test suite", () => {
 			["Red", 1, "Grape"],
 			["Yellow", 3, "Lemon"],
 		];
-		const res: [Feature[], Feature[]] = DecisionTree.partitionData(dataset, (x: Feature) => x[0] === "Red");
+		const res: [Feature[], Feature[]] = DecisionTree.partitionData(dataset, new Question(0, "Red"));
 		expect(res[0].length).to.be.equal(2);
 		expect(res[0][0][0]).to.be.equal("Red");
 		expect(res[1][0][0]).to.be.equal("Green");
@@ -65,8 +65,21 @@ describe("DecisionTree test suite", () => {
 			["Yellow", 3, "Lemon"],
 		];
 		const currentImpurity: number = DecisionTree.calculateGiniImpurity(DecisionTree.getColumnFromArray(dataset, 2));
-		const split: [Feature[], Feature[]] = DecisionTree.partitionData(dataset, (x: Feature) => x[0] === "Green");
+		const split: [Feature[], Feature[]] = DecisionTree.partitionData(dataset, new Question(0, "Green"));
 		const informationGain: number = DecisionTree.calculateInformationGain(DecisionTree.getColumnFromArray(split[0], 2), DecisionTree.getColumnFromArray(split[1], 2), currentImpurity);
 		expect(informationGain).to.be.equal(0.1399999999999999);
+	});
+	it("can calculate the best split", () => {
+		const dataset: Feature[] = [
+			["Green", 3, "Apple"],
+			["Yellow", 3, "Apple"],
+			["Red", 1, "Grape"],
+			["Red", 1, "Grape"],
+			["Yellow", 3, "Lemon"],
+		];
+		const bestSplit: [number, Question] = DecisionTree.calculateBestSplit(dataset, 2);
+		expect(bestSplit[0]).to.be.equal(0.6399999999999999);
+		expect(bestSplit[1].columnIndex).to.be.equal(1);
+		expect(bestSplit[1].featureValue).to.be.equal(3);
 	});
 });

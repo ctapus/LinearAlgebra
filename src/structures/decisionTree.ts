@@ -1,7 +1,24 @@
 export type FeatureType = (string | number);
 export type Feature = FeatureType[];
+export class Question {
+	public readonly columnIndex: number;
+	public readonly featureValue: FeatureType;
+	constructor(columnIndex: number, featureValue: FeatureType) {
+		this.columnIndex = columnIndex;
+		this.featureValue = featureValue;
+    }
+    public match(feature: FeatureType[]): boolean {
+        switch (typeof this.featureValue) {
+            case "number": return feature[this.columnIndex] >= this.featureValue;
+            case "string": return feature[this.columnIndex] === this.featureValue;
+        }
+    }
+	public toString = (): string => {
+		return `Is equal to ${this.featureValue}`;
+	}
+}
 export class DecisionTree {
-    public Left: DecisionTree;
+	public Left: DecisionTree;
     public Right: DecisionTree;
     public static getUniqueValues(data: Feature): Feature {
         const res = new Set(data);
@@ -13,11 +30,11 @@ export class DecisionTree {
         }
         return data.map((x) => x[columnIndex]);
     }
-    public static partitionData(data: Feature[], filter:(f: FeatureType[]) => boolean): [Feature[], Feature[]] {
+    public static partitionData(data: Feature[], question: Question): [Feature[], Feature[]] {
         let left: Feature[] = new Array<Feature>();
         let right: Feature[] = new Array<Feature>();
         for(const x of data) {
-            if(filter(x)) {
+            if(question.match(x)) {
                 left.push(x);
             } else {
                 right.push(x);
@@ -74,14 +91,14 @@ export class DecisionTree {
         const p: number = left.length / (left.length + right.length);
         return currentImpurity - p*this.calculateGiniImpurity(left) - (1-p)*this.calculateGiniImpurity(right);
     }
-    public static calculateBestSplit(dataset: Feature[], labelsColumnIndex: number): [number, (f: FeatureType[]) => boolean] {
+    public static calculateBestSplit(dataset: Feature[], labelsColumnIndex: number): [number, Question] {
         // TODO: refactor the labelsColumnIndex
         /**
          * @remarks
          * Find the best question to ask by iterating over every feature / value and calculating the information gain
          */
         let bestInformationGain: number = 0;
-        let bestQuestion: (f: FeatureType[]) => boolean = null;
+        let bestQuestion: Question = null;
         let currentUncertainty: number = this.calculateGiniImpurity(this.getColumnFromArray(dataset, labelsColumnIndex));
         for(let colIdx=0;  colIdx < dataset.length; colIdx++) {
             if(colIdx === labelsColumnIndex) {
@@ -89,7 +106,7 @@ export class DecisionTree {
             }
             const values: Feature = this.getUniqueValues(this.getColumnFromArray(dataset, colIdx));
             for(const currentValue of values) {
-                const question: (f: FeatureType[]) => boolean = (x => x[colIdx] === currentValue);
+                const question: Question = new Question(colIdx, currentValue);
                 let partition: [Feature[], Feature[]] = this.partitionData(dataset, question);
                 if(partition[0].length === 0 || partition[1].length === 0) {
                     continue;
