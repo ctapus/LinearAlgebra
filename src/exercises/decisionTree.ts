@@ -45,16 +45,4 @@ $(document).ready(() => {
         }
         $("#tblDataset").append($(`<tr>${tr}</tr>`));
     }
-    let giniRow: string = "";
-    for (let i: number = 0; i < dataset[0].length; i++) {
-        const giniImpurity: number = DecisionTree.calculateGiniImpurity(DecisionTree.getColumnFromArray(dataset, i));
-        giniRow += `<td>${giniImpurity.toFixed(2)}</td>`;
-    }
-    $("#tblDataset").append($(`<tr>${giniRow}</tr>`));
-    let entropyRow: string = "";
-    for (let i: number = 0; i < dataset[0].length; i++) {
-        const entropy: number = DecisionTree.calculateEntropy(DecisionTree.getColumnFromArray(dataset, i));
-        entropyRow += `<td>${entropy.toFixed(2)}</td>`;
-    }
-    $("#tblDataset").append($(`<tr>${entropyRow}</tr>`));
 });
