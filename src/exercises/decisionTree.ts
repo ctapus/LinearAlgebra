@@ -1,37 +1,37 @@
 
-import { DecisionTree, Feature } from "../structures/DecisionTree";
+import { DecisionTree, Leaf, Feature } from "../structures/DecisionTree";
 // DataSet
 const dataset: Feature[] = [
-    ["DK", "January", "February", 58, "M", "A", "February" ],
-    ["ES", "January", "January", 71, "F", "A", "January" ],
-    ["ES", "February", "March", 69, "M", "A", "March" ],
-    ["AE", "February", "February", 60, "M", "D", "February" ],
-    ["DO", "December", "January", 54, "F", "A", "January" ],
-    ["ES", "January", "January", 66, "M", "A", "January" ],
-    ["AE", "February", "March", 66, "F", "A", "March" ],
-    ["TH", "February", "February", 56, "M", "A", "March" ],
-    ["TH", "February", "March", 56, "M", "A", "March" ],
-    ["IT", "December", "January", 67, "M", "D", "January" ],
-    ["IT", "January", "January", 90, "M", "D", "January" ],
-    ["NL", "December", "December", 70, "F", "A", "January" ],
-    ["NL", "December", "January", 70, "F", "A", "January" ],
-    ["ZA", "January", "January", 69, "F", "A", "January" ],
-    ["ZA", "January", "January", 69, "F", "A", "January" ],
-    ["ZA", "January", "January", 69, "F", "A", "January" ],
-    ["ZA", "January", "January", 69, "F", "A", "January" ],
-    ["ZA", "January", "January", 69, "F", "A", "January" ],
-    ["ZA", "January", "January", 69, "F", "A", "January" ],
-    ["ZA", "January", "January", 51, "F", "A", "January" ],
-    ["ZA", "January", "January", 51, "F", "A", "January" ],
-    ["ZA", "January", "January", 51, "F", "A", "January" ],
-    ["ZA", "January", "January", 51, "F", "A", "January" ],
-    ["ZA", "January", "January", 51, "F", "A", "January" ],
-    ["NL", "February", "February", 57, "F", "A", "February" ],
-    ["MX", "January", "February", 59, "F", "A", "February" ],
-    ["DE", "January", "January", 80, "M", "A", "January" ],
-    ["IT", "March", "March", 70, "M", "A", "March" ],
-    ["ES", "February", "February", 43, "M", "A", "February" ],
-    ["SR", "March", "March", 57, "M", "D", "March" ],
+    ["DK", "January", "February", 58, "M", "A" ],
+    ["ES", "January", "January", 71, "F", "A" ],
+    ["ES", "February", "March", 69, "M", "A" ],
+    ["AE", "February", "February", 60, "M", "D" ],
+    ["DO", "December", "January", 54, "F", "A" ],
+    ["ES", "January", "January", 66, "M", "A" ],
+    ["AE", "February", "March", 66, "F", "A" ],
+    ["TH", "February", "February", 56, "M", "A" ],
+    ["TH", "February", "March", 56, "M", "A" ],
+    ["IT", "December", "January", 67, "M", "D" ],
+    ["IT", "January", "January", 90, "M", "D" ],
+    ["NL", "December", "December", 70, "F", "A" ],
+    ["NL", "December", "January", 70, "F", "A" ],
+    ["ZA", "January", "January", 69, "F", "A" ],
+    ["ZA", "January", "January", 69, "F", "A" ],
+    ["ZA", "January", "January", 69, "F", "A" ],
+    ["ZA", "January", "January", 69, "F", "A" ],
+    ["ZA", "January", "January", 69, "F", "A" ],
+    ["ZA", "January", "January", 69, "F", "A" ],
+    ["ZA", "January", "January", 51, "F", "A" ],
+    ["ZA", "January", "January", 51, "F", "A" ],
+    ["ZA", "January", "January", 51, "F", "A" ],
+    ["ZA", "January", "January", 51, "F", "A" ],
+    ["ZA", "January", "January", 51, "F", "A" ],
+    ["NL", "February", "February", 57, "F", "A" ],
+    ["MX", "January", "February", 59, "F", "A" ],
+    ["DE", "January", "January", 80, "M", "A" ],
+    ["IT", "March", "March", 70, "M", "A" ],
+    ["ES", "February", "February", 43, "M", "A" ],
+    ["SR", "March", "March", 57, "M", "D" ],
 ];
 
 // Types of decison trees:
@@ -45,4 +45,6 @@ $(document).ready(() => {
         }
         $("#tblDataset").append($(`<tr>${tr}</tr>`));
     }
+    const decisionTree: Leaf | DecisionTree = DecisionTree.buildTree(dataset, 5);
+    $("#divDecisionTree").append(DecisionTree.printTree(decisionTree));
 });

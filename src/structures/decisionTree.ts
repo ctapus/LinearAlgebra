@@ -14,7 +14,7 @@ export class Question {
         }
     }
 	public toString = (): string => {
-		return `Is equal to ${this.featureValue}`;
+		return `Column ${this.columnIndex} is equal to ${this.featureValue}`;
 	}
 }
 export class Leaf {
@@ -22,6 +22,17 @@ export class Leaf {
     constructor(predictions: { [key: string]: number }) {
         this.predictions = predictions;
     }
+	public toString = (): string => {
+        let ret: string = "";
+        let total: number = 0;
+        for(let key in this.predictions) {
+            total += this.predictions[key];
+        }
+        for(let key in this.predictions) {
+            ret += `'${key}': ${this.predictions[key]*100/total}%; `;
+        }
+		return ret.slice(0, ret.length - 2);
+	}
 }
 export class DecisionTree {
     public readonly question: Question;
@@ -142,5 +153,26 @@ export class DecisionTree {
         const trueBranch: Leaf | DecisionTree = this.buildTree(left, labelsColumnIndex);
         const falseBranch: Leaf | DecisionTree = this.buildTree(right, labelsColumnIndex);
         return new DecisionTree(question, trueBranch, falseBranch);
+    }
+    public static classify(row: Feature, node: Leaf | DecisionTree): { [key: string]: number } {
+        if(node instanceof Leaf) {
+            return node.predictions;
+        }
+        if(node.question.match(row)) {
+            return this.classify(row, node.trueBranch);
+        } else {
+            return this.classify(row, node.falseBranch);
+        }
+    }
+    public static printTree(node: Leaf | DecisionTree): string {
+        let ret: string = "";
+        if(node instanceof Leaf) {
+            return `<div style="margin-left: 20px">Predict ${node.toString()}</div>`;
+        }
+        ret += `<div style="margin-left: 20px">${node.question.toString()}`;
+        ret += `<div style="margin-left: 20px">TRUE:<div>${this.printTree(node.trueBranch)}</div></div>`;
+        ret += `<div style="margin-left: 20px">FALSE:<div>${this.printTree(node.falseBranch)}</div></div>`;
+        ret += `</div>`;
+        return ret;
     }
 }
