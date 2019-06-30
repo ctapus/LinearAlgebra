@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 module.exports = {
     entry: {
+        geneticAlgorithm: './src/exercises/geneticAlgorithm.ts',
         fractals: './src/exercises/fractals.ts',
         graph: './src/exercises/graph.ts',
         decisionTree: './src/exercises/decisionTree.ts',

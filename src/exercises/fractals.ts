@@ -1,4 +1,16 @@
-﻿
+﻿// The Mandelbrot set consists of all of those (complex) c-values for which the corresponding orbit of 0 under x^2 + c does not escape to infinity.
+// Fix a value of c. The filled Julia set of x^2 + c is the collection of seeds whose orbit does not tend to infinity.
+
+/*
+The Mandelbrot set
+- is a picture in the c-plane, also called the parameter plane,
+- records the fate of the orbit of 0 for all possible c-values.
+
+The filled Julia set
+- is a picture in the x-plane, also called the dynamical plane,
+- records the fate of all orbits for x^2 + c for a fixed c. There is one Julia set for each value of c.
+*/
+
 const orthonormalAxesColor: string = "#666600";
 const orthonormalGridLinesColor: string = "#f0f0ff";
 const unitSize: number = 20;
@@ -21,7 +33,7 @@ $(document).ready(() => {
 		return [offsetX + (x - originX) / zoom, offsetY + (y - originY) / zoom];
 	}
 	// orbit of x0 under iteration of x^2 + c.
-	function diverges(cx, cy): boolean {
+	function diverges(cx: number, cy: number): boolean {
 		let a: number = 0;
 		let b: number = 0;
 		let squaredAbsoluteValue: number = 0;
