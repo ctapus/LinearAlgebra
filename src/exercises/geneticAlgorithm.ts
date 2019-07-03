@@ -1,9 +1,11 @@
 
 export class Individual {
+    public static genesAlphabet: string = " ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public fitness: number = 0;
     public genes: string[];
     public static randomGene(): string {
-        return String.fromCharCode("A".charCodeAt(0) + Math.floor(Math.random() * 26));
+        let code: number = Math.floor(Math.random() * Individual.genesAlphabet.length);
+        return Individual.genesAlphabet[code];
     }
     constructor() {
         this.genes = new Array(28); // TODO: write an Init or Random method
@@ -23,11 +25,13 @@ export class Individual {
 }
 
 export class Population {
+    public maxNumberOfIndividuals: number;
     public individuals: Individual[];
     public generations: number = 0;
     constructor(numberOfIndividuals: number) {
-        this.individuals = new Array(numberOfIndividuals);
-		for (let i:number = 0; i < numberOfIndividuals; i++) {
+        this.maxNumberOfIndividuals = numberOfIndividuals;
+        this.individuals = new Array<Individual>(this.maxNumberOfIndividuals);
+		for (let i:number = 0; i < this.maxNumberOfIndividuals; i++) {
             this.individuals[i] = new Individual();
         }
         this.calculateFitness();
@@ -37,10 +41,10 @@ export class Population {
             individual.calculateFitness();
         }
     }
-    public applySelection(): void {
-        const individualsByFitness: Individual[] = this.individuals.sort((a, b) => a.fitness > b.fitness ? 1 : -1);
-        const selectionPoint: number =  Math.floor(Math.random() * this.individuals.length);
-        this.individuals = individualsByFitness.splice(selectionPoint);
+    public applySelection(): number {
+        this.individuals.sort((a, b) => a.fitness < b.fitness ? 1 : -1)[0];
+        const selectionPoint: number = Math.floor(Math.random() * (this.individuals.length - 3) + 3);// keep at least the first two individuals
+        return selectionPoint;
     }
     public applyCrossover(individual1: Individual, individual2: Individual): Individual[] {
         let ret: Individual[] = [new Individual(), new Individual()];
@@ -53,18 +57,25 @@ export class Population {
             ret[0].genes[i] = individual2.genes[i];
             ret[1].genes[i] = individual1.genes[i];
         }
+        ret[0].calculateFitness();
+        ret[1].calculateFitness();
         return ret;
     }
     public applyMutation(individual: Individual): void {
         const mutationPoint: number =  Math.floor(Math.random() * individual.genes.length);
         individual.genes[mutationPoint] = Individual.randomGene();
+        individual.calculateFitness();
     }
     public nextGeneration():void {
         this.generations++;
-        this.applySelection();
+        let selectionPoint: number = this.applySelection();
+        let temp: Individual[] = new Array<Individual>();
         for(let i:number = 0; i < this.individuals.length / 2; i++) {
-            this.individuals.concat(this.applyCrossover(this.individuals[i], this.individuals[this.individuals.length - 1]));
+            temp = temp.concat(this.applyCrossover(this.individuals[i], this.individuals[this.individuals.length - 1]));
         }
+        this.individuals.splice(selectionPoint);
+        this.individuals = this.individuals.concat(temp);
+        this.individuals.splice(this.maxNumberOfIndividuals);
         for(let i: number = 0; i < this.individuals.length; i++) {
             if(Math.floor(Math.random() * 2) + 1  < 7) {
                 this.applyMutation(this.individuals[i]);
@@ -73,7 +84,7 @@ export class Population {
         this.calculateFitness();
     }
     public fittestIndividual(): Individual {
-        return this.individuals.sort((a, b) => a.fitness > b.fitness ? 1 : -1)[0];
+        return this.individuals.sort((a, b) => a.fitness < b.fitness ? 1 : -1)[0];
     }
 }
 
@@ -86,19 +97,28 @@ $(document).ready(() => {
         $("#tbGeneration").val(population.generations);
     }
     const testPopulation: Population = new Population(10);
+    let tableResults: string = `<table id="tablResults" style="width: 100%">`;
     for (let i: number = 0; i < testPopulation.individuals.length; i++) {
-        $("#divResult").append(`<div><input type="text" id="tbIndividualGenes${i}" style="width: 60%" />
-        <input type="text" id="tbIndividualFitness${i}" style="width: 40px; text-align: right" /></div>`);
+        tableResults += `<tr><td><span>Individual ${i} </span></td>
+        <td><input type="text" id="tbIndividualGenes${i}" style="width: 100%" /></td>
+        <td><input type="text" id="tbIndividualFitness${i}" style="width: 40px; text-align: right" /></td>`;
     }
+    tableResults += `</table>`;
+    $("#divResult").append(tableResults);
     $("#divResult").append(`<div><span>Generation </span><input type="text" id="tbGeneration" style="width: 40px; text-align: right" /></div>`);
-    $("#divResult").append(`<div><input type="button" id="btnRun" value="Run" /></div>`);
+    let timerId: number = 0;
 	$("#btnRun").click(() => {
-        let timerId: number = setInterval(() => {
+        timerId = setInterval(() => {
             printPopulation(testPopulation);
             testPopulation.nextGeneration();
-            if (testPopulation.fittestIndividual().fitness > 10) {
+            if (testPopulation.fittestIndividual().fitness === 28) {
                 clearInterval(timerId);
             }
         }, 500);
+    });
+	$("#btnStop").click(() => {
+        if(timerId !== 0) {
+            clearInterval(timerId);
+        }
     });
 });
