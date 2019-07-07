@@ -2,15 +2,24 @@
 export class Individual {
     public static genesAlphabet: string = " ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public fitness: number = 0;
-    public genes: string[];
+    public genes: string[]; // chromosome
     public static randomGene(): string {
         let code: number = Math.floor(Math.random() * Individual.genesAlphabet.length);
         return Individual.genesAlphabet[code];
     }
-    constructor() {
-        this.genes = new Array(28); // TODO: write an Init or Random method
-		for (let i:number = 0; i < this.genes.length; i++) {
-            this.genes[i] = Individual.randomGene();
+    constructor(individual?: Individual) {
+        if( individual === undefined || individual === null) {
+            this.genes = new Array(28); // TODO: write an Init or Random method
+            for (let i: number = 0; i < this.genes.length; i++) {
+                this.genes[i] = Individual.randomGene();
+            }
+            this.calculateFitness();
+        } else {
+            this.genes = new Array(individual.genes.length);
+            for (let i: number = 0; i < individual.genes.length; i++) {
+                this.genes[i] = individual.genes[i];
+            }
+            this.fitness = individual.fitness;
         }
     }
     public calculateFitness() {
@@ -61,26 +70,30 @@ export class Population {
         ret[1].calculateFitness();
         return ret;
     }
-    public applyMutation(individual: Individual): void {
+    public applyMutation(individual: Individual): Individual {
+        let ret: Individual = new Individual(individual);
         const mutationPoint: number =  Math.floor(Math.random() * individual.genes.length);
-        individual.genes[mutationPoint] = Individual.randomGene();
-        individual.calculateFitness();
+        ret.genes[mutationPoint] = Individual.randomGene();
+        ret.calculateFitness();
+        return ret;
     }
     public nextGeneration():void {
         this.generations++;
         let selectionPoint: number = this.applySelection();
         let temp: Individual[] = new Array<Individual>();
-        for(let i:number = 0; i < this.individuals.length / 2; i++) {
-            temp = temp.concat(this.applyCrossover(this.individuals[i], this.individuals[this.individuals.length - 1]));
+        for(let i:number = 0; i < this.individuals.length; i+=2) {
+            temp = temp.concat(this.applyCrossover(this.individuals[i], this.individuals[i + 1]));
         }
         this.individuals.splice(selectionPoint);
         this.individuals = this.individuals.concat(temp);
         this.individuals.splice(this.maxNumberOfIndividuals);
+        temp = new Array<Individual>();
         for(let i: number = 0; i < this.individuals.length; i++) {
             if(Math.floor(Math.random() * 2) + 1  < 7) {
-                this.applyMutation(this.individuals[i]);
+                temp.push(this.applyMutation(this.individuals[i]));
             }
         }
+        this.individuals = this.individuals.concat(temp);
         this.calculateFitness();
     }
     public fittestIndividual(): Individual {
@@ -114,7 +127,7 @@ $(document).ready(() => {
             if (testPopulation.fittestIndividual().fitness === 28) {
                 clearInterval(timerId);
             }
-        }, 500);
+        }, 200);
     });
 	$("#btnStop").click(() => {
         if(timerId !== 0) {
