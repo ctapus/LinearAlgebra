@@ -4,7 +4,7 @@ import { Vector, RowVector, ColumnVector } from "./Vector";
 export class Matrix {
 	public m: number; // rows
 	public n: number; // columns
-	elements: RationalNumber[][];
+	public elements: RationalNumber[][];
 	constructor(m: number, n: number) {
 		this.m = m;
 		this.n = n;

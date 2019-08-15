@@ -6,13 +6,13 @@ export class Question {
 	constructor(columnIndex: number, featureValue: FeatureType) {
 		this.columnIndex = columnIndex;
 		this.featureValue = featureValue;
-    }
-    public match(feature: FeatureType[]): boolean {
-        switch (typeof this.featureValue) {
-            case "number": return feature[this.columnIndex] >= this.featureValue;
-            case "string": return feature[this.columnIndex] === this.featureValue;
-        }
-    }
+	}
+	public match(feature: FeatureType[]): boolean {
+		switch (typeof this.featureValue) {
+			case "number": return feature[this.columnIndex] >= this.featureValue;
+			case "string": return feature[this.columnIndex] === this.featureValue;
+		}
+	}
 	public toString = (): string => {
 		return `Column ${this.columnIndex} is equal to ${this.featureValue}`;
 	}
