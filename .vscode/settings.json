@@ -7,5 +7,6 @@
     "typescript.referencesCodeLens.enabled": true,
     "typescript.implementationsCodeLens.enabled": true,
     "window.zoomLevel": 0,
-    "mocha.files.glob": "tests/**/*.test.js"
+    "mocha.files.glob": "tests/**/*.test.js",
+    "editor.renderWhitespace": "all"
 }
