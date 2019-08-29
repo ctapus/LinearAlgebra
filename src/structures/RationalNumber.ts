@@ -3,11 +3,105 @@ import { Queue } from "./Queue";
 import { Stack } from "./Stack";
 
 export class RationalNumber {
+	public static toReversePolishNotation(code: string): string[] {
+		const tokens: string[] = code.match(/\(|\)|\d+(\.\d+)?|\w+|[\+\-\*\/\^]/g);
+		let i: number = 0;
+		const outputQueue: Queue<string> = new Queue<string>();
+		const operatorStack: Stack<string> = new Stack<string>();
+		while (i < tokens.length) {
+			if (this.isNumber(tokens[i])) {
+				outputQueue.enqueue(tokens[i]);
+			} else if (this.isOperator(tokens[i])) {
+				const op1: string = tokens[i];
+				while (!operatorStack.isEmpty() && this.isOperator(operatorStack.peek())) {
+					if ((this.isLeftAssociativeOperator(op1) && (this.precedence(op1) <= this.precedence(operatorStack.peek()))) ||
+						(this.isRightAssociativeOperator(op1) && (this.precedence(op1) < this.precedence(operatorStack.peek())))) {
+						outputQueue.enqueue(operatorStack.pop());
+					} else {
+						break;
+					}
+				}
+				operatorStack.push(op1);
+			} else if (tokens[i] === "(") {
+				operatorStack.push(tokens[i]);
+			} else if (tokens[i] === ")") {
+				while (!operatorStack.isEmpty() && operatorStack.peek() !== "(") {
+					outputQueue.enqueue(operatorStack.pop());
+				}
+				if (!operatorStack.isEmpty() && operatorStack.peek() === "(") {
+					operatorStack.pop();
+				} else {
+					throw new Error("Mismatched parentheses.");
+				}
+			}
+			i++;
+		}
+		while (!operatorStack.isEmpty()) {
+			if (operatorStack.peek() === "(") {
+				throw new Error("Mismatched parentheses.");
+			} else {
+				outputQueue.enqueue(operatorStack.pop());
+			}
+		}
+		return outputQueue.toArray();
+	}
+	public static fromString(code: string): RationalNumber {
+		const p: Parser = new Parser();
+		return p.parse(code);
+	}
 	public static greatestCommonDivisor(a: number, b: number): number {
 		return b ? RationalNumber.greatestCommonDivisor(b, a % b) : a;
 	}
 	public static leastCommonMultiple(a: number, b: number): number {
 		return Math.abs(a * b / RationalNumber.greatestCommonDivisor(a, b));
+	}
+	private static isNumber(code: string): boolean {
+		return /^\d/.test(code);
+	}
+	private static isOperator(code: string): boolean {
+		return /[\+\-\*\/\^]/.test(code);
+	}
+	private static isLeftAssociativeOperator(operator: string): boolean {
+		return /[\+\-\*\/]/.test(operator);
+	}
+	private static isRightAssociativeOperator(operator: string): boolean {
+		return /[\^]/.test(operator);
+	}
+	private static precedence(operator: string): number {
+		if (/[\+\-]/.test(operator)) {
+			return 1;
+		}
+		if (/[\*\/]/.test(operator)) {
+			return 2;
+		}
+		if (/[\^]/.test(operator)) {
+			return 3;
+		}
+		throw new Error("Unknown operator.");
+	}
+	private static evaluateFromRPN(tokens: string[]): RationalNumber {
+		const stack: Stack<RationalNumber> = new Stack<RationalNumber>();
+		for (let i: number = 0; i < tokens.length; i++) {
+			if (!this.isOperator(tokens[i])) {
+				stack.push(new RationalNumber(parseFloat(tokens[i])));
+			} else {
+				const op1: RationalNumber = stack.pop();
+				const op2: RationalNumber = stack.pop();
+				switch (tokens[i]) {
+					case "+": stack.push(op2.add(op1));
+						break;
+					case "-": stack.push(op2.sub(op1));
+						break;
+					case "*": stack.push(op2.mult(op1));
+						break;
+					case "/": stack.push(op2.div(op1));
+						break;
+					case "^": stack.push(op2.exp(op1.toNumber()));
+						break;
+				}
+			}
+		}
+		return stack.pop().simplifiedForm();
 	}
 	public numerator: number;
 	public denominator: number;
@@ -116,10 +210,10 @@ export class RationalNumber {
 	}
 	public exp(x: number | RationalNumber): RationalNumber {
 		if (typeof x === "number") {
-			return new RationalNumber(this.numerator**x, this.denominator**x);
+			return new RationalNumber(this.numerator ** x, this.denominator ** x);
 		} else {
 			if (this.denominator !== 1) { throw Error("Exponentiation with rational powers not supported."); }
-			return new RationalNumber(this.numerator**x.numerator, this.denominator**x.numerator);
+			return new RationalNumber(this.numerator ** x.numerator, this.denominator ** x.numerator);
 		}
 	}
 	public toNumber(): number {
@@ -130,100 +224,5 @@ export class RationalNumber {
 	}
 	public deepCopy(): RationalNumber {
 		return new RationalNumber(this.numerator, this.denominator);
-	}
-	public static fromString(code: string): RationalNumber {
-		let p: Parser = new Parser();
-		return p.parse(code);
-	}
-
-	private static isNumber(code: string): boolean {
-		return /^\d/.test(code);
-	}
-	private static isOperator(code: string): boolean {
-		return /[\+\-\*\/\^]/.test(code);
-	}
-	private static isLeftAssociativeOperator(operator: string): boolean {
-		return /[\+\-\*\/]/.test(operator);
-	}
-	private static isRightAssociativeOperator(operator: string): boolean {
-		return /[\^]/.test(operator);
-	}
-	private static precedence(operator: string): number {
-		if (/[\+\-]/.test(operator)) {
-			return 1;
-		}
-		if (/[\*\/]/.test(operator)) {
-			return 2;
-		}
-		if (/[\^]/.test(operator)) {
-			return 3;
-		}
-		throw new Error("Unknown operator.");
-	}
-	public static toReversePolishNotation(code: string): string[] {
-		let tokens: string[] = code.match(/\(|\)|\d+(\.\d+)?|\w+|[\+\-\*\/\^]/g);
-		let i: number = 0;
-		let outputQueue: Queue<string> = new Queue<string>();
-		let operatorStack: Stack<string> = new Stack<string>();
-		while (i < tokens.length) {
-			if (this.isNumber(tokens[i])) {
-				outputQueue.enqueue(tokens[i]);
-			} else if (this.isOperator(tokens[i])) {
-				let op1: string = tokens[i];
-				while (!operatorStack.isEmpty() && this.isOperator(operatorStack.peek())) {
-					if ((this.isLeftAssociativeOperator(op1) && (this.precedence(op1) <= this.precedence(operatorStack.peek()))) ||
-						(this.isRightAssociativeOperator(op1) && (this.precedence(op1) < this.precedence(operatorStack.peek())))) {
-						outputQueue.enqueue(operatorStack.pop());
-					} else {
-						break;
-					}
-				}
-				operatorStack.push(op1);
-			} else if (tokens[i] === "(") {
-				operatorStack.push(tokens[i]);
-			} else if (tokens[i] === ")") {
-				while (!operatorStack.isEmpty() && operatorStack.peek() !== "(") {
-					outputQueue.enqueue(operatorStack.pop());
-				}
-				if (!operatorStack.isEmpty() && operatorStack.peek() === "(") {
-					operatorStack.pop();
-				} else {
-					throw new Error("Mismatched parentheses.");
-				}
-			}
-			i++;
-		}
-		while (!operatorStack.isEmpty()) {
-			if (operatorStack.peek() === "(") {
-				throw new Error("Mismatched parentheses.");
-			} else {
-				outputQueue.enqueue(operatorStack.pop());
-			}
-		}
-		return outputQueue.toArray();
-	}
-	private static evaluateFromRPN(tokens: string[]): RationalNumber {
-		let stack: Stack<RationalNumber> = new Stack<RationalNumber>();
-		for (let i: number = 0; i < tokens.length; i++) {
-			if (!this.isOperator(tokens[i])) {
-				stack.push(new RationalNumber(parseFloat(tokens[i])));
-			} else {
-				let op1: RationalNumber = stack.pop();
-				let op2: RationalNumber = stack.pop();
-				switch (tokens[i]) {
-					case "+": stack.push(op2.add(op1));
-						break;
-					case "-": stack.push(op2.sub(op1));
-						break;
-					case "*": stack.push(op2.mult(op1));
-						break;
-					case "/": stack.push(op2.div(op1));
-						break;
-					case "^": stack.push(op2.exp(op1.toNumber()));
-						break;
-				}
-			}
-		}
-		return stack.pop().simplifiedForm();
 	}
 }

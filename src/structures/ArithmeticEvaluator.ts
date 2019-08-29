@@ -3,35 +3,11 @@ import { RationalNumber } from "./RationalNumber";
 import { Stack } from "./Stack";
 
 export class ArithmeticEvaluator {
-	private static isNumber(code: string): boolean {
-		return /^\d/.test(code);
-	}
-	private static isOperator(code: string): boolean {
-		return /[\+\-\*\/\^]/.test(code);
-	}
-	private static isLeftAssociativeOperator(operator: string): boolean {
-		return /[\+\-\*\/]/.test(operator);
-	}
-	private static isRightAssociativeOperator(operator: string): boolean {
-		return /[\^]/.test(operator);
-	}
-	private static precedence(operator: string): number {
-		if (/[\+\-]/.test(operator)) {
-			 return 1;
-		}
-		if (/[\*\/]/.test(operator)) {
-			 return 2;
-		}
-		if (/[\^]/.test(operator)) {
-			 return 3;
-		}
-		throw new Error("Unknown operator.");
-	}
 	public static toReversePolishNotation(code: string): string[] {
-		let tokens: string[] = code.match(/\(|\)|\d+(\.\d+)?|\w+|[\+\-\*\/\^]/g);
+		const tokens: string[] = code.match(/\(|\)|\d+(\.\d+)?|\w+|[\+\-\*\/\^]/g);
 		let i: number = 0;
-		let outputQueue: Queue<string> = new Queue<string>();
-		let operatorStack: Stack<string> = new Stack<string>();
+		const outputQueue: Queue<string> = new Queue<string>();
+		const operatorStack: Stack<string> = new Stack<string>();
 		while (i < tokens.length) {
 			if (this.isNumber(tokens[i])) {
 				outputQueue.enqueue(tokens[i]);
@@ -70,7 +46,7 @@ export class ArithmeticEvaluator {
 		return outputQueue.toArray();
 	}
 	public static evaluateFromRPN(tokens: string[]): number {
-		let stack: Stack<number> = new Stack<number>();
+		const stack: Stack<number> = new Stack<number>();
 		for (let i: number = 0; i < tokens.length; i++) {
 			if (!this.isOperator(tokens[i])) {
 				stack.push(parseFloat(tokens[i]));
@@ -92,6 +68,30 @@ export class ArithmeticEvaluator {
 			}
 		}
 		return stack.pop();
+	}
+	private static isNumber(code: string): boolean {
+		return /^\d/.test(code);
+	}
+	private static isOperator(code: string): boolean {
+		return /[\+\-\*\/\^]/.test(code);
+	}
+	private static isLeftAssociativeOperator(operator: string): boolean {
+		return /[\+\-\*\/]/.test(operator);
+	}
+	private static isRightAssociativeOperator(operator: string): boolean {
+		return /[\^]/.test(operator);
+	}
+	private static precedence(operator: string): number {
+		if (/[\+\-]/.test(operator)) {
+			 return 1;
+		}
+		if (/[\*\/]/.test(operator)) {
+			 return 2;
+		}
+		if (/[\^]/.test(operator)) {
+			 return 3;
+		}
+		throw new Error("Unknown operator.");
 	}
 }
 
@@ -161,8 +161,8 @@ export class Parser {
 	private lex: Lexer;
 	public parse(code: string): RationalNumber {
 		this.lex = new Lexer(code);
-		let expression: RationalNumber = this.fourthOrderOperators();
-		let token: Token = this.lex.getCurrentToken();// is already advanced because of number()
+		const expression: RationalNumber = this.fourthOrderOperators();
+		const token: Token = this.lex.getCurrentToken(); // is already advanced because of number()
 		if (token.type === TokenType.End) {
 			return expression;
 		}

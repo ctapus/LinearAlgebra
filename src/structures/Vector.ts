@@ -2,6 +2,15 @@
 import { RationalNumber } from "./RationalNumber";
 
 export class Vector {
+	public static areLinearlyIndependent(vectors: Vector[]): boolean {
+		const m: number = vectors.length;
+		if (0 === m) { return true; }
+		const n: number = vectors[0].m;
+		for (let i: number = 1; i < vectors.length; i++) {
+			if (n !== vectors[i].m) { throw new Error("Mismatched dimensions."); }
+		}
+		if (m > n) { return false; }
+	}
 	public m: number;
 	public elements: RationalNumber[];
 	constructor(n: number | number[]);
@@ -74,15 +83,6 @@ export class Vector {
 			ret.elements[i][0] = this.elements[i];
 		}
 		return ret;
-	}
-	public static areLinearlyIndependent(vectors: Vector[]): boolean {
-		let m: number = vectors.length;
-		if (0 === m) { return true; }
-		let n: number = vectors[0].m;
-		for (let i: number = 1; i < vectors.length; i++) {
-			if (n !== vectors[i].m) { throw new Error("Mismatched dimensions."); }
-		}
-		if (m > n) { return false; }
 	}
 }
 export class ColumnVector extends Vector {

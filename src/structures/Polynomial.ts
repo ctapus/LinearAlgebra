@@ -51,7 +51,7 @@ export class Polynomial {
 	public add(p: Polynomial): Polynomial {
 		this.condense();
 		p.condense();
-		let res: Polynomial = new Polynomial();
+		const res: Polynomial = new Polynomial();
 		res.terms.concat(this.terms);
 		res.terms.concat(p.terms);
 		res.condense();
@@ -60,7 +60,7 @@ export class Polynomial {
 	public sub(p: Polynomial): Polynomial {
 		this.condense();
 		p.condense();
-		let res: Polynomial = new Polynomial();
+		const res: Polynomial = new Polynomial();
 		res.terms.concat(this.terms);
 		res.terms.concat(p.terms.map((term: PolynomialTerm) => new PolynomialTerm(term.coefficient.mult(-1), term.variables)));
 		res.condense();
@@ -69,10 +69,10 @@ export class Polynomial {
 	public mult(p: Polynomial): Polynomial {
 		this.condense();
 		p.condense();
-		let res: Polynomial = new Polynomial();
-		for (let t1 of this.terms) {
-			for (let t2 of p.terms) {
-				let t: PolynomialTerm = new PolynomialTerm(t1.coefficient.mult(t2.coefficient));
+		const res: Polynomial = new Polynomial();
+		for (const t1 of this.terms) {
+			for (const t2 of p.terms) {
+				const t: PolynomialTerm = new PolynomialTerm(t1.coefficient.mult(t2.coefficient));
 				res.terms.concat(t);
 			}
 		}
@@ -80,7 +80,7 @@ export class Polynomial {
 		return res;
 	}
 	public div(p: Polynomial): Polynomial {
-		throw "Not implemented.";
+		throw new Error("Not implemented.");
 	}
 	public exp(p: number): Polynomial {
 		let res: Polynomial = this.deepCopy();
@@ -90,23 +90,23 @@ export class Polynomial {
 		return res;
 	}
 	public condense(): void {
-		let newTerms: PolynomialTerm[] = [];
-		for (let t of this.terms) {
+		const newTerms: PolynomialTerm[] = [];
+		for (const t of this.terms) {
 			if (!t.coefficient.equals(0)) {
 				t.condense();
 				newTerms.push(t);
 			}
 		}
-		for (let t of newTerms) {
-			for (let t2 of newTerms) {
+		for (const t of newTerms) {
+			for (const t2 of newTerms) {
 				if (t.equals(t2)) {
 					t.coefficient.add(t2.coefficient);
 					t2.coefficient = new RationalNumber(0);
 				}
 			}
 		}
-		let newTerms2: PolynomialTerm[] = [];
-		for (let t of newTerms) {
+		const newTerms2: PolynomialTerm[] = [];
+		for (const t of newTerms) {
 			if (!t.coefficient.equals(0)) {
 				newTerms2.push(t);
 			}
@@ -115,17 +115,17 @@ export class Polynomial {
 	}
 	public toString(): string {
 		let ts: string = "";
-		for (let pt of this.terms.sort((t1, t2) => t2.variables[0].exponent - t1.variables[0].exponent)) {
+		for (const pt of this.terms.sort((t1, t2) => t2.variables[0].exponent - t1.variables[0].exponent)) {
 			ts += pt.toString();
 		}
-		if(ts.length > 0 && ts[0] === '+') {
+		if (ts.length > 0 && ts[0] === "+") {
 			return ts.substring(1);
 		}
 		return ts;
 	}
 	public deepCopy(): Polynomial {
-		let ret: Polynomial = new Polynomial();
-		for (let t of this.terms) {
+		const ret: Polynomial = new Polynomial();
+		for (const t of this.terms) {
 			ret.terms.push(t.deepCopy());
 		}
 		return ret;
@@ -147,16 +147,16 @@ export class PolynomialTerm {
 			this.variables = null;
 			return;
 		}
-		for (let vt of this.variables) {
-			for (let v of this.variables) {
+		for (const vt of this.variables) {
+			for (const v of this.variables) {
 				if (vt.variable === v.variable) {
 					vt.exponent += v.exponent;
 					v.exponent = 0;
 				}
 			}
 		}
-		let newVariables: VariableTerm[] = [];
-		for (let vt of this.variables) {
+		const newVariables: VariableTerm[] = [];
+		for (const vt of this.variables) {
 			if (0 !== vt.exponent) {
 				newVariables.push(vt);
 			}
@@ -165,8 +165,8 @@ export class PolynomialTerm {
 	}
 	public toString(): string {
 		let vs: string = "";
-		for (let vt of this.variables) {
-			let svt: string = vt.toString();
+		for (const vt of this.variables) {
+			const svt: string = vt.toString();
 			if ("1" !== svt) {
 				vs += "*" + svt;
 			}
@@ -194,9 +194,9 @@ export class PolynomialTerm {
 			return false;
 		}
 		// all this variableTerms are contained in the compared PolynomialTerm variableTerms
-		for (let variable of this.variables) {
+		for (const variable of this.variables) {
 			let found: boolean = false;
-			for (let v of polynomialTerm.variables) {
+			for (const v of polynomialTerm.variables) {
 				if (variable.equals(v)) {
 					found = true;
 				}
@@ -206,9 +206,9 @@ export class PolynomialTerm {
 			}
 		}
 		// all the compared PolynomailTerm variableTerms are contained in the this variableTerms
-		for (let v of polynomialTerm.variables) {
+		for (const v of polynomialTerm.variables) {
 			let found: boolean = false;
-			for (let variable of this.variables) {
+			for (const variable of this.variables) {
 				if (v.equals(variable)) {
 					found = true;
 				}
@@ -218,8 +218,8 @@ export class PolynomialTerm {
 		return true;
 	}
 	public deepCopy(): PolynomialTerm {
-		let ret: PolynomialTerm = new PolynomialTerm(this.coefficient.deepCopy());
-		for (let v of this.variables) {
+		const ret: PolynomialTerm = new PolynomialTerm(this.coefficient.deepCopy());
+		for (const v of this.variables) {
 			this.variables.push(v.deepCopy());
 		}
 		return ret;

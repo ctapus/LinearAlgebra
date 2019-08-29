@@ -1,4 +1,3 @@
-/* tslint:disable:max-classes-per-file eofline*/
 class Dendrite {
 	public weight: number;
 	public neuron: Neuron;

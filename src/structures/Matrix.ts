@@ -1,7 +1,63 @@
 ﻿import { RationalNumber } from "./RationalNumber";
-import { Vector, RowVector, ColumnVector } from "./Vector";
+import { ColumnVector, Vector } from "./Vector";
 
 export class Matrix {
+	public static augment(A: Matrix, B: Matrix | Vector): Matrix {
+		if (A.m !== B.m) { throw new Error("The two matrices (vector) must have the same number of rows (elements)."); }
+		let ret: Matrix = null;
+		if (B instanceof Matrix) {
+			ret = new Matrix(A.m, B.n + A.n);
+			for (let i: number = 0; i < A.m; i++) {
+				for (let j: number = 0; j < A.n; j++) {
+					ret.elements[i][j] = A.elements[i][j];
+				}
+			}
+			for (let i: number = 0; i < B.m; i++) {
+				for (let j: number = 0; j < B.n; j++) {
+					ret.elements[i][A.n + j] = B.elements[i][j];
+				}
+			}
+		} else {
+			if (B instanceof Vector) {
+				ret = new Matrix(A.m, A.n + 1);
+				for (let i: number = 0; i < A.m; i++) {
+					for (let j: number = 0; j < A.n; j++) {
+						ret.elements[i][j] = A.elements[i][j];
+					}
+				}
+				for (let j: number = 0; j < B.m; j++) {
+					ret.elements[j][A.n] = B.elements[j];
+				}
+			}
+		}
+		return ret;
+	}
+	// row-multiplying transformations
+	public static multiplication(n: number, row1: number, row2: number, mult: number): Matrix {
+		if (n < row1 || n < row2) { throw new Error("Column index must be less or equalt than matrix size."); }
+		const matrix: Matrix = new MatrixIdentity(n);
+		matrix.elements[row1][row2] = new RationalNumber(mult);
+		return matrix;
+	}
+	public static randomSquare(): Matrix {
+		const matrix: Matrix = new Matrix(Math.floor(Math.random() * 4) + 3, Math.floor(Math.random() * 4) + 3); // minimum size 3x3 matrix
+		for (let i: number = 0; i < matrix.m; i++) {
+			for (let j: number = 0; j < matrix.n; j++) {
+				matrix.elements[i][j] = new RationalNumber(Math.floor(Math.random() * 100 - 50));
+			}
+		}
+		return matrix;
+	}
+	public static random2(): Matrix {
+		const numberOfUnknowns: number = Math.floor(Math.random() * 4 + 3); // between 3 and 7 unknonws
+		const unknowns: number[] = [];
+		for (let i: number = 0; i < numberOfUnknowns; i++) {
+			unknowns[i] = Math.floor(Math.random() * 20 - 10);
+		}
+		// todo: change below
+		const matrix: Matrix = new Matrix(Math.floor(Math.random() * 4) + 3, Math.floor(Math.random() * 4) + 3);
+		return matrix;
+	}
 	public m: number; // rows
 	public n: number; // columns
 	public elements: RationalNumber[][];
@@ -327,63 +383,6 @@ export class Matrix {
 			}
 		}
 		return ret;
-	}
-
-	public static augment(A: Matrix, B: Matrix | Vector): Matrix {
-		if (A.m !== B.m) { throw new Error("The two matrices (vector) must have the same number of rows (elements)."); }
-		let ret: Matrix = null;
-		if (B instanceof Matrix) {
-			ret = new Matrix(A.m, B.n + A.n);
-			for (let i: number = 0; i < A.m; i++) {
-				for (let j: number = 0; j < A.n; j++) {
-					ret.elements[i][j] = A.elements[i][j];
-				}
-			}
-			for (let i: number = 0; i < B.m; i++) {
-				for (let j: number = 0; j < B.n; j++) {
-					ret.elements[i][A.n + j] = B.elements[i][j];
-				}
-			}
-		} else {
-			if (B instanceof Vector) {
-				ret = new Matrix(A.m, A.n + 1);
-				for (let i: number = 0; i < A.m; i++) {
-					for (let j: number = 0; j < A.n; j++) {
-						ret.elements[i][j] = A.elements[i][j];
-					}
-				}
-				for (let j: number = 0; j < B.m; j++) {
-					ret.elements[j][A.n] = B.elements[j];
-				}
-			}
-		}
-		return ret;
-	}
-	// row-multiplying transformations
-	public static multiplication(n: number, row1: number, row2: number, mult: number): Matrix {
-		if (n < row1 || n < row2) { throw new Error("Column index must be less or equalt than matrix size."); }
-		let matrix: Matrix = new MatrixIdentity(n);
-		matrix.elements[row1][row2] = new RationalNumber(mult);
-		return matrix;
-	}
-	public static randomSquare(): Matrix {
-		const matrix: Matrix = new Matrix(Math.floor(Math.random() * 4) + 3, Math.floor(Math.random() * 4) + 3);// minimum size 3x3 matrix
-		for (let i: number = 0; i < matrix.m; i++) {
-			for (let j: number = 0; j < matrix.n; j++) {
-				matrix.elements[i][j] = new RationalNumber(Math.floor(Math.random() * 100 - 50));
-			}
-		}
-		return matrix;
-	}
-	public static random2(): Matrix {
-		const numberOfUnknowns: number = Math.floor(Math.random() * 4 + 3);// between 3 and 7 unknonws
-		const unknowns: number[] = [];
-		for (let i: number = 0; i < numberOfUnknowns; i++) {
-			unknowns[i] = Math.floor(Math.random() * 20 - 10);
-		}
-		// todo: change below
-		const matrix: Matrix = new Matrix(Math.floor(Math.random() * 4) + 3, Math.floor(Math.random() * 4) + 3);
-		return matrix;
 	}
 }
 
