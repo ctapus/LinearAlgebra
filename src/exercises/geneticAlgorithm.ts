@@ -121,7 +121,7 @@ $(document).ready(() => {
 	$("#divResult").append(`<div><span>Generation </span><input type="text" id="tbGeneration" style="width: 40px; text-align: right" /></div>`);
 	let timerId: number = 0;
 	$("#btnRun").click(() => {
-		timerId = setInterval(() => {
+		timerId = window.setInterval(() => {
 			printPopulation(testPopulation);
 			testPopulation.nextGeneration();
 			if (testPopulation.fittestIndividual().fitness === 28) {
