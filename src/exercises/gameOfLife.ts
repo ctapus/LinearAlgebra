@@ -1,4 +1,4 @@
-﻿type PrintCellDelegate = (row: number, column: number) => void;
+﻿type PrintCellDelegate = (row: number, column: number, isAlive: boolean) => void;
 class Game {
 	private cells: number[][];
 	/**
@@ -20,9 +20,7 @@ class Game {
 	public printGame(printFunction: PrintCellDelegate): void {
 		for (let r: number = 0; r < this.cells.length; r++) {
 			for (let c: number = 0; c < this.cells[r].length; c++) {
-				if (this.cells[r][c] === 1) {
-					printFunction(r, c);
-				}
+				printFunction(r, c, this.cells[r][c] === 1);
 			}
 		}
 	}
@@ -64,13 +62,13 @@ class Game {
 		if (row > 0) {
 			rows = rows.concat(row - 1);
 		}
-		if (row < this.cells.length) {
+		if (row < this.cells.length - 1) {
 			rows = rows.concat(row + 1);
 		}
 		if (column > 0) {
 			columns = columns.concat(column - 1);
 		}
-		if (column < this.cells[0].length) {
+		if (column < this.cells[0].length - 1) {
 			columns = columns.concat(column + 1);
 		}
 		for (const r of rows) {
@@ -90,23 +88,35 @@ $(document).ready(() => {
 	const canvasWidth: number = canvas.width;
 	const canvasHeight: number = canvas.height;
 	const orthonormalGridLinesColor: string = "#f0f0ff";
-	const cellFillStyle: string = "#000000";
+	const cellAliveFillStyle: string = "#000000";
+	const cellDeadFillStyle: string = "#ffffff";
 	const unitSize: number = 10;
 	$("#legend").append($("<div></div>").text("Canvas size: " + canvasWidth + " x " + canvasHeight + " px"));
 	drawOrthonormalGrid();
 	let game: Game = new Game(canvasHeight / unitSize, canvasWidth / unitSize, 0.3);
 	game.printGame(drawCell);
+	let interval: number = 0;
 	$("#btnRun").click(() => {
-		$("#btnRun").hide();
-		const interval: number = window.setInterval(() => {
-			game.heartbeat();
-			game.printGame(drawCell);
-		}, 500);
+		if (interval === 0) {
+			$("#btnRun").html("Pause <i class='fa fa-pause'></i>");
+			interval = window.setInterval(() => {
+				game.heartbeat();
+				game.printGame(drawCell);
+			}, 500);
+		} else {
+			window.clearInterval(interval);
+			interval = 0;
+			$("#btnRun").html("Run <i class='fa fa-play'></i>");
+		}
 	});
 	$("#btnNew").click(() => {
+		if (interval !== 0) {
+			window.clearInterval(interval);
+			interval = 0;
+			$("#btnRun").html("Run <i class='fa fa-play'></i>");
+		}
 		game = new Game(canvasHeight / unitSize, canvasWidth / unitSize, 0.3);
 		game.printGame(drawCell);
-		$("#btnRun").show();
 	});
 
 	function drawOrthonormalGrid(): void {
@@ -126,8 +136,8 @@ $(document).ready(() => {
 			ctx.stroke();
 		}
 	}
-	function drawCell(row: number, column: number): void {
-		ctx.fillStyle = cellFillStyle;
+	function drawCell(row: number, column: number, isAlive: boolean): void {
+		ctx.fillStyle = isAlive ? cellAliveFillStyle : cellDeadFillStyle;
 		ctx.fillRect(column * unitSize + 1, row * unitSize + 1, unitSize - 2, unitSize - 2);
 	}
 });

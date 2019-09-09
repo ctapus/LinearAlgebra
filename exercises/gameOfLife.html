@@ -5,6 +5,7 @@
 	<meta charset="utf-8" />
 	<title>Game of life</title>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="../styles/app.css" type="text/css" />
 	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -17,8 +18,11 @@
 	</div>
 	<br />
 	<canvas id="graphCanvas" width="800" height="600" style="border:1px solid #000000; padding: 0; margin: auto; display: block;"></canvas>
-	<div id="legend" style="width: 800px; margin: 0 auto;"></div>
-	<button type="button" id="btnNew">New </button>
-	<button type="button" id="btnRun">Run <i class="fa fa-play"></i></button>
+	<br />
+	<div class="mainDiv ui-widget ui-widget-content ui-corner-all">
+		<div id="legend" style="width: 800px; margin: 0 auto;"></div>
+		<button type="button" id="btnNew">New </button>
+		<button type="button" id="btnRun">Run <i class="fa fa-play"></i></button>
+	</div>
 </body>
 </html>
