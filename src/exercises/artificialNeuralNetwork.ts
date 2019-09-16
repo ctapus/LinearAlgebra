@@ -46,6 +46,8 @@ class Layer {
 }
 class Network {
 	public layers: Layer[];
+	public inputLayer: Layer;
+	public outputLayer: Layer;
 	public fitness: number;
 	constructor(n: number | number[]);
 	constructor(n: any) {
@@ -58,23 +60,30 @@ class Network {
 				this.layers[i] = new Layer(n[i], this.layers[i - 1]);
 			}
 		}
+		this.inputLayer = this.layers[0];
+		this.outputLayer = this.layers[this.layers.length - 1];
 	}
-	public feedForward(): void {
+	public feedForward(inputs: number[]): number[] {
+		if (inputs.length !== this.inputLayer.neurons.length) {
+			throw new Error("Mismatch between inputs size and inputLayer size!");
+		}
+		for (let i: number = 0; i < inputs.length; i++) {
+			this.inputLayer.neurons[i].value = inputs[i];
+		}
 		for (const layer of this.layers) {
 			layer.calculate();
 		}
+		return this.outputLayer.neurons.map((x) => x.value);
+	}
+	public backPropagate(inputs: number[], expected: number[]) {
+		const outputs: number[] = this.feedForward(inputs);
+		throw new Error("Not implemented!");
 	}
 }
 
 $(document).ready(() => {
-
 		const network: Network = new Network([5, 4, 3]); // 3 layers with 5, 4 and 3 neurons respectively
-		network.layers[0].neurons[0].value = 1;
-		network.layers[0].neurons[1].value = .123;
-		network.layers[0].neurons[2].value = 1.12;
-		network.layers[0].neurons[3].value = 1.56;
-		network.layers[0].neurons[4].value = .89;
-		network.feedForward();
+		const outputs: number[] = network.feedForward([1, .123, 1.12, 1.56, .89]);
 		const div: JQuery = $("#divArtificialNeuralNetwork");
 		for (const layer of network.layers) {
 				const table: JQuery = $("<table  style='float: left; margin: 5px;'></table>");
