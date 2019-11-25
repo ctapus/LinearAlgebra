@@ -6,21 +6,21 @@
     "jquery": "^3.4.1"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/jquery": "^3.3.30",
+    "@types/chai": "^4.2.3",
+    "@types/jquery": "^3.3.31",
     "@types/jqueryui": "^1.12.7",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
-    "cross-env": "^5.2.0",
-    "mocha": "^5.2.0",
-    "rimraf": "^2.6.3",
-    "ts-loader": "^5.4.5",
-    "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3",
-    "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2"
+    "cross-env": "^6.0.3",
+    "mocha": "^6.2.1",
+    "rimraf": "^3.0.0",
+    "ts-loader": "^6.2.0",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2"
   },
   "scripts": {
     "clean": "rimraf ./src/structures/*.js ./src/structures/*.js.map ./src/presenters/*.js ./src/presenters/*.js.map ./src/generators/*.js ./src/generators/*.js.map ./src/exercises/*.js ./src/exercises/*.js.map",

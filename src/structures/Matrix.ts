@@ -347,6 +347,26 @@ export class Matrix {
 		}
 		return ret;
 	}
+	public convolute(kernel: Matrix): Matrix {
+		if (kernel.m !== kernel.n) { throw new Error("Kernel is not a square matrix."); }
+		if (kernel.m % 2 === 0) { throw new Error("Kernel is an even size matrix."); }
+		// todo: refactor for any size kernel, not just 3 x 3
+		const res: Matrix = new Matrix(this.m, this.n);
+		for (let i: number = 0; i < this.m; i++) {
+			for (let j: number = 0; j < this.n; j++) {
+				res.elements[i][j] = new RationalNumber(0);
+				for (let ti: number = 0; ti < kernel.m; ti++) {
+					for (let tj: number = 0; tj < kernel.n; tj++) {
+						if (i - ti < 0 || j - tj < 0) {
+							continue;
+						}
+						res.elements[i][j] = res.elements[i][j].add(this.elements[i - ti][j - tj].mult(kernel.elements[ti][tj]));
+					}
+				}
+			}
+		}
+		return res;
+	}
 
 	private isZeroRow(rowId: number): boolean {
 		for (let j: number = 0; j < this.n; j++) {

@@ -10,6 +10,7 @@ export class Vector {
 			if (n !== vectors[i].m) { throw new Error("Mismatched dimensions."); }
 		}
 		if (m > n) { return false; }
+		throw new Error("Not implemented.");
 	}
 	public m: number;
 	public elements: RationalNumber[];
