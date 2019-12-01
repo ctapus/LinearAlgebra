@@ -349,18 +349,21 @@ export class Matrix {
 	}
 	public convolute(kernel: Matrix): Matrix {
 		if (kernel.m !== kernel.n) { throw new Error("Kernel is not a square matrix."); }
-		if (kernel.m % 2 === 0) { throw new Error("Kernel is an even size matrix."); }
-		// todo: refactor for any size kernel, not just 3 x 3
+		if (kernel.m % 2 === 0) { throw new Error("Kernel is not an even size matrix."); }
+		const sz = Math.floor(kernel.m / 2);
 		const res: Matrix = new Matrix(this.m, this.n);
 		for (let i: number = 0; i < this.m; i++) {
 			for (let j: number = 0; j < this.n; j++) {
 				res.elements[i][j] = new RationalNumber(0);
 				for (let ti: number = 0; ti < kernel.m; ti++) {
+					if (i + ti - sz < 0 || i + ti - sz >= this.m) {
+						continue;
+					}
 					for (let tj: number = 0; tj < kernel.n; tj++) {
-						if (i - ti < 0 || j - tj < 0) {
+						if (j + tj - sz < 0 || j + tj - sz >= this.n) {
 							continue;
 						}
-						res.elements[i][j] = res.elements[i][j].add(this.elements[i - ti][j - tj].mult(kernel.elements[ti][tj]));
+						res.elements[i][j] = res.elements[i][j].add(this.elements[i + ti - sz][j + tj - sz].mult(kernel.elements[ti][tj]));
 					}
 				}
 			}

@@ -408,4 +408,19 @@ describe("Matrix test suite", () => {
         const det: RationalNumber = m.determinant();
         expect(det.equals(44)).to.be.true;
     });
+    it("convolute", () => {
+        const m: Matrix = new Matrix(4, 4);
+        m.elements = [[new RationalNumber(2), new RationalNumber(3), new RationalNumber(-2), new RationalNumber(4)],
+            [new RationalNumber(-3), new RationalNumber(2), new RationalNumber(2), new RationalNumber(1)],
+            [new RationalNumber(0), new RationalNumber(4), new RationalNumber(1), new RationalNumber(1)],
+            [new RationalNumber(2), new RationalNumber(3), new RationalNumber(0), new RationalNumber(2)]];
+        const kernel: Matrix = new Matrix(3, 3);
+        kernel.elements = [[new RationalNumber(0), new RationalNumber(0), new RationalNumber(0)],
+                [new RationalNumber(0), new RationalNumber(1), new RationalNumber(0)],
+                [new RationalNumber(0), new RationalNumber(0), new RationalNumber(0)]];
+        const res = m.convolute(kernel);
+        expect(res.elements[0][0].equals(2)).to.be.true;
+        expect(res.elements[1][0].equals(3)).to.be.true;
+        expect(res.elements[2][0].equals(-2)).to.be.true;
+    });
 });
