@@ -59,7 +59,19 @@ $(document).ready(() => {
 		const canvas3: HTMLCanvasElement = $("#canvas3")[0] as HTMLCanvasElement;
 		const ctx3: CanvasRenderingContext2D = canvas3.getContext("2d");
 		const kernel: Matrix = new Matrix(3, 3);
-		/*kernel.elements[0][0] = new RationalNumber(-1);
+		/*
+		kernel.elements[0][0] = new RationalNumber(0);
+		kernel.elements[0][1] = new RationalNumber(-1);
+		kernel.elements[0][2] = new RationalNumber(0);
+		kernel.elements[1][0] = new RationalNumber(-1);
+		kernel.elements[1][1] = new RationalNumber(5);
+		kernel.elements[1][2] = new RationalNumber(-1);
+		kernel.elements[2][0] = new RationalNumber(0);
+		kernel.elements[2][1] = new RationalNumber(-1);
+		kernel.elements[2][2] = new RationalNumber(0);
+		*/
+		/*
+		kernel.elements[0][0] = new RationalNumber(-1);
 		kernel.elements[0][1] = new RationalNumber(-1);
 		kernel.elements[0][2] = new RationalNumber(-1);
 		kernel.elements[1][0] = new RationalNumber(-1);
@@ -67,7 +79,9 @@ $(document).ready(() => {
 		kernel.elements[1][2] = new RationalNumber(-1);
 		kernel.elements[2][0] = new RationalNumber(-1);
 		kernel.elements[2][1] = new RationalNumber(-1);
-		kernel.elements[2][2] = new RationalNumber(-1);*/
+		kernel.elements[2][2] = new RationalNumber(-1);
+		*/
+		/*
 		kernel.elements[0][0] = new RationalNumber(0);
 		kernel.elements[0][1] = new RationalNumber(0);
 		kernel.elements[0][2] = new RationalNumber(0);
@@ -77,7 +91,24 @@ $(document).ready(() => {
 		kernel.elements[2][0] = new RationalNumber(0);
 		kernel.elements[2][1] = new RationalNumber(0);
 		kernel.elements[2][2] = new RationalNumber(0);
-		const newRgba: [Matrix, Matrix, Matrix, Matrix] = [rgba[0].convolute(kernel), rgba[1].convolute(kernel), rgba[2].convolute(kernel), rgba[3].convolute(kernel)];
+		*/
+		kernel.elements[0][0] = new RationalNumber(0);
+		kernel.elements[0][1] = new RationalNumber(-1);
+		kernel.elements[0][2] = new RationalNumber(0);
+		kernel.elements[1][0] = new RationalNumber(-1);
+		kernel.elements[1][1] = new RationalNumber(4);
+		kernel.elements[1][2] = new RationalNumber(-1);
+		kernel.elements[2][0] = new RationalNumber(0);
+		kernel.elements[2][1] = new RationalNumber(-1);
+		kernel.elements[2][2] = new RationalNumber(0);
+		// const newRgba: [Matrix, Matrix, Matrix, Matrix] = [rgba[0].convolute(kernel), rgba[1].convolute(kernel), rgba[2].convolute(kernel), rgba[3].convolute(kernel)];
+		for (let i: number = 0; i < rgba[0].m; i++) {
+			for (let j: number = 0; j < rgba[0].n; j++) {
+				rgba[0].elements[i][j] = new RationalNumber(0);
+				rgba[2].elements[i][j] = new RationalNumber(0);
+			}
+		}
+		const newRgba: [Matrix, Matrix, Matrix, Matrix] = [rgba[0], rgba[1].convolute(kernel), rgba[2], rgba[3]];
 		const imgData3: ImageData = imageDataFromRGBA(newRgba);
 		canvas3.height = imgData3.height;
 		canvas3.width = imgData3.width;
