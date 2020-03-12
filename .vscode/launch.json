@@ -1,19 +1,19 @@
 {
-    "version": "0.1.0",
+    "version": "0.2.0",
     "configurations": [
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha Tests",
+            "name": "Mocha Debug",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
-                "-u",
-                "tdd",
-                "--timeout",
-                "999999",
-                "--colors",
-                "${workspaceFolder}\\src\\tests"
+                "--r", "ts-node/register",
+                "-u", "bdd",
+                "--timeout", "999999",
+                "--colors", "--recursive",
+                "${file}",
             ],
+            "console": "integratedTerminal",
             "internalConsoleOptions": "openOnSessionStart"
         }
     ]

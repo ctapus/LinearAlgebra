@@ -91,7 +91,8 @@ $(document).ready(() => {
 		kernel.elements[2][0] = new RationalNumber(0);
 		kernel.elements[2][1] = new RationalNumber(0);
 		kernel.elements[2][2] = new RationalNumber(0);
-		*/
+		//*/
+		//*
 		kernel.elements[0][0] = new RationalNumber(0);
 		kernel.elements[0][1] = new RationalNumber(-1);
 		kernel.elements[0][2] = new RationalNumber(0);
@@ -101,6 +102,7 @@ $(document).ready(() => {
 		kernel.elements[2][0] = new RationalNumber(0);
 		kernel.elements[2][1] = new RationalNumber(-1);
 		kernel.elements[2][2] = new RationalNumber(0);
+		//*/
 		// const newRgba: [Matrix, Matrix, Matrix, Matrix] = [rgba[0].convolute(kernel), rgba[1].convolute(kernel), rgba[2].convolute(kernel), rgba[3].convolute(kernel)];
 		for (let i: number = 0; i < rgba[0].m; i++) {
 			for (let j: number = 0; j < rgba[0].n; j++) {

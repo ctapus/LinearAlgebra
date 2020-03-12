@@ -6,21 +6,21 @@
     "jquery": "^3.4.1"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.5",
-    "@types/jquery": "^3.3.31",
-    "@types/jqueryui": "^1.12.9",
+    "@types/chai": "^4.2.10",
+    "@types/jquery": "^3.3.33",
+    "@types/jqueryui": "^1.12.10",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
     "cross-env": "^6.0.3",
     "mocha": "^6.2.2",
-    "rimraf": "^3.0.0",
+    "rimraf": "^3.0.2",
     "ts-loader": "^6.2.1",
-    "ts-node": "^8.5.4",
+    "ts-node": "^8.6.2",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "scripts": {
     "clean": "rimraf ./src/structures/*.js ./src/structures/*.js.map ./src/presenters/*.js ./src/presenters/*.js.map ./src/generators/*.js ./src/generators/*.js.map ./src/exercises/*.js ./src/exercises/*.js.map",
