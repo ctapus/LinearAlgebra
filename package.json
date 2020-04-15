@@ -1,6 +1,6 @@
 {
+  "name": "linearalgebra",
   "version": "1.0.0",
-  "name": "asp.net",
   "private": true,
   "dependencies": {
     "jquery": "^3.4.1"

@@ -22,7 +22,7 @@ export class PolynomialLexer {
 	}
 	public getTokenAndAdvance(): PolynomialToken {
 		if (this.tokens.length === this.tokenIndex) { return new PolynomialToken(PolynomialTokenType.End); }
-		let input: string = this.tokens[this.tokenIndex++];
+		const input: string = this.tokens[this.tokenIndex++];
 		return this.getToken(input);
 	}
 	public revert(): void {
@@ -64,8 +64,8 @@ export class PolynomialParser {
 	private lex: PolynomialLexer;
 	public parse(code: string): Polynomial {
 		this.lex = new PolynomialLexer(code);
-		let expression: Polynomial = this.expr();
-		let token: PolynomialToken = this.lex.getTokenAndAdvance();
+		const expression: Polynomial = this.expr();
+		const token: PolynomialToken = this.lex.getTokenAndAdvance();
 		if (token.type === PolynomialTokenType.End) {
 			return expression;
 		}
@@ -210,7 +210,7 @@ export class PolynomialParser {
 /*
 expr			: LPARAM polynomial RPARAM
 				| LPARAM polynomial RPARAM CARET number
-				| LPARAM polynomial LPARAM (PLUS | MINUS | ASTREISK | SLASH) expr+
+				| LPARAM polynomial RPARAM (PLUS | MINUS | ASTREISK | SLASH) expr+
 				| polynomial
 polynomial		: (PLUS | MINUS) polynomialTerm ((PLUS | MINUS) polynomialTerm)+
 				| polynomialTerm ((PLUS | MINUS) polynomialTerm)+
