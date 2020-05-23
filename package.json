@@ -3,22 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.10",
-    "@types/jquery": "^3.3.33",
+    "@types/chai": "^4.2.11",
+    "@types/jquery": "^3.3.36",
     "@types/jqueryui": "^1.12.10",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
     "cross-env": "^6.0.3",
-    "mocha": "^6.2.2",
+    "mocha": "^6.2.3",
     "rimraf": "^3.0.2",
-    "ts-loader": "^6.2.1",
-    "ts-node": "^8.6.2",
+    "ts-loader": "^6.2.2",
+    "ts-node": "^8.9.1",
     "tslint": "^5.20.1",
     "typescript": "^3.8.3",
-    "webpack": "^4.42.0",
+    "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
   },

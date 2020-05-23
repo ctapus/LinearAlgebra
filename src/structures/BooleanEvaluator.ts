@@ -20,7 +20,7 @@ abstract class BooleanLexer {
 	private tokens: string[];
 	private tokenIndex: number;
 	public getTokenAndAdvance(): BooleanToken {
-		if (this.tokens.length === this.tokenIndex) { return new BooleanToken(BooleanTokenType.End); }
+		if (this.tokens.length - 1 === this.tokenIndex) { return new BooleanToken(BooleanTokenType.End); }
 		const input: string = this.tokens[this.tokenIndex++];
 		return this.getToken(input);
 	}
@@ -68,6 +68,19 @@ export class ExpressionTree {
 	constructor(input?: string | boolean | OperationType) {
 		this.node = input;
 	}
+	public freeVariables(): Set<string> {
+		const freeVariables: Set<string> = new Set<string>();
+		if (typeof this.node === "string") {
+			freeVariables.add(this.node);
+		}
+		for (const x of this.left.freeVariables()) {
+			freeVariables.add(x);
+		}
+		for (const x of this.right.freeVariables()) {
+			freeVariables.add(x);
+		}
+		return freeVariables;
+	}
 }
 export class Parser<T extends BooleanLexer> {
 	private lex: T;
@@ -83,6 +96,9 @@ export class Parser<T extends BooleanLexer> {
 	private expr(): ExpressionTree {
 		let booleanExpressionTree: ExpressionTree;
 		let token: BooleanToken = this.lex.getTokenAndAdvance();
+		if (token.type === BooleanTokenType.End) {
+			return booleanExpressionTree;
+		}
 		if (token.type === BooleanTokenType.LParen) {
 			booleanExpressionTree = new ExpressionTree();
 			booleanExpressionTree.left = this.expr();
