@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 module.exports = {
     entry: {
+        BooleanEvaluator: './src/structures/BooleanEvaluator.ts',
         imageProcessing: './src/exercises/imageProcessing.ts',
         markovChain: './src/exercises/markovChain.ts',
         gameOfLife: './src/exercises/gameOfLife.ts',
@@ -25,8 +26,13 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                use: 'babel-loader',
                 exclude: /node_modules/
+            },
+            {
+              test: /\.js$/,
+              use: ["source-map-loader"],
+              enforce: "pre"
             }
         ]
     },

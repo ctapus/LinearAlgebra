@@ -35,6 +35,13 @@ describe("BooleanEvaluatorCS test suite", () => {
 		const expressionTree: ExpressionTree = parser.parse(BooleanLexerCS, "A&B|(1&!0)");
 		expect(expressionTree).to.not.be.null;
 	});
+	it("Can extract free variables", () => {
+		const parser: Parser<BooleanLexerCS> = new Parser<BooleanLexerCS>();
+		const expressionTree: ExpressionTree = parser.parse(BooleanLexerCS, "A&B|(1&!0)");
+		const freeVariables: Set<string> = expressionTree.freeVariables();
+		expect(freeVariables).to.not.be.null;
+		expect(freeVariables.size).to.be.equal(2);
+	});
 });
 
 describe("BooleanEvaluatorMath test suite", () => {

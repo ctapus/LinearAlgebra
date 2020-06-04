@@ -73,11 +73,17 @@ export class ExpressionTree {
 		if (typeof this.node === "string") {
 			freeVariables.add(this.node);
 		}
-		for (const x of this.left.freeVariables()) {
-			freeVariables.add(x);
+		const leftBranch: Set<string> = this.left?.freeVariables();
+		if (leftBranch) {
+			for (const x of leftBranch) {
+				freeVariables.add(x);
+			}
 		}
-		for (const x of this.right.freeVariables()) {
-			freeVariables.add(x);
+		const rightBranch: Set<string> = this.right?.freeVariables();
+		if (rightBranch) {
+			for (const x of rightBranch) {
+				freeVariables.add(x);
+			}
 		}
 		return freeVariables;
 	}

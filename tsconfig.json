@@ -8,10 +8,18 @@
         "noEmitOnError": true,
         "removeComments": false,
         "sourceMap": true,
-        "target": "ESNext"
+        "target": "ESNext",
+        "moduleResolution": "node",
+        "allowJs": true,
+        "noEmit": true,
+        "strict": true,
+        //"isolatedModules": true
     },
     "types": [
         "jquery"
+    ],
+    "include": [
+      "src"
     ],
     "exclude": [
         "node_modules"

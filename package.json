@@ -6,14 +6,21 @@
     "jquery": "^3.5.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-typescript": "^7.10.1",
     "@types/chai": "^4.2.11",
     "@types/jquery": "^3.3.38",
     "@types/jqueryui": "^1.12.13",
     "@types/mocha": "^5.2.7",
+    "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "cross-env": "^6.0.3",
     "mocha": "^6.2.3",
     "rimraf": "^3.0.2",
+    "source-map-loader": "^1.0.0",
     "ts-loader": "^6.2.2",
     "ts-node": "^8.10.2",
     "tslint": "^5.20.1",
@@ -24,7 +31,7 @@
   },
   "scripts": {
     "clean": "rimraf ./src/structures/*.js ./src/structures/*.js.map ./src/presenters/*.js ./src/presenters/*.js.map ./src/generators/*.js ./src/generators/*.js.map ./src/exercises/*.js ./src/exercises/*.js.map",
-    "test": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} mocha -r ts-node/register ./src/tests/*.spec.ts",
+    "test": "mocha --require ./babel-register.js ./src/tests/*.spec.ts",
     "start": "webpack-dev-server --mode development --watch",
     "build": "webpack --mode production",
     "build-dev": "webpack --mode development"
