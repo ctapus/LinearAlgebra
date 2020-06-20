@@ -1,3 +1,4 @@
+import { Dictionary } from "./Dictionary";
 export enum BooleanTokenType { Or, And, Not, True, False, Variable, LParen, RParen, End, Unknown }
 export class BooleanToken {
 	public type: BooleanTokenType;
@@ -86,6 +87,55 @@ export class ExpressionTree {
 			}
 		}
 		return freeVariables;
+	}
+	public evaluate(valuesDictionary: Dictionary<boolean>): boolean {
+		if (typeof this.node === "string") {
+			// search the valuesDictionary
+			// and return
+		}
+		if (typeof this.node === "boolean") {
+			return this.node;
+		}
+		const left: boolean = this.left.evaluate(valuesDictionary);
+		const right: boolean = this.right.evaluate(valuesDictionary);
+		let ret: boolean;
+		// There is no possibility to check this.node with typeof or instaceof enum
+		if (this.node === OperationType.Not) {
+			ret = !left;
+		}
+		if (this.node === OperationType.And) {
+			ret = left && right;
+		}
+		if (this.node === OperationType.Or) {
+			ret = left || right;
+		}
+		return ret;
+	}
+	public generateFreeVariablesValues(): Array<Dictionary<boolean>> {
+		const freeVariables: Set<string> = this.freeVariables();
+		return this.generateFreeVariableValuesBranches(new Dictionary<boolean>(), freeVariables);
+	}
+	private generateFreeVariableValuesBranches(truthTable: Dictionary<boolean>, freeVariables: Set<string>): Array<Dictionary<boolean>> {
+		const variable: string = freeVariables?.keys()?.next()?.value;
+		freeVariables.delete(variable);
+		const branch1 = truthTable.DeepCopy();
+		branch1.Add(variable, true);
+		const branch2 = truthTable.DeepCopy();
+		branch2.Add(variable, false);
+		if (freeVariables.size > 0) {
+			const newFreeVariables1: Set<string> = this.DeepCopySet(freeVariables);
+			const newFreeVariables2: Set<string> = this.DeepCopySet(freeVariables);
+			return this.generateFreeVariableValuesBranches(branch1, newFreeVariables1).concat(this.generateFreeVariableValuesBranches(branch2, newFreeVariables2));
+		} else {
+			return [branch1, branch2];
+		}
+	}
+	private DeepCopySet(set: Set<string>): Set<string> {
+		const ret: Set<string> = new Set<string>();
+		for (const key of set) {
+			ret.add(key);
+		}
+		return ret;
 	}
 }
 export class Parser<T extends BooleanLexer> {
