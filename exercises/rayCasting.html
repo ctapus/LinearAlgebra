@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<script language="javascript">
+		class Point {
+			constructor(x, y) {
+				this.x = x;
+				this.y = y;
+			}
+		}
+		class Line {
+			constructor(p1, p2) {
+				this.p1 = p1;
+				this.p2 = p2;
+			}
+		}
+		intersect = (line1, line2) => {
+			var x1 = line1.p1.x;
+			var y1 = line1.p1.y;
+			var x2 = line1.p2.x;
+			var y2 = line1.p2.y;
+			var x3 = line2.p1.x;
+			var y3 = line2.p1.y;
+			var x4 = line2.p2.x;
+			var y4 = line2.p2.y;
+			var x = ((x1*y2-y1*x2)*(x3-x4)-(x1-x2)*(x3*y4-y3*x4))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
+			var y = ((x1*y2-y1*x2)*(y3-y4)-(y1-y2)*(x3*y4-y3*x4))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
+			return new Point(x, y);
+		}
+		draw = (canvas, point, lines) => {
+			let radius = 100;
+			var ctx = canvas.getContext("2d");
+			ctx.fillStyle = "black";
+			ctx.fillRect(0, 0, canvas.getBoundingClientRect().width, canvas.getBoundingClientRect().height);
+			ctx.strokeStyle = "#808080";
+			ctx.beginPath();
+			lines.forEach((item) => {
+				ctx.moveTo(item.p1.x, item.p1.y);
+				ctx.lineTo(item.p2.x, item.p2.y);
+				ctx.stroke();
+			});
+			ctx.beginPath();
+			for(var i=0; i<360; i+=2) {
+				let pointEnd = new Point(point.x+radius*Math.cos(i*Math.PI/180), point.y+radius*Math.sin(i*Math.PI/180));
+				let length = Math.sqrt(Math.pow(point.x-pointEnd.x, 2) + Math.pow(point.y-pointEnd.y, 2));
+				let realPointEnd = pointEnd;
+				lines.forEach((item) => {
+					p = intersect(item, new Line(point, pointEnd));
+					let newLength = Math.sqrt(Math.pow(point.x-p.x, 2) + Math.pow(point.y-p.y, 2));
+					if(newLength < length) {
+						realPointEnd = p;
+					}
+				});
+				ctx.moveTo(point.x, point.y);
+				ctx.lineTo(realPointEnd.x, realPointEnd.y);
+				ctx.stroke();
+			}
+		}
+		let lines = [new Line(new Point(200, 320), new Point(640, 230)),
+						new Line(new Point(700, 390), new Point(200, 630)),
+						new Line(new Point(450, 740), new Point(130, 430))];
+		canvasClick = (event) => {
+			let canvas = event.target;
+			let center = new Point(event.clientX - canvas.getBoundingClientRect().left, event.clientY - canvas.getBoundingClientRect().top);
+			draw(canvas, center, lines);
+		}
+		window.onload = () => {
+			var canvas = document.getElementById("graphCanvas");
+			canvas.addEventListener("click", canvasClick);
+			let center = new Point(400, 400);
+			draw(canvas, center, lines);
+		};
+	</script>
+</head>
+<body>
+	<canvas id="graphCanvas" width="800" height="800" style="border:1px solid #000000; padding: 0; margin: auto; display: block;"></canvas>
+</body>
+</html>
