@@ -67,16 +67,23 @@ transformations.enqueue(Vector2D.GetRotationMatrix(60));
 // const transformedVector: Vector2D = Vector2D.fromVector(vector.toRowVector().matrixProduct(T));
 const secondVectorSpaceAxesColor: string = "#006666";
 const secondVectorSpaceGridColor: string = "#fff0f0";
-$(document).ready(() => {
-	const canvas: HTMLCanvasElement = $("#graphCanvas")[0] as HTMLCanvasElement;
+document.addEventListener("DOMContentLoaded", () => {
+	const canvas: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("graphCanvas");
 	const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
 	const canvasWidth: number = canvas.width;
 	const canvasHeight: number = canvas.height;
 	const originX: number = canvasWidth / 2;
 	const originY: number = canvasHeight / 2;
-	$("#legend").append($("<div></div>").text("Canvas size: " + canvasWidth + " x " + canvasHeight + " px"));
-	$("#legend").append($("<div></div>").text("Canvas origin: " + originX + " x " + originY + " px"));
-	$("#legend").append($("<div></div>").text("Vector: [" + vector.x + ", " + vector.y + "]").css("color", vectorColor));
+	let legend1: HTMLDivElement = document.createElement("div");
+	legend1.innerText = "Canvas size: " + canvasWidth + " x " + canvasHeight + " px";
+	document.getElementById("legend").append(legend1);
+	let legend2: HTMLDivElement = document.createElement("div");
+	legend2.innerText = "Canvas origin: " + originX + " x " + originY + " px";
+	document.getElementById("legend").append(legend2);
+	let legend3: HTMLDivElement = document.createElement("div");
+	legend3.innerText = "Vector: [" + vector.x + ", " + vector.y + "]";
+	legend3.style.color = vectorColor;
+	document.getElementById("legend").append(legend3);
 	drawOrthonormalGrid();
 	drawVector(vector);
 	// drawTransformedVector(vector, transformations);
@@ -137,12 +144,16 @@ $(document).ready(() => {
 			const transformation: Matrix = transformations.dequeue();
 			transformedVector = Vector2D.fromVector(transformation.vectorProduct(transformedVector.toColumnVector()));
 			drawVector(transformedVector, transformedVectorColor, 1);
-			$("#legend").append($("<div></div>").text("Transformation matrix:"));
-			const divMatrix: JQuery = $("<div></div>");
-			$("#legend").append(divMatrix);
+			let divHeader: HTMLDivElement = document.createElement("div");
+			divHeader.innerText = "Transformation matrix:";
+			document.getElementById("legend").append(divHeader);
+			let divMatrix: HTMLDivElement = document.createElement("div");
+			document.getElementById("legend").append(divMatrix);
 			MatrixPresenter.printTableMatrix(transformation, divMatrix);
-			$("#legend").append($("<div></div>").text(`Transformed vector: (${transformedVector.x}, ${transformedVector.y})`)
-			.css("color", transformedVectorColor));
+			let divFooter: HTMLDivElement = document.createElement("div");
+			divFooter.innerText = `Transformed vector: (${transformedVector.x}, ${transformedVector.y})`;
+			divFooter.style.color = transformedVectorColor;
+			document.getElementById("legend").append(divFooter);
 		}
 	}
 	function drawChangeCoordinates(): void {
@@ -151,13 +162,16 @@ $(document).ready(() => {
 		const changeOfCoordinatesMatrix: Matrix = new Matrix(2, 2);
 		changeOfCoordinatesMatrix.elements[0] = [new RationalNumber(6), new RationalNumber(2)];
 		changeOfCoordinatesMatrix.elements[1] = [new RationalNumber(2), new RationalNumber(6)];
-		const vectorSecondBasis: Vector2D = Vector2D.fromVector(changeOfCoordinatesMatrix
-			.vectorProduct(vector.toColumnVector())); // it's the other way around
-		$("#legend").append($("<div></div>").text("Change of basis matrix:"));
-		const divMatrix: JQuery = $("<div></div>");
-		$("#legend").append(divMatrix);
+		const vectorSecondBasis: Vector2D = Vector2D.fromVector(changeOfCoordinatesMatrix.vectorProduct(vector.toColumnVector())); // it's the other way around
+		let divHeader: HTMLDivElement = document.createElement("div");
+		divHeader.innerText = "Change of basis matrix:";
+		document.getElementById("legend").append(divHeader);
+		let divMatrix: HTMLDivElement = document.createElement("div");
+		document.getElementById("legend").append(divMatrix);
 		MatrixPresenter.printTableMatrix(changeOfCoordinatesMatrix, divMatrix);
-		$("#legend").append($("<div></div>").text(`Vector in the new basis: (${vectorSecondBasis.x}, ${vectorSecondBasis.y})`)
-		.css("color", transformedVectorColor));
+		let divFooter: HTMLDivElement = document.createElement("div");
+		divFooter.innerText = `Vector in the new basis: (${vectorSecondBasis.x}, ${vectorSecondBasis.y})`;
+		divFooter.style.color = transformedVectorColor;
+		document.getElementById("legend").append(divFooter);
 	}
 });

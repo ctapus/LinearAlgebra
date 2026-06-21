@@ -82,8 +82,8 @@ class Game {
 	}
 }
 
-$(document).ready(() => {
-	const canvas: HTMLCanvasElement = $("#graphCanvas")[0] as HTMLCanvasElement;
+document.addEventListener("DOMContentLoaded", () => {
+	const canvas: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("graphCanvas");
 	const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
 	const canvasWidth: number = canvas.width;
 	const canvasHeight: number = canvas.height;
@@ -91,14 +91,16 @@ $(document).ready(() => {
 	const cellAliveFillStyle: string = "#000000";
 	const cellDeadFillStyle: string = "#ffffff";
 	const unitSize: number = 10;
-	$("#legend").append($("<div></div>").text("Canvas size: " + canvasWidth + " x " + canvasHeight + " px"));
+	let legend1: HTMLDivElement = document.createElement("div");
+	legend1.innerText = "Canvas size: " + canvasWidth + " x " + canvasHeight + " px";
+	document.getElementById("legend").append(legend1);
 	drawOrthonormalGrid();
 	let game: Game = new Game(canvasHeight / unitSize, canvasWidth / unitSize, 0.3);
 	game.printGame(drawCell);
 	let interval: number = 0;
-	$("#btnRun").click(() => {
+	document.getElementById("btnRun").addEventListener("click", () => {
 		if (interval === 0) {
-			$("#btnRun").html("Pause <i class='fa fa-pause'></i>");
+			document.getElementById("btnRun").innerHTML = "Pause <i class='fa fa-pause'></i>";
 			interval = window.setInterval(() => {
 				game.heartbeat();
 				game.printGame(drawCell);
@@ -106,14 +108,14 @@ $(document).ready(() => {
 		} else {
 			window.clearInterval(interval);
 			interval = 0;
-			$("#btnRun").html("Run <i class='fa fa-play'></i>");
+			document.getElementById("btnRun").innerHTML = "Run <i class='fa fa-play'></i>";
 		}
 	});
-	$("#btnNew").click(() => {
+	document.getElementById("btnNew").addEventListener("click", () => {
 		if (interval !== 0) {
 			window.clearInterval(interval);
 			interval = 0;
-			$("#btnRun").html("Run <i class='fa fa-play'></i>");
+			document.getElementById("btnRun").innerHTML = "Run <i class='fa fa-play'></i>";
 		}
 		game = new Game(canvasHeight / unitSize, canvasWidth / unitSize, 0.3);
 		game.printGame(drawCell);

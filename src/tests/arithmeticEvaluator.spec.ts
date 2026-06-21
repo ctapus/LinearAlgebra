@@ -1,6 +1,7 @@
 // tslint:disable:no-unused-expression
 // tslint:disable:eofline
 // tslint:disable:max-line-length
+import "mocha"
 import { expect } from "chai";
 import { ArithmeticEvaluator, Lexer, Parser, Token, TokenType } from "../structures/ArithmeticEvaluator";
 import { RationalNumber } from "../structures/RationalNumber";

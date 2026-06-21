@@ -101,26 +101,53 @@ export class Population {
 	}
 }
 
-$(document).ready(() => {
+document.addEventListener("DOMContentLoaded", () => {
 	const printPopulation = (population: Population) => {
 		for (let i: number = 0; i < population.individuals.length; i++) {
-			$(`#tbIndividualGenes${i}`).val(population.individuals[i].genes.join(""));
-			$(`#tbIndividualFitness${i}`).val(population.individuals[i].fitness);
+			(<HTMLInputElement> document.getElementById(`tbIndividualGenes${i}`)).value = population.individuals[i].genes.join("");
+			(<HTMLInputElement> document.getElementById(`tbIndividualFitness${i}`)).value = population.individuals[i].fitness.toString();
 		}
-		$("#tbGeneration").val(population.generations);
+		(<HTMLInputElement> document.getElementById("tbGeneration")).value = population.generations.toString();
 	};
 	const testPopulation: Population = new Population(10);
-	let tableResults: string = `<table id="tablResults" style="width: 100%">`;
+	let tableResults: HTMLTableElement = document.createElement("table");
+	tableResults.id = "tablResults";
+	tableResults.style.width = "100%";
 	for (let i: number = 0; i < testPopulation.individuals.length; i++) {
-		tableResults += `<tr><td><span>Individual ${i} </span></td>
-<td><input type="text" id="tbIndividualGenes${i}" style="width: 100%" /></td>
-<td><input type="text" id="tbIndividualFitness${i}" style="width: 40px; text-align: right" /></td>`;
+		let tr: HTMLTableRowElement = document.createElement("tr");
+		tableResults.append(tr);
+		let td0: HTMLTableCellElement = document.createElement("td");
+		tr.append(td0);
+		let span: HTMLSpanElement = document.createElement("span");
+		span.innerText = `Individual ${i}`;
+		td0.append(span);
+		let td1: HTMLTableCellElement = document.createElement("td");
+		tr.append(td1);
+		let tbIndividualGenes: HTMLInputElement = document.createElement("input");
+		tbIndividualGenes.id = `tbIndividualGenes${i}`;
+		tbIndividualGenes.style.width = "100%";
+		td1.append(tbIndividualGenes);
+		let td2: HTMLTableCellElement = document.createElement("td");
+		tr.append(td2);
+		let tbIndividualFitness: HTMLInputElement = document.createElement("input");
+		tbIndividualFitness.id = `tbIndividualFitness${i}`;
+		tbIndividualFitness.style.width = "40px";
+		tbIndividualFitness.style.textAlign = "right";
+		td2.append(tbIndividualFitness);
 	}
-	tableResults += `</table>`;
-	$("#divResult").append(tableResults);
-	$("#divResult").append(`<div><span>Generation </span><input type="text" id="tbGeneration" style="width: 40px; text-align: right" /></div>`);
+	(<HTMLDivElement> document.getElementById("divResult")).append(tableResults);
+	let divGeneration: HTMLDivElement = document.createElement("div");
+	let spanGeneration: HTMLSpanElement = document.createElement("span");
+	spanGeneration.innerText = "Generation ";
+	divGeneration.append(spanGeneration);
+	let tbGeneration: HTMLInputElement = document.createElement("input");
+	tbGeneration.id = "tbGeneration";
+	tbGeneration.style.width = "40px";
+	tbGeneration.style.textAlign = "right";
+	divGeneration.append(tbGeneration);
+	(<HTMLDivElement> document.getElementById("divResult")).append(divGeneration);
 	let timerId: number = 0;
-	$("#btnRun").click(() => {
+	document.getElementById("btnRun").addEventListener("click", () => {
 		timerId = window.setInterval(() => {
 			printPopulation(testPopulation);
 			testPopulation.nextGeneration();
@@ -129,7 +156,7 @@ $(document).ready(() => {
 			}
 		}, 200);
 	});
-	$("#btnStop").click(() => {
+	document.getElementById("btnStop").addEventListener("click", () => {
 		if (timerId !== 0) {
 			clearInterval(timerId);
 		}

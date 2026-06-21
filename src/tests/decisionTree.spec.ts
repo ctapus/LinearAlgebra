@@ -1,8 +1,9 @@
 // tslint:disable:no-unused-expression
 // tslint:disable:eofline
 // tslint:disable:max-line-length
+import "mocha"
 import { expect } from "chai";
-import { DecisionTree, Feature, FeatureType, Question } from "../structures/DecisionTree";
+import { DecisionTree, Feature, Question } from "../structures/decisionTree";
 
 describe("DecisionTree test suite", () => {
 	it("can get a column", () => {

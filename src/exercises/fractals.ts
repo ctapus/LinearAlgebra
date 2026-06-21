@@ -14,20 +14,24 @@ The filled Julia set
 const orthonormalAxesColor: string = "#666600";
 const orthonormalGridLinesColor: string = "#f0f0ff";
 const unitSize: number = 20;
-$(document).ready(() => {
-	const canvas: HTMLCanvasElement = $("#graphCanvas")[0] as HTMLCanvasElement;
+document.addEventListener("DOMContentLoaded", () => {
+	const canvas: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById("graphCanvas");
 	const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
 	const canvasWidth: number = canvas.width;
 	const canvasHeight: number = canvas.height;
-	let offsetX: number = parseInt($("#xOffset").val() as string, 10);
-	let offsetY: number = parseInt($("#yOffset").val() as string, 10);
-	let zoom: number = parseInt($("#zoom").val() as string, 10);
+	let offsetX: number = parseInt((<HTMLInputElement> document.getElementById("xOffset")).value, 10);
+	let offsetY: number = parseInt((<HTMLInputElement> document.getElementById("yOffset")).value, 10);
+	let zoom: number = parseInt((<HTMLInputElement> document.getElementById("zoom")).value, 10);
 	const originX: number = canvasWidth / 2;
 	const originY: number = canvasHeight / 2;
 	const maxSquaredAbsoluteValue: number = 2 * 2;
 	const maxIterations: number = 1000;
-	$("#legend").append($("<div></div>").text("Canvas size: " + canvasWidth + " x " + canvasHeight + " px"));
-	$("#legend").append($("<div></div>").text("Canvas origin: " + originX + " x " + originY + " px"));
+	let legend1: HTMLDivElement = document.createElement("div");
+	legend1.innerText = "Canvas size: " + canvasWidth + " x " + canvasHeight + " px";
+	(<HTMLDivElement> document.getElementById("legend")).append(legend1);
+	let legend2: HTMLDivElement = document.createElement("div");
+	legend2.innerText = "Canvas origin: " + originX + " x " + originY + " px";
+	(<HTMLDivElement> document.getElementById("legend")).append(legend2);
 	drawFractal();
 	function viewportToComplex(x: number, y: number): [number, number] {// Don't use the ComplexNumber for performance reasons
 		return [offsetX + (x - originX) / zoom, offsetY + (y - originY) / zoom];
@@ -71,16 +75,16 @@ $(document).ready(() => {
 			}
 		}
 	}
-	$("#xOffset").change(() => {
-		offsetX = parseFloat($("#xOffset").val() as string);
+	document.getElementById("xOffset").addEventListener("change", () => {
+		offsetX = parseFloat((<HTMLInputElement> document.getElementById("xOffset")).value);
 		drawFractal();
 	});
-	$("#yOffset").change(() => {
-		offsetY = parseFloat($("#yOffset").val() as string);
+	document.getElementById("yOffset").addEventListener("change", () => {
+		offsetY = parseFloat((<HTMLInputElement> document.getElementById("yOffset")).value);
 		drawFractal();
 	});
-	$("#zoom").change(() => {
-		zoom = parseFloat($("#zoom").val() as string);
+	document.getElementById("zoom").addEventListener("change", () => {
+		zoom = parseFloat((<HTMLInputElement> document.getElementById("zoom")).value);
 		drawFractal();
 	});
 });

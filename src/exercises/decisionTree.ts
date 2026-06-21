@@ -1,5 +1,5 @@
 
-import { DecisionTree, Feature, Leaf } from "../structures/DecisionTree";
+import { DecisionTree, Feature, Leaf } from "../structures/decisionTree";
 // DataSet
 const dataset: Feature[] = [
 	["DK", "January", "February", 58, "M", "A" ],
@@ -37,14 +37,17 @@ const dataset: Feature[] = [
 // Types of decison trees:
 // - Categorical variable decision tree
 // - Continuous variable decision tree
-$(document).ready(() => {
+document.addEventListener("DOMContentLoaded", () => {
+	let table: HTMLTableElement = <HTMLTableElement> document.getElementById("tblDataset");
 	for (const row of dataset) {
-		let tr: string = "";
+		let tr: HTMLTableRowElement = document.createElement("tr");
 		for (const cell of row) {
-			tr += `<td>${cell}</td>`;
+			let td: HTMLTableCellElement = document.createElement("td");
+			td.textContent = cell.toString();
+			tr.appendChild(td);
 		}
-		$("#tblDataset").append($(`<tr>${tr}</tr>`));
+		table.append(tr);
 	}
 	const decisionTree: Leaf | DecisionTree = DecisionTree.buildTree(dataset, 5);
-	$("#divDecisionTree").append(DecisionTree.printTree(decisionTree));
+	document.getElementById("divDecisionTree").append(DecisionTree.printTree(decisionTree));
 });

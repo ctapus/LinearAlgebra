@@ -9,7 +9,7 @@ export class Question {
 	}
 	public match(feature: FeatureType[]): boolean {
 		switch (typeof this.featureValue) {
-			case "number": return feature[this.columnIndex] >= this.featureValue;
+			case "number": return Number(feature[this.columnIndex]) >= Number(this.featureValue);
 			case "string": return feature[this.columnIndex] === this.featureValue;
 		}
 	}
@@ -155,16 +155,27 @@ export class DecisionTree {
 			return this.classify(row, node.falseBranch);
 		}
 	}
-	public static printTree(node: Leaf | DecisionTree): string {
-		let ret: string = "";
+	public static printTree(node: Leaf | DecisionTree): HTMLDivElement {
 		if (node instanceof Leaf) {
-			return `<div style="margin-left: 20px">Predict ${node.toString()}</div>`;
+			let div: HTMLDivElement = document.createElement("div");
+			div.style.marginLeft = "20px";
+			div.textContent = `Predict ${node.toString()}`;
+			return div;
 		}
-		ret += `<div style="margin-left: 20px">${node.question.toString()}`;
-		ret += `<div style="margin-left: 20px">TRUE:<div>${this.printTree(node.trueBranch)}</div></div>`;
-		ret += `<div style="margin-left: 20px">FALSE:<div>${this.printTree(node.falseBranch)}</div></div>`;
-		ret += `</div>`;
-		return ret;
+		let div: HTMLDivElement = document.createElement("div");
+		div.style.marginLeft = "20px";
+		div.textContent = node.question.toString();
+		let trueDiv: HTMLDivElement = document.createElement("div");
+		trueDiv.style.marginLeft = "20px";
+		trueDiv.textContent = "TRUE:";
+		trueDiv.appendChild(this.printTree(node.trueBranch));
+		div.appendChild(trueDiv);
+		let falseDiv: HTMLDivElement = document.createElement("div");
+		falseDiv.style.marginLeft = "20px";
+		falseDiv.textContent = "FALSE:";
+		falseDiv.appendChild(this.printTree(node.falseBranch));
+		div.appendChild(falseDiv);
+		return div;
 	}
 	public readonly question: Question;
 	public readonly trueBranch: Leaf | DecisionTree;

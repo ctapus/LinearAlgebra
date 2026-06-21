@@ -1,23 +1,19 @@
 {
     "compilerOptions": {
-        "noImplicitAny": false,
+        "noImplicitAny": true,
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "target": "esnext",
         "noImplicitThis": true,
         "noImplicitReturns": true,
         "strictNullChecks" : false,
         "noUnusedLocals": false,
         "noEmitOnError": true,
         "removeComments": false,
+        "preserveConstEnums": true,
         "sourceMap": true,
-        "target": "ESNext",
-        "moduleResolution": "node",
-        "allowJs": true,
-        "noEmit": true,
-        "strict": true,
-        //"isolatedModules": true
-    },
-    "types": [
-        "jquery"
-    ],
+        "strict": true
+    },  
     "include": [
       "src"
     ],

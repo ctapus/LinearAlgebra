@@ -7,7 +7,7 @@ class MarkovChain {
 	public transitions: MarkovState[][];
 }
 
-$(document).ready(() => {
+document.addEventListener("DOMContentLoaded", () => {
 	const markov: MarkovChain = new MarkovChain();
-	const div: JQuery = $("#divMarkovChain");
+	const div: HTMLDivElement = <HTMLDivElement> document.getElementById("divMarkovChain");
 });

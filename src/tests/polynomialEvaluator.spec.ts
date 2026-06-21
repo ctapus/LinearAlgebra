@@ -1,6 +1,7 @@
 // tslint:disable:no-unused-expression
 // tslint:disable:eofline
 // tslint:disable:max-line-length
+import "mocha"
 import { expect } from "chai";
 import { Polynomial, PolynomialTerm, VariableTerm } from "../structures/Polynomial";
 import { PolynomialLexer, PolynomialParser, PolynomialToken, PolynomialTokenType } from "../structures/PolynomialEvaluator";

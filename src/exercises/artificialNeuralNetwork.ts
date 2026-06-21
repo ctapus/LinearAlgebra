@@ -81,21 +81,22 @@ class Network {
 	}
 }
 
-$(document).ready(() => {
+document.addEventListener("DOMContentLoaded", () => {
 		const network: Network = new Network([5, 4, 3]); // 3 layers with 5, 4 and 3 neurons respectively
 		const outputs: number[] = network.feedForward([1, .123, 1.12, 1.56, .89]);
-		const div: JQuery = $("#divArtificialNeuralNetwork");
+		const div: HTMLDivElement = <HTMLDivElement> document.getElementById("divArtificialNeuralNetwork");
 		for (const layer of network.layers) {
-				const table: JQuery = $("<table  style='float: left; margin: 5px;'></table>");
+				const table: HTMLTableElement = document.createElement("table");
+				table.style.cssText = "float: left; margin: 5px;";
 				div.append(table);
 				for (const neuron of layer.neurons) {
-						const tr: JQuery = $("<tr></tr>");
+						const tr: HTMLTableRowElement = document.createElement("tr");
 						table.append(tr);
-						const td: JQuery = $("<td></td>");
+						const td: HTMLTableCellElement = document.createElement("td");
 						tr.append(td);
-						const span: JQuery = $("<span></span>");
+						const span: HTMLSpanElement = document.createElement("span");
 						td.append(span);
-						span.append("<strong>V: " + neuron.value + "</strong><br/> B: " + neuron.bias + "<br/> D: [" + neuron.dendrites.map((x) => x.weight.toString()).join("; ") + "]");
+						span.innerHTML = "<strong>V: " + neuron.value + "</strong><br/> B: " + neuron.bias + "<br/> D: [" + neuron.dendrites.map((x) => x.weight.toString()).join("; ") + "]";
 				}
 		}
 });
